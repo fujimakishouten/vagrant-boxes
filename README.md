@@ -1,4 +1,8 @@
 Templates for Debian VM images
 ==============================
 
-See https://wiki.debian.org/Teams/Cloud/VagrantBaseBoxes
+If you had some templates here please follow the following directory
+structure: buildername-virtualizationbackend-extrainfo
+
+See https://wiki.debian.org/Teams/Cloud/VagrantBaseBoxes for Vagrant with Virtualbox
+
