@@ -1,0 +1,2 @@
+packer-virtualbox-vagrant/*.box
+packer-virtualbox-vagrant/packer_cache/*
