@@ -1,3 +1,5 @@
+all: debian-780-wheezy.box debian-800-jessie.box debian-testing-stretch.box
+
 debian-780-wheezy.box:
 	packer build debian-7-wheezy-virtualbox.json
 
