@@ -14,7 +14,8 @@ debian-testing-stretch.box:
 # test initialization / login / network 
 stable-test: stable
 	mkdir -p tests
-	vagrant init --force stable debian-800-jessie.box
+	vagrant box add --force --name fresh_stable debian-800-jessie.box
+	vagrant init --force fresh_stable
 	vagrant up
 	vagrant ssh -c "sudo apt-get -y install screenfetch && screenfetch"
 
