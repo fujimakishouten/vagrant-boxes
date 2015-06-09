@@ -1,8 +1,8 @@
 {
   "variables": {
-    "core": 1,
-    "memory": 512,
-    "disk_size": 10140,
+    "core": "1",
+    "memory": "512",
+    "disk_size": "10140",
     "ssh_port": 22,
     "ssh_wait_timeout": "10000s",
     "iso_url": "http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/debian-testing-amd64-netinst.iso",
