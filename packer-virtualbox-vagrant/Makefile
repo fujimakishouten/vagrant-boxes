@@ -22,4 +22,4 @@ stable-test: stable
 .PHONY: clean oldstable stable testing stable-test
 
 clean:
-	rm *.box
+	rm -r *.box Vagrantfile .vagrant/machines/default/virtualbox/* .vagrant/
