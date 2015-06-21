@@ -31,7 +31,7 @@
       "ssh_port": "22",
       "ssh_wait_timeout": "10000s",
       "type": "virtualbox-iso",
-      "vm_name": "debian-780-wheezy",
+      "vm_name": "debian-wheezy",
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
@@ -41,7 +41,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "debian-780-wheezy.box"
+      "output": "debian-wheezy.box"
     }
   ],
   "provisioners": [
