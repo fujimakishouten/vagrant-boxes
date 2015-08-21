@@ -12,7 +12,7 @@ system:
   architecture: amd64
   bootloader: grub
   charmap: UTF-8
-  hostname: localhost
+  hostname: debian-jessie
   locale: en_US
   timezone: UTC
 volume:
@@ -27,6 +27,9 @@ volume:
       size: 1856MiB
     swap:
       size: 128MiB
-packages: {}
+packages:
+  install_standard: true
 plugins:
   vagrant: {}
+  minimize_size:
+    zerofree: true
