@@ -1,14 +1,14 @@
 ---
 provider:
   name: virtualbox
-  guest_additions: /root/images/VBoxGuestAdditions.iso
+  guest_additions: /usr/share/virtualbox/VBoxGuestAdditions.iso
 bootstrapper:
-  workspace: /target
+  workspace: /tmp
 image:
   name: debian-{system.release}-{system.architecture}-{%y}{%m}{%d}
   description: Debian {system.release} {system.architecture}
 system:
-  release: wheezy
+  release: jessie
   architecture: amd64
   bootloader: grub
   charmap: UTF-8
