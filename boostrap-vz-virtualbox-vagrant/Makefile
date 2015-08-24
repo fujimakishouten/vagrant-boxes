@@ -3,10 +3,13 @@ all: oldstable stable
 oldstable: /var/lib/bootstrap-vz/debian-wheezy-amd64.box
 stable: /var/lib/bootstrap-vz/debian-jessie-amd64.box
 
-/var/lib/bootstrap-vz/debian-wheezy-amd64.box:
+/var/lib/bootstrap-vz/debian-wheezy-amd64.box: prepare_work
 	LANG=C bootstrap-vz wheezy64.yml
 /var/lib/bootstrap-vz/debian-jessie-amd64.box:
 	LANG=C bootstrap-vz jessie64.yml
+
+prepare_work:
+	mkdir /var/lib/bootstrap-vz/
 
 # test initialization / login / network 
 stable-test: stable
