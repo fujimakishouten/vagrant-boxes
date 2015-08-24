@@ -1,0 +1,35 @@
+---
+provider:
+  name: virtualbox
+  guest_additions: /usr/share/virtualbox/VBoxGuestAdditions.iso
+bootstrapper:
+  workspace: /tmp
+image:
+  name: debian-{system.release}-{system.architecture}-{%y}{%m}{%d}
+  description: Debian {system.release} {system.architecture}
+system:
+  release: jessie
+  architecture: amd64
+  bootloader: grub
+  charmap: UTF-8
+  hostname: debian-jessie
+  locale: en_US
+  timezone: UTC
+volume:
+  backing: vmdk
+  partitions:
+    type: msdos
+    boot:
+      filesystem: ext2
+      size: 64MiB
+    root:
+      filesystem: ext4
+      size: 1856MiB
+    swap:
+      size: 128MiB
+packages:
+  install_standard: true
+plugins:
+  vagrant: {}
+  minimize_size:
+    zerofree: true
