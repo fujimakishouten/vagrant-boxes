@@ -3,9 +3,9 @@ provider:
   name: virtualbox
   guest_additions: /usr/share/virtualbox/VBoxGuestAdditions.iso
 bootstrapper:
-  workspace: /tmp
+  workspace: /var/lib/bootstrap-vz/
 image:
-  name: debian-{system.release}-{system.architecture}-{%y}{%m}{%d}
+  name: debian-{system.release}-{system.architecture}
   description: Debian {system.release} {system.architecture}
 system:
   release: jessie
