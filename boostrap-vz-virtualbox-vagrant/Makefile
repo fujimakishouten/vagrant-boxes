@@ -9,7 +9,7 @@ stable: /var/lib/bootstrap-vz/debian-jessie-amd64.box
 	LANG=C bootstrap-vz jessie64.yml
 
 prepare_work:
-	mkdir /var/lib/bootstrap-vz/
+	mkdir -p /var/lib/bootstrap-vz/
 
 # test initialization / login / network 
 stable-test: stable
