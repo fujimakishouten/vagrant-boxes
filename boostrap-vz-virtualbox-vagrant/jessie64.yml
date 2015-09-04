@@ -33,3 +33,9 @@ plugins:
   vagrant: {}
   minimize_size:
     zerofree: true
+  commands:
+    commands:
+    - [sed, '-i', 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/', '{root}/etc/default/grub']
+    - ['update-grub']
+    - ['echo UseDNS no >> /etc/ssh/sshd_config']
+    - ['echo >> /etc/ssh/sshd_config']
