@@ -17,13 +17,15 @@ stable-test: stable
 	vagrant box add --force --name fresh_stable /var/lib/bootstrap-vz/debian-jessie-amd64.box
 	vagrant init --force fresh_stable
 	vagrant up
-	vagrant ssh -c "sudo apt update"
+	vagrant ssh -c "systemd-analyze"
 	vagrant ssh -c "sudo apt --yes install screenfetch && screenfetch"
 	vagrant halt
 
 .PHONY: clean oldstable stable stable-test
 
-clean:
-	rm -r /var/lib/bootstrap-vz/*.box \
-	Vagrantfile .vagrant/machines/default/virtualbox/* \
-	.vagrant/
+clean-boxs:
+	rm /var/lib/bootstrap-vz/*.box
+
+clean-tests:
+	rm -r Vagrantfile .vagrant/machines/default/virtualbox/* .vagrant/
+	vagrant box remove fresh_stable
