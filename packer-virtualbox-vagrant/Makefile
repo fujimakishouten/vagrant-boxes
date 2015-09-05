@@ -1,7 +1,7 @@
 all: oldstable stable
 
-oldstable: debian-780-wheezy.box
-stable: debian-800-jessie.box
+oldstable: debian-wheezy.box
+stable: debian-jessie.box
 testing: debian-testing-stretch.box
 
 debian-780-wheezy.box:
