@@ -21,9 +21,14 @@ stable-test: stable
 	vagrant ssh -c "sudo apt update && sudo apt --yes install screenfetch && screenfetch"
 	vagrant halt
 
+bench:
+	vagrant halt
+	vagrant up
+	vagrant ssh -c "systemd-analyze"
+
 .PHONY: clean oldstable stable stable-test
 
-clean-boxs:
+clean-box:
 	rm /var/lib/bootstrap-vz/*.box
 
 clean-tests:
