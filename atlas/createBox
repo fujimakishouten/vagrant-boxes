@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# see https://vagrantcloud.com/docs/versions
+export ATLAS_TOKEN=$(gpg --decrypt ../atlas/token.gpg)
+
+# check version status
+curl --silent https://atlas.hashicorp.com/api/v1/box/debian/jessie64/version/8.2.0 \
+| python -m json.tool
+
+# destroy a version
+curl --silent https://atlas.hashicorp.com/api/v1/box/debian/jessie64/version/8.0.2 \
+        -X DELETE \
+        -d access_token=$ATLAS_TOKEN \
+| python -m json.tool        
+        
+#create new version
+curl --silent https://atlas.hashicorp.com/api/v1/box/debian/jessie64/versions \
+        -X POST \
+        -d version[version]='8.2.0' \
+        -d version[description]='* update to new Debian point release' -d access_token=$ATLAS_TOKEN \
+| python -m json.tool
+
+# create provider
+curl --silent https://atlas.hashicorp.com/api/v1/box/debian/jessie64/version/8.2.0/providers \
+-X POST \
+-d provider[name]='virtualbox' \
+-d access_token=$ATLAS_TOKEN \
+| python -m json.tool
+
+# get provider of status
+curl --silent https://atlas.hashicorp.com/api/v1/box/debian/jessie64/version/8.2.0/provider/virtualbox?access_token=$ATLAS_TOKEN \
+| python -m json.tool
+
+# get provider upload upload path
+curl --silent https://atlas.hashicorp.com/api/v1/box/debian/jessie64/version/8.2.0/provider/virtualbox/upload?access_token=$ATLAS_TOKEN \
+| python -m json.tool
+
+#upload a new version for the version of the box
+curl -X PUT --tlsv1 --verbose --upload-file /var/lib/bootstrap-vz/debian-jessie-amd64.box https://binstore.hashicorp.com/ed178d88-8235-4b92-b8e5-ae7c02bdef33
