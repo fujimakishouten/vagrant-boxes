@@ -19,7 +19,12 @@ stable-test: stable
 	vagrant up
 	vagrant ssh -c "sudo apt-get -y install screenfetch && screenfetch"
 
-.PHONY: clean oldstable stable testing stable-test
+.PHONY: clean oldstable stable testing stable-test release
 
 clean:
 	rm -r *.box Vagrantfile .vagrant/machines/default/virtualbox/* .vagrant/
+
+SHA256SUMS.gpg:
+	sha256sum debian-jessie.box >> SHA256SUMS
+	sha256sum debian-wheezy.box >> SHA256SUMS
+	gpg --sign SHA256SUMS
