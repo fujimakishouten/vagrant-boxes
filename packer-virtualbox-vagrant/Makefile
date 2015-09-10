@@ -4,9 +4,9 @@ oldstable: debian-wheezy.box
 stable: debian-jessie.box
 testing: debian-testing-stretch.box
 
-debian-780-wheezy.box:
+debian-wheezy.box:
 	packer build debian-7-wheezy-virtualbox.json
-debian-800-jessie.box:
+debian-jessie.box:
 	packer build debian-8-jessie-virtualbox.json
 debian-testing-stretch.box:
 	packer build debian-9-stretch-virtualbox.json
