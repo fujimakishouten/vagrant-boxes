@@ -18,6 +18,7 @@ stable-test: stable
 	vagrant init --force fresh_stable
 	vagrant up
 	vagrant ssh -c "sudo apt-get -y install screenfetch && screenfetch"
+	vagrant halt
 
 .PHONY: clean oldstable stable testing stable-test release
 
