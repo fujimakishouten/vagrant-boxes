@@ -23,7 +23,7 @@ close DATA;
 unlink $file;
 
 # get the iso checksum by stripping the iso name
-# iso is expressed as a suit of blank spaces, one work and a carriage return
+# iso name is expressed as a suit of blank spaces, one word and a carriage return
 my $isoSum = $content =~ s/\s*\S+\n//r;
 
 my $json;
