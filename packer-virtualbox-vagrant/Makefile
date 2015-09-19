@@ -13,7 +13,6 @@ debian-testing-stretch.box:
 
 # test initialization / login / network 
 stable-test: stable
-	mkdir -p tests
 	vagrant box add --force --name fresh_stable debian-jessie.box
 	vagrant init --force fresh_stable
 	vagrant up
