@@ -2,14 +2,14 @@ all: oldstable stable
 
 oldstable: debian-wheezy.box
 stable: debian-jessie.box
-testing: debian-testing-stretch.box
+testing: debian-testing.box
 
 debian-wheezy.box:
 	packer build debian-7-wheezy-virtualbox.json
 debian-jessie.box:
 	packer build debian-8-jessie-virtualbox.json
-debian-testing-stretch.box:
-	packer build debian-9-stretch-virtualbox.json
+debian-testing.box:
+	packer build debian-9-testing-virtualbox.json
 
 # test initialization / login / network 
 stable-test: stable
@@ -19,7 +19,7 @@ stable-test: stable
 	vagrant ssh -c "sudo apt-get -y install screenfetch && screenfetch"
 	vagrant halt
 
-.PHONY: clean oldstable stable testing stable-test release
+.PHONY: clean oldstable stable stable-test testing
 
 clean:
 	rm -r *.box Vagrantfile .vagrant/machines/default/virtualbox/* .vagrant/
