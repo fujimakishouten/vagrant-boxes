@@ -32,7 +32,7 @@ var createVersion = function(version, description) {
 	data = 'version[version]=' + version + '?' + 'version[description]=' + description;
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', ATLAS_URL + codename + '/versions', false);
-	xhr.send(version);
+	xhr.send(data);
 	return xhr.responseText;
 };
 
