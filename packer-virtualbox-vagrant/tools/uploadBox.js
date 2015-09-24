@@ -15,30 +15,21 @@ which means we have to
 
 */
 
-// not part of Javascript standard, so requires the xmlthttprequest node module
+// not part of Javascript standard, so requires the xmlthttprequest node module from node-xmlhttprequest deb package
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
-// var atlasToken = process.env.ATLAS_TOKEN || process.exit(255);
-var codename = process.env.CODENAME || 'jessie64' 
-var version = process.env.VERSION || '8.2.0';
+var atlasToken = process.env.ATLAS_TOKEN ||
+console.log('ATLAS_TOKEN not set') && process.exit(255);
+var codename = process.env.CODENAME || 'testing64'
+var version = process.env.VERSION || '9.0.0';
+var description = process.env.DESCRIPTION || '* new point release';
 
-// these are not going to change
+// these are not going to change for the momment
 const PROVIDER = 'virtualbox';
 const ATLAS_URL = 'https://atlas.hashicorp.com/api/v1/box/debian/';
 
-var checkStatus = function (codename, version) {
-	var xhr = new XMLHttpRequest();
-	var url = ATLAS_URL + codename + '/version/' +  version + '/provider/' + PROVIDER;
-	xhr.open('GET', url, false);
-	xhr.send(null);
-	return xhr.responseText;
-};
-
 var createVersion = function(version, description) {
-	version = {
-		version: version,
-		description: description
-	};
+	data = 'version[version]=' + version + '?' + 'version[description]=' + description;
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', ATLAS_URL + codename + '/versions', false);
 	xhr.send(version);
@@ -70,17 +61,9 @@ var uploadVersionProvider = function(version) {
 	return xhr.responseText;
 };
 
-var displayStatus = function(codename, version) {
-	var status = JSON.parse(checkStatus(codename, version));
-	if (status.created_at) {
-		console.log('codename: ' + codename);
-		console.log('version: ' + version);
-		console.log('created_at: ' + status.created_at);
-		console.log('download_url: ' + status.download_url);
-
-	} else {
-		console.log(codename + ' ' + version + ' not found');
-	}
+var logCall = function(restCall) {
+	answer = JSON.parse(restCall);
+	console.log(JSON.stringify(answer, null, 2));
 }
 
-displayStatus(codename, version);
+logCall(createVersion(version, description));
