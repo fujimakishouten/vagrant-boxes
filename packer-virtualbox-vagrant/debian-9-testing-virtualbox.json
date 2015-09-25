@@ -1,35 +1,6 @@
 {
-   "provisioners" : [
-      {
-         "pause_before" : "5s",
-         "execute_command" : "echo 'vagrant'|sudo -S sh '{{.Path}}'",
-         "override" : {
-            "virtualbox-iso" : {
-               "scripts" : [
-                  "scripts/base.sh",
-                  "scripts/vagrant.sh",
-                  "scripts/virtualbox.sh",
-                  "scripts/cleanup.sh",
-                  "scripts/minimize.sh"
-               ]
-            }
-         },
-         "type" : "shell"
-      }
-   ],
-   "post-processors" : [
-      {
-         "output" : "debian-testing.box",
-         "type" : "vagrant"
-      }
-   ],
    "builders" : [
       {
-         "iso_checksum" : "adf4fb0548ffa008f37356f9d7668b41ad310dba906ffee3422f014cea1ccc4c1b063c20e197b7317b8fd482cb53e6e35a992881debc040065d6e68b2d6ce655",
-         "disk_size" : "10140",
-         "vm_name" : "debian-testing",
-         "shutdown_command" : "sudo /sbin/halt -p",
-         "ssh_password" : "vagrant",
          "boot_command" : [
             "<esc><wait>",
             "install <wait>",
@@ -47,11 +18,19 @@
             "keyboard-configuration/xkb-keymap=us <wait>",
             "<enter><wait>"
          ],
+         "disk_size" : "10140",
+         "guest_os_type" : "Debian_64",
          "headless" : false,
-         "type" : "virtualbox-iso",
-         "ssh_port" : "22",
-         "ssh_wait_timeout" : "10000s",
+         "http_directory" : "http",
+         "iso_checksum" : "18679baccc4c2f8e92c432ba958dfac0d8387b7fa0d34073f9886753668916a1f4cece3b3b3ddd138f7a3ef38a2df25060788daad9243d2d16440f60d9aa436d",
+         "iso_checksum_type" : "sha512",
          "iso_url" : "http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/debian-testing-amd64-netinst.iso",
+         "shutdown_command" : "sudo /sbin/halt -p",
+         "ssh_password" : "vagrant",
+         "ssh_port" : "22",
+         "ssh_username" : "vagrant",
+         "ssh_wait_timeout" : "10000s",
+         "type" : "virtualbox-iso",
          "vboxmanage" : [
             [
                "modifyvm",
@@ -66,10 +45,31 @@
                "1"
             ]
          ],
-         "iso_checksum_type" : "sha512",
-         "http_directory" : "http",
-         "ssh_username" : "vagrant",
-         "guest_os_type" : "Debian_64"
+         "vm_name" : "debian-testing"
+      }
+   ],
+   "post-processors" : [
+      {
+         "output" : "debian-testing.box",
+         "type" : "vagrant"
+      }
+   ],
+   "provisioners" : [
+      {
+         "execute_command" : "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+         "override" : {
+            "virtualbox-iso" : {
+               "scripts" : [
+                  "scripts/base.sh",
+                  "scripts/vagrant.sh",
+                  "scripts/virtualbox.sh",
+                  "scripts/cleanup.sh",
+                  "scripts/minimize.sh"
+               ]
+            }
+         },
+         "pause_before" : "5s",
+         "type" : "shell"
       }
    ]
 }
