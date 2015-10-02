@@ -18,8 +18,11 @@ which means we have to
 // not part of Javascript standard, so requires the xmlthttprequest node module from node-xmlhttprequest deb package
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
-var atlasToken = process.env.ATLAS_TOKEN ||
-console.log('ATLAS_TOKEN not set') && process.exit(255);
+var atlasToken = process.env.ATLAS_TOKEN
+if (!atlasToken) {
+	console.log('ATLAS_TOKEN not set');
+	 process.exit(255);
+}
 var codename = process.env.CODENAME || 'testing64'
 var version = process.env.VERSION || '9.0.0';
 var description = process.env.DESCRIPTION || '* new point release';
