@@ -7,42 +7,57 @@ use JSON;
 use LWP::Simple;
 
 my $url = 'http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/SHA512SUMS';
-my $file = '/tmp/packer-virtualbox-vagrant-SHA512SUMS';
-getstore($url, $file);
-open (DATA, "< $file") or die "checksum file $file not found";
-my @lines = <DATA>;
-close DATA;
-unlink $file;
-# get the iso checksum by stripping the iso name
-# iso name is expressed as a suit of blank spaces, one word and a carriage return
-my $isoSum = $lines[0] =~ s/\s*\S+\n//r;
+my $template = 'debian-9-testing-virtualbox.json';
 
-my $json;
-{
-	local $/;
-	open (my $fh, "<", "debian-9-testing-virtualbox.json");
-	$json = <$fh>;
-	close $fh;
+update_template(get_testing_sum($url), $template);
+
+sub get_testing_sum {
+
+	my ($url) = @_;
+	my $file = '/tmp/packer-virtualbox-vagrant-SHA512SUMS';
+getstore($url, $file);
+	open (DATA, "< $file") or die "checksum file $file not found";
+	my @lines = <DATA>;
+	close DATA;
+	unlink $file;
+	# get the iso checksum by stripping the iso name
+	# iso name is expressed as a suit of blank spaces, one word and a carriage return
+	my $isoSum = $lines[0] =~ s/\s*\S+\n//r;
+	return $isoSum
 }
 
-my $manifest = decode_json($json);
+sub update_template {
 
-my $old_iso_checksum = $manifest->{'builders'}->[0]->{'iso_checksum'};
+	my ($isoSum, $template) = @_;
+	my $json;
+	{
+		# redefine the record separator from \n to undef
+		# allows reading all lines in a single step
+		local $/ = undef;
+		open (my $fh, "<", $template);
+		$json = <$fh>;
+		close $fh;
+	}
 
-if ($isoSum eq $old_iso_checksum) {
-	print "checksum $old_iso_checksum is up to date, doing nothing\n";
-	exit 0;
-}else {
-	print "old iso_checksum: $old_iso_checksum\n";
-	$manifest->{'builders'}->[0]->{'iso_checksum'} = $isoSum;
-	print "new iso_checksum: ".$isoSum."\n";
+	my $manifest = decode_json($json);
 
-	open my $fh, ">", "debian-9-testing-virtualbox.json";
-	my $json_printer = JSON->new;
-	$json_printer = $json_printer->canonical(1);
-	$json_printer = $json_printer->pretty(1);
-	print $fh $json_printer->encode($manifest)."\n";
-	close $fh;
+	my $old_iso_checksum = $manifest->{'builders'}->[0]->{'iso_checksum'};
 
-	exit 0;
+	if ($isoSum eq $old_iso_checksum) {
+		print "checksum $old_iso_checksum is up to date, doing nothing\n";
+		return 0;
+	} else {
+		print "old iso_checksum: $old_iso_checksum\n";
+		$manifest->{'builders'}->[0]->{'iso_checksum'} = $isoSum;
+		print "new iso_checksum: ".$isoSum."\n";
+
+		open (my $fh, ">", $template);
+		my $json_printer = JSON->new;
+		$json_printer = $json_printer->canonical(1);
+		$json_printer = $json_printer->pretty(1);
+		print $fh $json_printer->encode($manifest)."\n";
+		close $fh;
+
+		return 0;
+	}
 }
