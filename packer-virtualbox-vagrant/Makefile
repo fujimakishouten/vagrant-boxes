@@ -21,7 +21,7 @@ stable-test: stable
 
 .PHONY: clean oldstable stable stable-test testing
 
-clean:
+clean-test:
 	rm -r *.box Vagrantfile .vagrant/machines/default/virtualbox/* .vagrant/
 
 SHA256SUMS.gpg:
