@@ -11,16 +11,21 @@ debian-jessie.box:
 debian-testing.box:
 	packer build debian-9-testing-virtualbox.json
 
+define functest
+ @echo functional testing for $< box
+ vagrant box add --force --name $1 $2
+ vagrant init --force $1
+ vagrant up
+ vagrant ssh -c "sudo apt-get -y install screenfetch && screenfetch"
+ vagrant halt
+ vagrant destroy --force
+ vagrant box remove $1
+ rm Vagrantfile
+endef
+
 # test initialization / login / network 
 stable-test: stable
-	vagrant box add --force --name fresh_stable debian-jessie.box
-	vagrant init --force fresh_stable
-	vagrant up
-	vagrant ssh -c "sudo apt-get -y install screenfetch && screenfetch"
-	vagrant halt
-	vagrant destroy --force
-	vagrant box remove fresh_stable
-	rm Vagrantfile
+	$(call functest, fresh_stable, debian-jessie.box)
 
 .PHONY: clean oldstable stable stable-test
 
