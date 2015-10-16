@@ -1,8 +1,8 @@
 all: oldstable stable
 
-OLD_STABLE_BOX = debian-wheezy.box
-STABLE_BOX = debian-jessie.box
-TESTING_BOX = debian-stretch.box
+OLD_STABLE_BOX = debian-wheezy64.box
+STABLE_BOX = debian-jessie64.box
+TESTING_BOX = debian-stretch64.box
 
 oldstable: $(OLD_STABLE_BOX)
 stable: $(STABLE_BOX)
