@@ -41,7 +41,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "debian-jessie.box"
+      "output": "debian-jessie64.box"
     }
   ],
   "provisioners": [

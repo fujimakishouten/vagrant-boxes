@@ -50,7 +50,7 @@
    ],
    "post-processors" : [
       {
-         "output" : "debian-testing.box",
+         "output" : "debian-stretch64.box",
          "type" : "vagrant"
       }
    ],

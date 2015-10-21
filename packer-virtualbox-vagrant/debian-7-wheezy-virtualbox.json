@@ -41,7 +41,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "debian-wheezy.box"
+      "output": "debian-wheezy64.box"
     }
   ],
   "provisioners": [
