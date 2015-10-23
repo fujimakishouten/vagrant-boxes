@@ -1,4 +1,4 @@
-all: oldstable stable
+all: oldstable-test stable-test
 
 OLD_STABLE_BOX = debian-wheezy64.box
 STABLE_BOX = debian-jessie64.box
@@ -42,3 +42,6 @@ SHA256SUMS.gpg:
 	sha256sum $(OLD_STABLE_BOX) >> SHA256SUMS
 	sha256sum $(STABLE_BOX) >> SHA256SUMS
 	gpg --sign SHA256SUMS
+
+release: SHA256SUMS.gpg
+	scp SHA256SUMS SHA256SUMS.gpg kdev-guest@alioth.debian.org:/home/groups/cloud/htdocs/vagrantboxes/
