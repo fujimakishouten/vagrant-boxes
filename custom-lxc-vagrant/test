@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+name=$1
+boxname="test-$name"
+boxfile=$2
+
+testdir=_$1
+
+cleanup() {
+  set -x
+  if [ -f $testdir/Vagrantfile ]; then
+    (cd $testdir && vagrant destroy -f)
+  fi
+  rm -rf $testdir
+  vagrant box remove $boxname || true
+}
+trap cleanup INT TERM EXIT
+
+set -x
+vagrant box add $boxname $boxfile
+mkdir $testdir
+(
+  cd $testdir
+  vagrant init $boxname
+  vagrant up --no-provision
+  vagrant ssh -- true
+  vagrant ssh -- sudo true
+)

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -e
+
+if [ $# -ne 2 ]; then
+  echo "usage: $0 INPUT OUTPUT"
+  exit 1
+fi
+
+input="$1"
+output="$2"
+tmp="${output}.new"
+
+cleanup() {
+  rm -f "${tmp}"
+}
+trap cleanup INT TERM EXIT
+
+cp "$input" "${tmp}"
+
+# remove hardcoded rootfs
+sed -i -e '/^lxc.rootfs\s*=/d' "${tmp}"
+# remove extra mount points
+sed -i -e '/^lxc.mount/d' "${tmp}"
+# remove hardcoded MAC address
+sed -i -e '/^lxc.network.hwaddr/d' "${tmp}"
+# enable SELinux
+echo 'lxc.se_context = unconfined_u:unconfined_r:lxc_t:s0-s0:c0.c1023' \
+  >> "${tmp}"
+
+mv "${tmp}" "${output}"
