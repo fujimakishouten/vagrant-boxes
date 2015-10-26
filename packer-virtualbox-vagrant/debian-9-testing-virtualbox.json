@@ -22,7 +22,7 @@
          "guest_os_type" : "Debian_64",
          "headless" : false,
          "http_directory" : "http",
-         "iso_checksum" : "18679baccc4c2f8e92c432ba958dfac0d8387b7fa0d34073f9886753668916a1f4cece3b3b3ddd138f7a3ef38a2df25060788daad9243d2d16440f60d9aa436d",
+         "iso_checksum" : "643cbcaf2a7d1c17e61f5fe4b5014f34ff526210afff38afcf4435456a82c81e0d74e35eb3a2c9023a5a9f1e3803b9c9f8fef2c498566a36c2c24b1a340e7a59",
          "iso_checksum_type" : "sha512",
          "iso_url" : "http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/debian-testing-amd64-netinst.iso",
          "shutdown_command" : "sudo /sbin/halt -p",
