@@ -3,26 +3,34 @@
 # based on the cheksums provided by debian-cd
 use strict;
 use warnings;
+use feature 'say';
 use JSON;
 use LWP::Simple;
 
-my $url = 'http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/SHA512SUMS';
-my $template = 'debian-9-testing-virtualbox.json';
+my ($update_manifest, $url, $template) = @ARGV;
 
-update_template(get_testing_sum($url), $template);
+$update_manifest //= 0;
+$url //= 'http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/SHA512SUMS';
+$template //= 'debian-9-testing-virtualbox.json';
+
+if ($update_manifest) {
+	update_template(get_testing_sum(), $template);
+} else {
+	say get_testing_sum();
+}
 
 sub get_testing_sum {
-
-	my ($url) = @_;
 	my $file = '/tmp/packer-virtualbox-vagrant-SHA512SUMS';
-getstore($url, $file);
-	open (DATA, "< $file") or die "checksum file $file not found";
-	my @lines = <DATA>;
+	getstore($url, $file) or die "error: $!";
+	open (DATA, '<', $file) or die "checksum file $file not found";
+
+	my $line = <DATA>;
 	close DATA;
 	unlink $file;
+
 	# get the iso checksum by stripping the iso name
-	# iso name is expressed as a suit of blank spaces, one word and a carriage return
-	my $isoSum = $lines[0] =~ s/\s*\S+\n//r;
+	# iso name is expressed as a suit of blank spaces, one word, a carriage return., an EOL marker
+	my $isoSum = $line =~ s/\s*\S+\n$//r;
 	return $isoSum
 }
 
