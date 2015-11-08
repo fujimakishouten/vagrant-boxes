@@ -17,6 +17,8 @@ my $codename = $ENV{'CODENAME'} || 'testing64';
 my $version = $ENV{'VERSION'} || '9.0.0';
 my $provider = $ENV{'PROVIDER'} || 'virtualbox';
 my $end_point = 'https://atlas.hashicorp.com/api/v1/box/debian';
+my $auth_param = "-d access_token=$atlas_token";
+
 my $json_printer = JSON->new();
 my $verbose = 1;
 
@@ -41,10 +43,13 @@ sub curl2json {
 
 sub check_version {
 	my $url = "$end_point/$codename/version/$version";
-	my $curl = 'curl --silent "'.$url.'?'."access_token=$atlas_token\"".
-    " |";
+	my $curl = 'curl --silent "'
+	  . $url
+	  . '?'
+	  . "access_token=$atlas_token\""
+      . " |";
 
-	# decode an utf-8 formatted string, parse this at json, returns referemce  
+	# decode an utf-8 formatted string, parse this at json, returns reference
 	my $answer = curl2json($curl);
 	
 	if ( defined($answer->{'version'}) ) {
@@ -52,14 +57,25 @@ sub check_version {
 	} else {
 		return 0;
 	}
+}
+
+sub delete_version {
+	my $url= "$end_point/$codename/version/$version";
+	my $curl = "curl --silent -X DELETE"
+		. " $url"
+        . " $auth_param"
+        . " |";
+
+    my $json_struct = curl2json($curl);
+
 }		
 
 sub create_version {
 	my $url = "$end_point/$codename/versions";
-	my $curl = "curl --silent -X POST".
-		" $url  -d version[version]=$version" .
-        " -d access_token=$atlas_token".
-        " |";
+	my $curl = "curl --silent -X POST"
+		. " $url -d version[version]=$version"
+        . " $auth_param"
+        . " |";
         
 	my $json_struct = curl2json($curl);
 	
@@ -74,10 +90,10 @@ sub create_version {
 
 sub create_provider {
 	my $url = "$end_point/$codename/version/$version/providers";
-	my $curl = "curl --silent -X POST".
-		" $url -d provider[name]=$provider" .
-        " -d access_token=$atlas_token".
-        " |";
+	my $curl = "curl --silent -X POST"
+		. " $url -d provider[name]=$provider"
+        . " $auth_param"
+        . " |";
 	
 	my $json_struct = curl2json($curl);
         
@@ -92,10 +108,10 @@ sub create_provider {
 
 sub get_upload_path {
 	my $url = "$end_point/$codename/version/$version/provider/$provider/upload";
-	my $curl = "curl --silent -X GET".
-		" $url" .
-        " -d access_token=$atlas_token".
-        " |";
+	my $curl = "curl --silent -X GET"
+		. " $url"
+        . " $auth_param"
+        . " |";
         
     my $json_struct = curl2json($curl);
 	return $json_struct->{'upload_path'};    
@@ -103,14 +119,16 @@ sub get_upload_path {
 
 sub upload_box {
 	my ($url) = @_;
-	my $curl = "curl  -X PUT".
-		" --upload-file debian-$codename.box".
-		" $url" .
-        " |";
+	my $curl = "curl  -X PUT"
+		. " $url"
+		. " --upload-file debian-$codename.box"
+        . " |";
+
     open(CURL, $curl) or die "error: $!";
-    while (<CURL>) {
-    	print "$_\n";
-    }    	    
+#   while (<CURL>) { say; }
+	while (my $curl_output = <CURL>) {
+		say $curl_output;
+	}
 }
 
 if (create_version() && create_provider()) {
