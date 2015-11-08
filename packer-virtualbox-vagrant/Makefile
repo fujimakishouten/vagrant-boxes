@@ -2,18 +2,18 @@ all: oldstable-test stable-test
 
 OLD_STABLE_BOX = debian-wheezy64.box
 STABLE_BOX = debian-jessie64.box
-TESTING_BOX = debian-stretch64.box
+TESTING_BOX = debian-testing64.box
 
 oldstable: $(OLD_STABLE_BOX)
 stable: $(STABLE_BOX)
 testing: $(TESTING_BOX)
 
 $(OLD_STABLE_BOX):
-	packer build debian-7-wheezy-virtualbox.json
+	packer build wheezy64-virtualbox.json
 $(STABLE_BOX):
-	packer build debian-8-jessie-virtualbox.json
+	packer build jessie64-virtualbox.json
 $(TESTING_BOX):
-	packer build debian-9-testing-virtualbox.json
+	packer build testing64-virtualbox.json
 
 define functest
  @ # $< is the fist dependency of the target
