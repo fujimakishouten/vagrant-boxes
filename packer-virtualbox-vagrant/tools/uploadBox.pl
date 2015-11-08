@@ -125,10 +125,7 @@ sub upload_box {
         . " |";
 
     open(CURL, $curl) or die "error: $!";
-#   while (<CURL>) { say; }
-	while (my $curl_output = <CURL>) {
-		say $curl_output;
-	}
+    while (<CURL>) { say; }
 }
 
 if (create_version() && create_provider()) {
