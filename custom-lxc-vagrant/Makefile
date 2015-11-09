@@ -1,9 +1,14 @@
--include config.mk
-
-RELEASES = \
-	stretch \
+DISTRIBUTIONS = \
+	wheezy \
 	jessie \
-	wheezy
+	stretch \
+	sid
+
+all:
+	@echo "Usage: make <distribution>"
+	@echo "Available distributions: $(DISTRIBUTIONS)"
+
+-include config.mk
 
 help:
 	@echo "Make one box: "
@@ -12,36 +17,36 @@ help:
 	@echo "Make all boxes: "
 	@echo "  $$ make all"
 
-BOXES = $(patsubst %, %.box, $(RELEASES))
-LXC_PATH := $(shell sudo lxc-config lxc.lxcpath)
+BOXES = $(patsubst %, %.box, $(DISTRIBUTIONS))
+LXC_PATH := $(shell lxc-config lxc.lxcpath)
 
-all: $(BOXES)
+$(DISTRIBUTIONS): % : %.box
 
-test_all = $(patsubst %, test-%, $(RELEASES))
+test_all = $(patsubst %, test-%, $(DISTRIBUTIONS))
 test: $(test_all)
 $(test_all): test-% : %.box
 	./test $* $<
 
 $(BOXES): %.box : %/rootfs.tar.gz %/metadata.json %/lxc-config
-	cd $* && sudo tar czf ../$@ $(patsubst $*/%,%,$^) || ($(RM) $@; false)
+	cd $* && tar czf ../$@ $(patsubst $*/%,%,$^) || ($(RM) $@; false)
 
 %/rootfs.tar.gz: %/rootfs
-	cd $* && sudo tar czfp rootfs.tar.gz ./rootfs --numeric-owner
+	cd $* && tar czfp rootfs.tar.gz ./rootfs --numeric-owner
 
 %/rootfs: %/base.stamp
-	sudo cp -dR --preserve=mode,ownership $(LXC_PATH)/$*-base/rootfs $@ && \
-		sudo ./vagrant-setup $@ $* || \
-		(sudo $(RM) -r $@; false)
+	cp -dR --preserve=mode,ownership $(LXC_PATH)/$*-base/rootfs $@ && \
+		./vagrant-setup $@ $* || \
+		($(RM) -r $@; false)
 
 %/lxc-config.in: %/base.stamp
-	sudo cp $(LXC_PATH)/$*-base/config $@
+	cp $(LXC_PATH)/$*-base/config $@
 
 %/lxc-config: %/lxc-config.in
 	./gen-lxc-config $< $@
 
 %/base.stamp:
-	sudo lxc-destroy -n $*-base || true
-	sudo -E lxc-create -n $*-base -t debian -- --main-only --release $*
+	lxc-destroy -n $*-base || true
+	lxc-create -n $*-base -t debian -- --main-only --release $*
 	mkdir -p $*
 	touch $@
 
@@ -51,7 +56,7 @@ $(BOXES): %.box : %/rootfs.tar.gz %/metadata.json %/lxc-config
 
 clean: clean-base-containers
 	$(RM) $(BOXES)
-	sudo $(RM) -r $(RELEASES)
+	$(RM) -r $(DISTRIBUTIONS)
 
 clean-base-containers:
-	for c in $(RELEASES); do sudo lxc-destroy -n $$c-base || true; sudo rm -fr /var/cache/lxc/debian/rootfs-$$c-*/; done
+	for c in $(DISTRIBUTIONS); do lxc-destroy -n $$c-base || true; rm -fr /var/cache/lxc/debian/rootfs-$$c-*/; done
