@@ -18,6 +18,9 @@ trap cleanup INT TERM EXIT
 
 cp "$input" "${tmp}"
 
+# remove networking configuration
+sed -i -e '/lxc.network/d' "${tmp}"
+
 # remove hardcoded rootfs
 sed -i -e '/^lxc.rootfs\s*=/d' "${tmp}"
 # remove extra mount points
