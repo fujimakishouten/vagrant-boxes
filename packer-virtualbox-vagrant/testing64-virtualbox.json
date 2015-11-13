@@ -18,6 +18,7 @@
             "keyboard-configuration/xkb-keymap=us <wait>",
             "<enter><wait>"
          ],
+         "hard_drive_interface": "sata",
          "disk_size" : "10140",
          "guest_os_type" : "Debian_64",
          "headless" : false,
