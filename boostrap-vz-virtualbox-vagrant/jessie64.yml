@@ -31,6 +31,9 @@ packages:
   install_standard: true
 plugins:
   vagrant: {}
+  apt_proxy:
+    address: 127.0.0.1
+    port: 3142
   minimize_size:
     zerofree: true
   commands:
