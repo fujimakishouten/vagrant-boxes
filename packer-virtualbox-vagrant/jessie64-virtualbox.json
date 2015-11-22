@@ -18,9 +18,10 @@
         "keyboard-configuration/xkb-keymap=us <wait>",
         "<enter><wait>"
       ],
-      "hard_drive_interface": "sata",
       "disk_size": "10140",
+      "guest_additions_mode": "disable",
       "guest_os_type": "Debian_64",
+      "hard_drive_interface": "sata",
       "headless": true,
       "http_directory": "http",
       "iso_checksum": "762eb3dfc22f85faf659001ebf270b4f",
@@ -42,7 +43,8 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "debian-jessie64.box"
+      "output": "debian-jessie64.box",
+      "vagrantfile_template": "assets/rsync_for_sharedfolders_Vagrantfile"
     }
   ],
   "provisioners": [
@@ -55,7 +57,6 @@
           "scripts": [
             "scripts/base.sh",
             "scripts/vagrant.sh",
-            "scripts/virtualbox.sh",
             "scripts/cleanup.sh",
             "scripts/minimize.sh"
           ]

@@ -18,9 +18,10 @@
         "keyboard-configuration/xkb-keymap=us <wait>",
         "<enter><wait>"
       ],
-      "hard_drive_interface": "sata",
       "disk_size": "10140",
       "guest_os_type": "Debian_64",
+      "guest_additions_mode": "disable",
+      "hard_drive_interface": "sata",
       "headless": true,
       "http_directory": "http",
       "iso_checksum": "774d1fc8c5364e63b22242c33a89c1a3",
@@ -42,7 +43,8 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "debian-wheezy64.box"
+      "output": "debian-wheezy64.box",
+      "vagrantfile_template": "assets/rsync_for_sharedfolders_Vagrantfile"
     }
   ],
   "provisioners": [
