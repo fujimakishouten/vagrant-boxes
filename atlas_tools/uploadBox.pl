@@ -9,15 +9,16 @@ use Data::Dumper;
 
 # see https://vagrantcloud.com/docs/versions
 # put an atlas token in your env like this
-# export ATLAS_TOKEN=$(gpg --decrypt ../atlas/token.gpg)
+# export ATLAS_TOKEN=$(gpg --decrypt token.gpg)
 my $ua = LWP::UserAgent->new;
 
-my $atlas_token = $ENV{'ATLAS_TOKEN'} || die "Atlas token needed";  
-my $codename = $ENV{'CODENAME'} || 'testing64';
-my $version = $ENV{'VERSION'} || '9.0.0';
+my $atlas_token = $ENV{'ATLAS_TOKEN'} || die 'Atlas token needed';
+my $codename = $ENV{'CODENAME'} || 'wheezy64';
+my $version = $ENV{'VERSION'} || '7.9.2';
 my $provider = $ENV{'PROVIDER'} || 'virtualbox';
 my $end_point = 'https://atlas.hashicorp.com/api/v1/box/debian';
 my $auth_param = "-d access_token=$atlas_token";
+my $builder_dir = '../packer-virtualbox-vagrant/';
 
 my $json_printer = JSON->new();
 my $verbose = 1;
@@ -121,7 +122,7 @@ sub upload_box {
 	my ($url) = @_;
 	my $curl = "curl  -X PUT"
 		. " $url"
-		. " --upload-file debian-$codename.box"
+		. " --upload-file $builder_dir/debian-$codename.box"
         . " |";
 
     open(CURL, $curl) or die "error: $!";
