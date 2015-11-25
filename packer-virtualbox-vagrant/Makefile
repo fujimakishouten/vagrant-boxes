@@ -18,10 +18,11 @@ $(TESTING_BOX):
 define functest
  @ # $< is the fist dependency of the target
  @echo functional testing for $(<) box
- @vagrant box add --force --name $1 $2
- @vagrant init --force $1
+ @vagrant box add --name $1 $2
+ @vagrant init $1
  @vagrant up
  @vagrant ssh -c "sudo apt-get --quiet --yes install linuxlogo && linuxlogo"
+ @vagrant ssh -c "test -f /vagrant/Makefile && echo -e $(tput bold) rsyncing successfull !"
  @vagrant halt
  @vagrant destroy --force
  @vagrant box remove $1
