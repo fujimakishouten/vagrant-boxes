@@ -1,4 +1,5 @@
 packer-virtualbox-vagrant/*.box
 packer-virtualbox-vagrant/packer_cache/*
 packer-virtualbox-vagrant/output-virtualbox-iso/*
-atlas/token.gpg
+atlas_tools/token.gpg
+.project
