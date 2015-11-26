@@ -13,8 +13,10 @@ use Data::Dumper;
 my $ua = LWP::UserAgent->new;
 
 my $atlas_token = $ENV{'ATLAS_TOKEN'} || die 'Atlas token needed';
-my $codename = $ENV{'CODENAME'} || 'wheezy64';
-my $version = $ENV{'VERSION'} || '7.9.2';
+my $codename = $ENV{'CODENAME'} || 'jessie64';
+my $version = $ENV{'VERSION'} || '8.2.2';
+#my $version_log = 'switch to rsync as default method for synced folders, because vboxfs requires contrib or non-free packages';
+my $version_log = '';
 my $provider = $ENV{'PROVIDER'} || 'virtualbox';
 my $end_point = 'https://atlas.hashicorp.com/api/v1/box/debian';
 my $auth_param = "-d access_token=$atlas_token";
@@ -74,7 +76,9 @@ sub delete_version {
 sub create_version {
 	my $url = "$end_point/$codename/versions";
 	my $curl = "curl --silent -X POST"
-		. " $url -d version[version]=$version"
+		. " $url"
+		. " -d version[version]=$version"
+		. " -d version[description]=$version_log"
         . " $auth_param"
         . " |";
         
