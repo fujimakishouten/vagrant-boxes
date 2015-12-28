@@ -48,8 +48,7 @@
     [
       {
       "type": "vagrant",
-      "output": "debiancontrib-jessie64.box",
-      "keep_input_artifact": true
+      "output": "debiancontrib-jessie64.box"
       },
       {
       "type": "vagrant-cloud",
