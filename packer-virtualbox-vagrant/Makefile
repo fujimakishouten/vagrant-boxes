@@ -9,11 +9,11 @@ stable: $(STABLE_BOX)
 testing: $(TESTING_BOX)
 
 $(OLD_STABLE_BOX):
-	packer build wheezy64-virtualbox.json
+	packer build wheezy64.json
 $(STABLE_BOX):
-	packer build jessie64-virtualbox.json
+	packer build jessie64.json
 $(TESTING_BOX):
-	packer build testing64-virtualbox.json
+	packer build testing64.json
 
 define functest
  @ # $< is the fist dependency of the target

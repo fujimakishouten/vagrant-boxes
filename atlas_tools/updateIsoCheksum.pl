@@ -11,7 +11,7 @@ my ($update_manifest, $url, $template) = @ARGV;
 
 $update_manifest //= 0;
 $url //= 'http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/SHA512SUMS';
-$template //= 'debian-9-testing-virtualbox.json';
+$template //= 'testing64.json';
 
 if ($update_manifest) {
 	update_template(get_testing_sum(), $template);
