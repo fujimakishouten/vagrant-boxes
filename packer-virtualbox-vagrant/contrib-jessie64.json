@@ -1,6 +1,6 @@
 {
   "variables": {
-    "version": "{{env `BOX_VERSION`}}",
+    "box_version": "{{env `BOX_VERSION`}}",
 	"atlas_token": "{{env `ATLAS_TOKEN`}}"
   },
   "builders": [
@@ -54,7 +54,7 @@
       "type": "vagrant-cloud",
       "box_tag": "debian/contrib-jessie64",
       "access_token": "{{user `atlas_token`}}",
-      "version": "{{user `version`}}"
+      "version": "{{user `box_version`}}"
       }
     ]
   ],
