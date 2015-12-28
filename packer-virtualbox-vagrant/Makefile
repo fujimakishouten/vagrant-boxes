@@ -1,14 +1,14 @@
+OLD_STABLE_BOX = debian-wheezy64.box
+STABLE_BOX = debian-jessie64.box
+CONTRIB_STABLE_BOX = debiancontrib-jessie64.box
+TESTING_BOX = debian-testing64.box
+
 all: oldstable-test stable-test
 
 oldstable: $(OLD_STABLE_BOX)
 stable: $(STABLE_BOX)
 contribstable: $(CONTRIB_STABLE_BOX)
 testing: $(TESTING_BOX)
-
-OLD_STABLE_BOX = debian-wheezy64.box
-STABLE_BOX = debian-jessie64.box
-CONTRIB_STABLE_BOX = debiancontrib-jessie64.box
-TESTING_BOX = debian-testing64.box
 
 $(OLD_STABLE_BOX):
 	packer build wheezy64.json
