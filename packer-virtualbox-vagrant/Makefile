@@ -1,17 +1,21 @@
 all: oldstable-test stable-test
 
-OLD_STABLE_BOX = debian-wheezy64.box
-STABLE_BOX = debian-jessie64.box
-TESTING_BOX = debian-testing64.box
-
 oldstable: $(OLD_STABLE_BOX)
 stable: $(STABLE_BOX)
+contribstable: $(CONTRIB_STABLE_BOX)
 testing: $(TESTING_BOX)
+
+OLD_STABLE_BOX = debian-wheezy64.box
+STABLE_BOX = debian-jessie64.box
+CONTRIB_STABLE_BOX = debiancontrib-jessie64.box
+TESTING_BOX = debian-testing64.box
 
 $(OLD_STABLE_BOX):
 	packer build wheezy64.json
 $(STABLE_BOX):
 	packer build jessie64.json
+$(CONTRIB_STABLE_BOX):
+	packer build contrib-jessie64.json
 $(TESTING_BOX):
 	packer build testing64.json
 
@@ -22,7 +26,7 @@ define functest
  @vagrant init $1
  @vagrant up
  @vagrant ssh -c "sudo apt-get --quiet --yes install linuxlogo && linuxlogo"
- @vagrant ssh -c "test -f /vagrant/Makefile && echo -e $(tput bold) rsyncing successfull !"
+ @vagrant ssh -c "test -f /vagrant/Makefile && echo -e $(tput bold) syncing successfull !"
  @vagrant halt
  @vagrant destroy --force
  @vagrant box remove $1
@@ -36,12 +40,15 @@ oldstable-test: oldstable
 stable-test: stable
 	$(call functest, fresh-$(<), $(STABLE_BOX))
 
+contribstable-test: contribstable
+	$(call functest, fresh-$(<), $(CONTRIB_STABLE_BOX))
 
 .PHONY: clean oldstable stable stable-test
 
 SHA256SUMS.gpg:
 	sha256sum $(OLD_STABLE_BOX) >> SHA256SUMS
 	sha256sum $(STABLE_BOX) >> SHA256SUMS
+	sha256sum $(STABLE_CONTRIB_BOX) >> SHA256SUMS
 	gpg --sign SHA256SUMS
 
 release: SHA256SUMS.gpg

@@ -1,0 +1,81 @@
+{
+  "variables": {
+    "version": "{{env `BOX_VERSION`}}",
+	"atlas_token": "{{env `ATLAS_TOKEN`}}"
+  },
+  "builders": [
+    {
+      "boot_command": [
+        "<esc><wait>",
+        "install <wait>",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/vanilla-debian-8-jessie-preseed.cfg <wait>",
+        "debian-installer=en_US <wait>",
+        "auto <wait>",
+        "locale=en_US <wait>",
+        "kbd-chooser/method=us <wait>",
+        "netcfg/get_hostname={{ .Name }} <wait>",
+        "netcfg/get_domain=vagrantup.com <wait>",
+        "fb=false <wait>",
+        "debconf/frontend=noninteractive <wait>",
+        "console-setup/ask_detect=false <wait>",
+        "console-keymaps-at/keymap=us <wait>",
+        "keyboard-configuration/xkb-keymap=us <wait>",
+        "<enter><wait>"
+      ],
+      "disk_size": "10140",
+      "guest_additions_mode": "upload",
+      "guest_os_type": "Debian_64",
+      "hard_drive_interface": "sata",
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum": "762eb3dfc22f85faf659001ebf270b4f",
+      "iso_checksum_type": "md5",
+      "iso_url": "http://cdimage.debian.org/cdimage/release/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso",
+      "shutdown_command": "sudo /sbin/halt -p",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "ssh_port": "22",
+      "ssh_wait_timeout": "10000s",
+      "type": "virtualbox-iso",
+      "vm_name": "debiancontrib-jessie",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+      "type": "vagrant",
+      "output": "debiancontrib-jessie64.box",
+      "keep_input_artifact": true
+      },
+      {
+      "type": "vagrant-cloud",
+      "box_tag": "debian/contrib-jessie64",
+      "access_token": "{{user `atlas_token`}}",
+      "version": "{{user `version`}}"
+      }
+    ]
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "pause_before": "5s",
+      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
+      "override": {
+        "virtualbox-iso": {
+          "scripts": [
+            "scripts/base.sh",
+            "scripts/vagrant.sh",
+            "scripts/virtualbox.sh",
+            "scripts/cleanup.sh",
+            "scripts/minimize.sh"
+          ]
+        }
+      }
+    }
+  ]
+}
+
