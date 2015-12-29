@@ -84,7 +84,8 @@
     }
   ],
   "push": {
-    "vcs": true
+    "vcs": true,
+    "name": "debian/contrib-jessie64"
   }
 }
 
