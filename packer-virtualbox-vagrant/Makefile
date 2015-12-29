@@ -15,7 +15,7 @@ $(OLD_STABLE_BOX):
 $(STABLE_BOX):
 	packer build jessie64.json
 $(CONTRIB_STABLE_BOX):
-	packer build contrib-jessie64.json
+	packer push contrib-jessie64.json
 $(TESTING_BOX):
 	packer build testing64.json
 
@@ -40,15 +40,11 @@ oldstable-test: oldstable
 stable-test: stable
 	$(call functest, fresh-$(<), $(STABLE_BOX))
 
-contribstable-test: contribstable
-	$(call functest, fresh-$(<), $(CONTRIB_STABLE_BOX))
-
 .PHONY: clean oldstable stable stable-test
 
 SHA256SUMS.gpg:
 	sha256sum $(OLD_STABLE_BOX) >> SHA256SUMS
 	sha256sum $(STABLE_BOX) >> SHA256SUMS
-	sha256sum $(STABLE_CONTRIB_BOX) >> SHA256SUMS
 	gpg --sign SHA256SUMS
 
 release: SHA256SUMS.gpg
