@@ -1,5 +1,9 @@
 OLD_STABLE_BOX = wheezy64.box
+OLD_STABLE_VERSION= 7.9.3
+
 STABLE_BOX = jessie64.box
+STABLE_VERSION = 8.2.3
+
 CONTRIB_STABLE_BOX = contrib-jessie64.box
 TESTING_BOX = testing64.box
 
@@ -41,6 +45,12 @@ stable-test: stable
 	$(call functest, fresh-$(<), $(STABLE_BOX))
 
 .PHONY: clean oldstable stable stable-test
+
+oldstable-upload: oldstable
+	../atlas_tools/uploadBox.pl $(patsubst %.box, %, $(OLD_STABLE_BOX)) $(OLD_STABLE_VERSION)
+
+stable-upload: oldstable
+	../atlas_tools/uploadBox.pl $(patsubst %.box, %, $(STABLE_BOX)) $(STABLE_VERSION)
 
 SHA256SUMS.gpg:
 	sha256sum $(OLD_STABLE_BOX) >> SHA256SUMS
