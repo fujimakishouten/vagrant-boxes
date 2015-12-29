@@ -1,6 +1,7 @@
 {
   "variables": {
-    "box_version": "{{env `BOX_VERSION`}}",
+    "box_version": "8.2.2",
+    "box_changelog": "* initial upload with vboxsf module",
 	"atlas_token": "{{env `ATLAS_TOKEN`}}"
   },
   "builders": [
@@ -51,10 +52,15 @@
         "output": "debiancontrib-jessie64.box"
       },
       {
-        "type": "vagrant-cloud",
-        "box_tag": "debian/contrib-jessie64",
-        "access_token": "{{user `atlas_token`}}",
-        "version": "{{user `box_version`}}",
+        "type": "atlas",
+        "artifact": "debian/contrib-jessie64",
+        "artifact_type": "vagrant.box",
+        "token": "{{user `atlas_token`}}",
+        "metadata": {
+          "provider": "virtualbox",
+          "version": "{{user `box_version`}}",
+          "description": "{{user `box_changelog`}}"
+        },
         "keep_input_artifact": true
       }
     ]
@@ -76,6 +82,9 @@
         }
       }
     }
-  ]
+  ],
+  "push": {
+    "vcs": true
+  }
 }
 
