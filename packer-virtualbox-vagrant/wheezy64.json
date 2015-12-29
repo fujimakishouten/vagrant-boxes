@@ -43,7 +43,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "debian-wheezy64.box",
+      "output": "wheezy64.box",
       "vagrantfile_template": "assets/rsync_for_sharedfolders_Vagrantfile"
     }
   ],

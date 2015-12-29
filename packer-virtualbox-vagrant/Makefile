@@ -1,7 +1,7 @@
-OLD_STABLE_BOX = debian-wheezy64.box
-STABLE_BOX = debian-jessie64.box
-CONTRIB_STABLE_BOX = debiancontrib-jessie64.box
-TESTING_BOX = debian-testing64.box
+OLD_STABLE_BOX = wheezy64.box
+STABLE_BOX = jessie64.box
+CONTRIB_STABLE_BOX = contrib-jessie64.box
+TESTING_BOX = testing64.box
 
 all: oldstable-test stable-test
 

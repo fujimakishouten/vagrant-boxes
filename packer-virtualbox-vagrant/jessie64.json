@@ -43,7 +43,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "output": "debian-jessie64.box",
+      "output": "jessie64.box",
       "vagrantfile_template": "assets/rsync_for_sharedfolders_Vagrantfile"
     }
   ],
