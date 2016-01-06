@@ -46,10 +46,10 @@ stable-test: stable
 
 .PHONY: clean oldstable stable stable-test
 
-oldstable-upload: oldstable
+oldstable-upload: oldstable-test
 	../atlas_tools/uploadBox.pl $(patsubst %.box, %, $(OLD_STABLE_BOX)) $(OLD_STABLE_VERSION)
 
-stable-upload: oldstable
+stable-upload: stable-test
 	../atlas_tools/uploadBox.pl $(patsubst %.box, %, $(STABLE_BOX)) $(STABLE_VERSION)
 
 SHA256SUMS.gpg:
