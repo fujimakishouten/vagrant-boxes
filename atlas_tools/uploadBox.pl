@@ -6,21 +6,29 @@ use JSON;
 use LWP::UserAgent;
 use HTTP::Request::Common;
 use Data::Dumper; 
+use Cwd;
+use URI::Escape;
 
 # see https://vagrantcloud.com/docs/versions
 # put an atlas token in your env like this
 # export ATLAS_TOKEN=$(gpg --decrypt token.gpg)
 my $ua = LWP::UserAgent->new;
 
-my $atlas_token = $ENV{'ATLAS_TOKEN'} || die 'Atlas token needed';
-my $codename = $ENV{'CODENAME'} || 'jessie64';
-my $version = $ENV{'VERSION'} || '8.2.2';
-#my $version_log = 'switch to rsync as default method for synced folders, because vboxfs requires contrib or non-free packages';
-my $version_log = '';
+my $atlas_token = $ENV{'ATLAS_TOKEN'} || die 'ATLAS_TOKEN needed';
+
+my ($codename, $version, $version_log) = @ARGV;
+$codename //= $ENV{'CODENAME'} || die 'CODENAME needed';
+$version //= $ENV{'BOX_VERSION'} || die 'BOX_VERSION needed';
+if (defined $version_log) {
+    $version_log = uri_escape($version_log);
+} else {
+    $version_log = uri_escape('* various build chain improvements, see http://anonscm.debian.org/cgit/cloud/debian-vm-templates.git/ for details');
+}
+
 my $provider = $ENV{'PROVIDER'} || 'virtualbox';
 my $end_point = 'https://atlas.hashicorp.com/api/v1/box/debian';
 my $auth_param = "-d access_token=$atlas_token";
-my $builder_dir = '../packer-virtualbox-vagrant/';
+my $builder_dir = getcwd;
 
 my $json_printer = JSON->new();
 my $verbose = 1;
@@ -126,7 +134,7 @@ sub upload_box {
 	my ($url) = @_;
 	my $curl = "curl  -X PUT"
 		. " $url"
-		. " --upload-file $builder_dir/debian-$codename.box"
+		. " --upload-file $builder_dir/$codename.box"
         . " |";
 
     open(CURL, $curl) or die "error: $!";
