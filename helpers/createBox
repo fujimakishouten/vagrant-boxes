@@ -1,4 +1,6 @@
 #!/bin/sh
+# curl helpers to upload files to atlas
+# has been superseeded by uploadBox.pl
 
 # see https://vagrantcloud.com/docs/versions
 export ATLAS_TOKEN=$(gpg --decrypt ../atlas/token.gpg)

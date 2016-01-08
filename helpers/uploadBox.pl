@@ -1,4 +1,8 @@
 #!/usr/bin/perl
+# uploads a vagrant base to atlas
+# synthax is ./uploadBox.pl jessie64 8.3.0
+# TODO: move changelog into json manifest instead of hardcoding it here
+
 use feature 'say';
 use strict;
 use warnings;
@@ -11,7 +15,7 @@ use URI::Escape;
 
 # see https://vagrantcloud.com/docs/versions
 # put an atlas token in your env like this
-# export ATLAS_TOKEN=$(gpg --decrypt token.gpg)
+# export ATLAS_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
 my $ua = LWP::UserAgent->new;
 
 my $atlas_token = $ENV{'ATLAS_TOKEN'} || die 'ATLAS_TOKEN needed';
