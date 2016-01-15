@@ -1,6 +1,7 @@
 {
+  "description": "Contrib Debian Jessie base box, build using contrib sources",
   "variables": {
-    "box_version": "8.2.2",
+    "box_version": "8.2.3",
     "box_changelog": "* initial upload with vboxsf module",
 	"atlas_token": "{{env `ATLAS_TOKEN`}}"
   },

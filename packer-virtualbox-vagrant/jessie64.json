@@ -1,4 +1,10 @@
 {
+  "description": "Vanilla Debian Jessie base box",
+  "variables": {
+      "box_version": "8.2.3",
+      "box_changelog": "* build chain improvements, see http://anonscm.debian.org/cgit/cloud/debian-vm-templates.git/ for details",
+      "atlas_token": "{{env `ATLAS_TOKEN`}}"
+    },
   "builders": [
     {
       "boot_command": [
