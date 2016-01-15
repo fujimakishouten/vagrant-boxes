@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 # uploads a vagrant base to atlas
-# synthax is ./uploadBox.pl jessie64 8.3.0
-# TODO: move changelog into json manifest instead of hardcoding it here
+# synthax is ./uploadBox.pl jessie64
 
 use feature 'say';
 use strict;
@@ -16,26 +15,22 @@ use URI::Escape;
 # see https://vagrantcloud.com/docs/versions
 # put an atlas token in your env like this
 # export ATLAS_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
-my $ua = LWP::UserAgent->new;
+my $verbose = 1;
 
-my $atlas_token = $ENV{'ATLAS_TOKEN'} || die 'ATLAS_TOKEN needed';
+my $atlas_token = $ENV{'ATLAS_TOKEN'} || die 'please set ATLAS_TOKEN';
+my $builder_dir = getcwd;
 
-my ($codename, $version, $version_log) = @ARGV;
-$codename //= $ENV{'CODENAME'} || die 'CODENAME needed';
-$version //= $ENV{'BOX_VERSION'} || die 'BOX_VERSION needed';
-if (defined $version_log) {
-    $version_log = uri_escape($version_log);
-} else {
-    $version_log = uri_escape('* various build chain improvements, see http://anonscm.debian.org/cgit/cloud/debian-vm-templates.git/ for details');
-}
+my ($codename) = @ARGV;
+my $manifest =join('', $builder_dir, '/', $codename, '.json');
+my $version = get_json_value('box_version', $manifest);
+my $version_log = uri_escape(get_json_value('box_changelog', $manifest));
+say $version, $version_log if $verbose ;
 
 my $provider = $ENV{'PROVIDER'} || 'virtualbox';
 my $end_point = 'https://atlas.hashicorp.com/api/v1/box/debian';
 my $auth_param = "-d access_token=$atlas_token";
-my $builder_dir = getcwd;
 
 my $json_printer = JSON->new();
-my $verbose = 1;
 
 sub dump_json {
 	my $json_struct = shift;
@@ -143,6 +138,27 @@ sub upload_box {
 
     open(CURL, $curl) or die "error: $!";
     while (<CURL>) { say; }
+}
+
+sub get_json_value {
+	my ($key, $template) = @_;
+	my $json;
+
+	{
+		$/ = undef;
+		# redefine the record separator from \n to undef
+		# allows reading all lines in a single step
+		local $/ = undef;
+		open (my $fh, "<", $template) or die "could not find $template";
+		$json = <$fh>;
+		close $fh;
+	}
+
+	my $manifest = decode_json($json);
+	my $value = $manifest->{'variables'}->{$key} if $manifest->{'variables'}->{$key};
+
+	defined($value) && return $value || die "unable to find $key in $template";
+
 }
 
 if (create_version() && create_provider()) {
