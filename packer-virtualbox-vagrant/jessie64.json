@@ -1,8 +1,8 @@
 {
   "description": "Vanilla Debian Jessie base box",
   "variables": {
-      "box_version": "8.2.3",
-      "box_changelog": "* build chain improvements, see http://anonscm.debian.org/cgit/cloud/debian-vm-templates.git/ for details",
+      "box_version": "8.3.0",
+      "box_changelog": "* new stable point release",
       "atlas_token": "{{env `ATLAS_TOKEN`}}"
     },
   "builders": [
@@ -30,9 +30,9 @@
       "hard_drive_interface": "sata",
       "headless": true,
       "http_directory": "http",
-      "iso_checksum": "762eb3dfc22f85faf659001ebf270b4f",
+      "iso_checksum": "a9b490b4215d1e72e876b031dafa7184",
       "iso_checksum_type": "md5",
-      "iso_url": "http://cdimage.debian.org/cdimage/release/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso",
+      "iso_url": "http://cdimage.debian.org/cdimage/release/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
       "shutdown_command": "sudo /sbin/halt -p",
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
