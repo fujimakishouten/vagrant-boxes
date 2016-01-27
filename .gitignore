@@ -1,5 +1,7 @@
 packer-virtualbox-vagrant/*.box
 packer-virtualbox-vagrant/packer_cache/*
 packer-virtualbox-vagrant/output-virtualbox-iso/*
+packer-virtualbox-vagrant/last_stable_release
+packer-virtualbox-vagrant/last_oldstable_release
 helpers/token.gpg
 .project
