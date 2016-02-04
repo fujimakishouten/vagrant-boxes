@@ -4,7 +4,6 @@ OLD_STABLE_BOX = wheezy64.box
 STABLE_BOX = jessie64.box
 
 CONTRIB_STABLE_BOX = contrib-jessie64.box
-TESTING_BOX = testing64.box
 
 all: oldstable-test stable-test
 
@@ -14,8 +13,6 @@ $(STABLE_BOX):
 	packer build jessie64.json
 $(CONTRIB_STABLE_BOX):
 	packer push contrib-jessie64.json
-$(TESTING_BOX):
-	packer build testing64.json
 
 define functest
  @ # $< is the fist dependency of the target
