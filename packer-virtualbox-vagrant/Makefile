@@ -1,3 +1,5 @@
+export VAGRANT_DEFAULT_PROVIDER = virtualbox
+
 OLD_STABLE_BOX = wheezy64.box
 STABLE_BOX = jessie64.box
 
