@@ -12,7 +12,7 @@ curl --silent https://atlas.hashicorp.com/api/v1/box/debian/${CODENAME}64/versio
 | python -m json.tool
 
 # destroy a version
-curl --silent https://atlas.hashicorp.com/api/v1/box/debian/${CODENAME}64/version/8.0.2 \
+curl --silent https://atlas.hashicorp.com/api/v1/box/debian/${CODENAME}64/version/$VERSION \
         -X DELETE \
         -d access_token=$ATLAS_TOKEN \
 | python -m json.tool        
