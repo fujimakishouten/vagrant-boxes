@@ -3,5 +3,7 @@ packer-virtualbox-vagrant/packer_cache/*
 packer-virtualbox-vagrant/output-virtualbox-iso/*
 packer-virtualbox-vagrant/last_stable_release
 packer-virtualbox-vagrant/last_oldstable_release
+packer-virtualbox-vagrant/oldstable-test
+packer-virtualbox-vagrant/stable-test
 helpers/token.gpg
 .project
