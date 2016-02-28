@@ -40,10 +40,10 @@ stable-test: $(STABLE_BOX)
 .PHONY: clean old-stablestable
 
 oldstable-upload: oldstable-test
-	../helpers/uploadBox.pl $(patsubst %.box, %, $(OLD_STABLE_BOX))
+	../helpers/atlas-cli.pl $(patsubst %.box, %, $(OLD_STABLE_BOX))
 
 stable-upload: stable-test
-	../helpers/uploadBox.pl $(patsubst %.box, %, $(STABLE_BOX))
+	../helpers/atlas-cli.pl $(patsubst %.box, %, $(STABLE_BOX))
 
 SHA256SUMS.gpg:
 	sha256sum $(OLD_STABLE_BOX) >> SHA256SUMS
