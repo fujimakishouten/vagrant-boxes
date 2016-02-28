@@ -9,7 +9,7 @@ use LWP::Simple;
 
 my ($update_manifest, $url, $template) = @ARGV;
 
-$update_manifest //= 0;
+$update_manifest //= 1;
 $url //= 'http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/SHA512SUMS';
 $template //= 'testing64.json';
 
