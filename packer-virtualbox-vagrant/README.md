@@ -12,11 +12,12 @@ https://atlas.hashicorp.com/debian/
 See https://wiki.debian.org/Teams/Cloud/RebuildVagrantBaseBoxes
 
 ## Releasing a new version:
-1. Call the `make all` target (or make oldstable-test|stable-test)
-2. export ATLAS_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
-3. Upload boxes on atlas with make oldstable-upload | stable-upload
-4. Release the boxes on atlas
-5. Call `make release` to sign the boxes and upload the checksums to Alioth
+* Update the changelog and version in $CODENAME.json
+* Call make oldstable-test | make stable-test
+* export ATLAS_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
+* Upload boxes on atlas with make oldstable-upload | stable-upload
+* Release the boxes on atlas
+* Call `make release` to sign the boxes and upload the checksums to Alioth
 
 ## Credits
 
