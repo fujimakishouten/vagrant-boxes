@@ -1,12 +1,14 @@
-DISTRIBUTIONS = \
+DISTRIBUTION = debian
+RELEASES = \
 	wheezy \
 	jessie \
 	stretch \
 	sid
+LXC_CREATE_OPTIONS = --main-only
 
 all:
-	@echo "Usage: make <distribution>"
-	@echo "Available distributions: $(DISTRIBUTIONS)"
+	@echo "Usage: make <release>"
+	@echo "Available releases: $(RELEASES)"
 
 -include config.mk
 
@@ -17,12 +19,12 @@ help:
 	@echo "Make all boxes: "
 	@echo "  $$ make all"
 
-BOXES = $(patsubst %, %.box, $(DISTRIBUTIONS))
+BOXES = $(patsubst %, %.box, $(RELEASES))
 LXC_PATH := $(shell lxc-config lxc.lxcpath)
 
-$(DISTRIBUTIONS): % : %.box
+$(RELEASES): % : %.box
 
-test_all = $(patsubst %, test-%, $(DISTRIBUTIONS))
+test_all = $(patsubst %, test-%, $(RELEASES))
 test: $(test_all)
 $(test_all): test-% : %.box
 	./test $* $<
@@ -46,7 +48,7 @@ $(BOXES): %.box : %/rootfs.tar.gz %/metadata.json %/lxc-config
 
 %/base.stamp:
 	lxc-destroy -n $*-base || true
-	lxc-create -n $*-base -t debian -- --main-only --release $*
+	lxc-create -n $*-base -t $(DISTRIBUTION) -- $(LXC_CREATE_OPTIONS) --release $*
 	mkdir -p $*
 	touch $@
 
@@ -56,7 +58,7 @@ $(BOXES): %.box : %/rootfs.tar.gz %/metadata.json %/lxc-config
 
 clean: clean-base-containers
 	$(RM) $(BOXES)
-	$(RM) -r $(DISTRIBUTIONS)
+	$(RM) -r $(RELEASES)
 
 clean-base-containers:
-	for c in $(DISTRIBUTIONS); do lxc-destroy -n $$c-base || true; rm -fr /var/cache/lxc/debian/rootfs-$$c-*/; done
+	for c in $(RELEASES); do lxc-destroy -n $$c-base || true; rm -fr /var/cache/lxc/$(DISTRIBUTION)/rootfs-$$c-*/; done

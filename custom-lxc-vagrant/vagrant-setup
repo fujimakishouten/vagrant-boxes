@@ -34,6 +34,7 @@ chmod 600 $fs/root/.ssh/authorized_keys
 #######################################################################
 # setup vagrant user
 #######################################################################
+chroot $fs deluser ubuntu || true
 chroot $fs useradd --uid 1000 --shell /bin/bash vagrant
 mkdir -p $fs/home/vagrant
 chroot $fs chown vagrant:vagrant /home/vagrant
