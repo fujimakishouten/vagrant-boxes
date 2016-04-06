@@ -46,6 +46,8 @@ stable-upload: stable-test
 	../helpers/atlas-cli.pl $(patsubst %.box, %, $(STABLE_BOX))
 
 SHA256SUMS.gpg:
+	-rm SHA256SUMS
+	-rm SHA256SUMS.gpg
 	sha256sum $(OLD_STABLE_BOX) >> SHA256SUMS
 	sha256sum $(STABLE_BOX) >> SHA256SUMS
 	gpg --sign SHA256SUMS
