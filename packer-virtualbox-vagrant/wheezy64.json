@@ -1,8 +1,8 @@
 {
     "description": "Vanilla Debian Wheezy base box",
     "variables": {
-        "box_version": "7.9.3",
-        "box_changelog": "* build chain improvements, see http://anonscm.debian.org/cgit/cloud/debian-vm-templates.git/ for details",
+        "box_version": "7.10.0",
+        "box_changelog": "* new oldstable point release",
         "atlas_token": "{{env `ATLAS_TOKEN`}}"
       },
   "builders": [
@@ -30,9 +30,9 @@
       "hard_drive_interface": "sata",
       "headless": true,
       "http_directory": "http",
-      "iso_checksum": "b6a19b4cf1d046e5eba1ae235a94824bca5a7c8f092a28216396c9d585ef709d",
+      "iso_checksum": "1ade0f396aee06e51e6333f2a947c7ab234f63c61e4a8495f9a20a16cff755b2",
       "iso_checksum_type": "sha256",
-      "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.9.0/amd64/iso-cd/debian-7.9.0-amd64-netinst.iso",
+      "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.10.0/amd64/iso-cd/debian-7.10.0-amd64-netinst.iso",
       "shutdown_command": "sudo /sbin/halt -p",
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
