@@ -1,0 +1,7 @@
+*.box
+*.log
+*.qcow2
+*.raw
+*.img
+Vagrantfile
+metadata.json

@@ -8,8 +8,8 @@ all:
 $(DISTRIBUTIONS): % : %.box
 
 %.box: %/box.img
-	cp Vagrantfile $*/
-	cp metadata.json $*/
+	cp Vagrantfile.in $*/Vagrantfile
+	cp metadata.json.in $*/metadata.json
 	cd $* && tar cvfz ../$@ ./box.img ./Vagrantfile ./metadata.json
 
 %/box.img: %.qcow2
