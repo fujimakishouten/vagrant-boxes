@@ -4,7 +4,6 @@ RELEASES = \
 	jessie \
 	stretch \
 	sid
-LXC_CREATE_OPTIONS = --main-only
 
 all:
 	@echo "Usage: make <release>"
@@ -48,7 +47,7 @@ $(BOXES): %.box : %/rootfs.tar.gz %/metadata.json %/lxc-config
 
 %/base.stamp:
 	lxc-destroy -n $*-base || true
-	lxc-create -n $*-base -t $(DISTRIBUTION) -- $(LXC_CREATE_OPTIONS) --release $*
+	lxc-create -n $*-base -t $(DISTRIBUTION) -- --release $*
 	mkdir -p $*
 	touch $@
 
