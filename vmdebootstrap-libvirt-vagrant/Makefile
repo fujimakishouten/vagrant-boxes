@@ -1,4 +1,4 @@
-DISTRIBUTIONS = jessie stretch sid
+DISTRIBUTIONS = wheezy jessie stretch sid
 VMDEBOOTSTRAP_OPTIONS = --customize=$(CURDIR)/vagrant-setup
 
 all:
