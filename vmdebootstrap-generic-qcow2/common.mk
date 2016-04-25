@@ -17,6 +17,7 @@ HTTP_PROXY_SETTING := $(shell nc -z -w 0 127.0.0.1 3142 && echo 'http_proxy=http
 		--verbose \
 		--size 10G \
 		--distribution $* \
+		--grub \
 		--arch $(ARCH) \
 		--package openssh-server \
 		--package sudo \
