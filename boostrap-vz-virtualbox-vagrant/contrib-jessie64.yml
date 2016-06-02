@@ -1,0 +1,44 @@
+---
+provider:
+  name: virtualbox
+  guest_additions: /usr/share/virtualbox/VBoxGuestAdditions.iso
+bootstrapper:
+  workspace: /var/lib/bootstrap-vz/
+image:
+  name: contrib-{system.release}-{system.architecture}
+  description: Debian {system.release} {system.architecture}
+system:
+  release: jessie
+  architecture: amd64
+  bootloader: grub
+  charmap: UTF-8
+  hostname: debian-jessie
+  locale: en_US
+  timezone: UTC
+volume:
+  backing: vmdk
+  partitions:
+    type: msdos
+    boot:
+      filesystem: ext2
+      size: 64MiB
+    root:
+      filesystem: ext4
+      size: 1856MiB
+    swap:
+      size: 128MiB
+packages:
+  install_standard: true
+plugins:
+  vagrant: {}
+  apt_proxy:
+    address: 127.0.0.1
+    port: 3142
+  minimize_size:
+    zerofree: true
+  commands:
+    commands:
+    - [sed, '-i', 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/', '{root}/etc/default/grub']
+    - ['update-grub']
+    - ['echo UseDNS no >> /etc/ssh/sshd_config']
+    - ['echo >> /etc/ssh/sshd_config']

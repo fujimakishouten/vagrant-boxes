@@ -6,7 +6,7 @@ BVZ_OUTPUT = /var/lib/bootstrap-vz
 OLD_STABLE_BOX = $(BVZ_OUTPUT)/debian-wheezy-amd64.box
 STABLE_BOX = $(BVZ_OUTPUT)/debian-jessie-amd64.box
 
-CONTRIB_STABLE_BOX = $(BVZ_OUTPUT)/contrib-jessie64.box
+CONTRIB_STABLE_BOX = $(BVZ_OUTPUT)/contrib-jessie-amd64.box
 
 #all: oldstable-test stable-test
 all: contrib-stable-test
