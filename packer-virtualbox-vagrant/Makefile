@@ -37,7 +37,7 @@ stable-test: $(STABLE_BOX)
 	$(call functest, fresh-$(<), $(<))
 	touch $@
 
-.PHONY: clean old-stablestable
+.PHONY: cleanall
 
 oldstable-upload: oldstable-test
 	../helpers/atlas-cli.pl $(patsubst %.box, %, $(OLD_STABLE_BOX))
