@@ -30,11 +30,11 @@ endef
 
 # test initialization / login / network
 oldstable-test: $(OLD_STABLE_BOX)
-	$(call functest, fresh-$(<), $(OLD_STABLE_BOX))
+	$(call functest, fresh-$(<), $(<))
 	touch $@
 
 stable-test: $(STABLE_BOX)
-	$(call functest, fresh-$(<), $(STABLE_BOX))
+	$(call functest, fresh-$(<), $(<))
 	touch $@
 
 .PHONY: clean old-stablestable
