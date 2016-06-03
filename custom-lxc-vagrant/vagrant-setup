@@ -60,5 +60,5 @@ chmod 0440 $fs/etc/sudoers.d/vagrant
 # setup hostname
 #######################################################################
 if [ -n "$hostname" ]; then
-  echo "$hostname" > $fs/etc/hostname
+  echo "${hostname%%.*}" > $fs/etc/hostname
 fi
