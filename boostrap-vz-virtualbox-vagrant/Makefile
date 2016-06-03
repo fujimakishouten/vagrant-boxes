@@ -27,8 +27,21 @@ define functest
  @vagrant box add --name $1 $2
  @vagrant init $1
  @vagrant up
+ @vagrant ssh -c "sudo apt-get update"
  @vagrant ssh -c "sudo apt-get --quiet --yes install linuxlogo && linuxlogo"
  @vagrant ssh -c "test -f /vagrant/Makefile && echo -e $(tput bold) syncing successfull !"
+ @vagrant halt
+ @vagrant destroy --force
+ @vagrant box remove $1
+ @rm Vagrantfile
+endef
+
+define boot_benchmark
+ @echo functional testing for $(<) box
+ @vagrant box add --name $1 $2
+ @vagrant init $1
+ @vagrant up
+ @vagrant ssh -c "systemd-analyze"
  @vagrant halt
  @vagrant destroy --force
  @vagrant box remove $1
@@ -50,13 +63,19 @@ contrib-stable-test: $(CONTRIB_STABLE_BOX)
 
 .PHONY: clean old-stablestable
 
-bench:
-	vagrant halt
-	vagrant up
-	vagrant ssh -c "systemd-analyze"
+bench: $(CONTRIB_STABLE_BOX)
+	$(call boot_benchmark, fresh-contrib-stable-bvz, $(<))
 
 cleanall:
 	-rm oldstable-test
 	-rm stable-test
-	-rm $(OLD_STABLE_BOX)
-	-rm $(STABLE_BOX)
+	-rm contrib-stable-test
+	-sudo rm $(OLD_STABLE_BOX)
+	-sudo rm $(STABLE_BOX)
+	-sudo rm $(CONTRIB_STABLE_BOX)
+
+forceclean:
+	-vagrant halt
+	-vagrant destroy --force
+	-rm Vagrantfile
+	-vagrant box remove fresh-contrib-stable-bvz
