@@ -1,12 +1,11 @@
 ---
+name: contrib-{system.release}-{system.architecture}
 provider:
   name: virtualbox
   guest_additions: /usr/share/virtualbox/VBoxGuestAdditions.iso
+  description: Debian {system.release} {system.architecture}
 bootstrapper:
   workspace: /var/lib/bootstrap-vz/
-image:
-  name: contrib-{system.release}-{system.architecture}
-  description: Debian {system.release} {system.architecture}
 system:
   release: jessie
   architecture: amd64

@@ -2,6 +2,7 @@
 
 export VAGRANT_DEFAULT_PROVIDER = virtualbox
 BVZ_OUTPUT = /var/lib/bootstrap-vz
+BVZ = /usr/local/src/bootstrap-vz/bootstrap-vz
 
 OLD_STABLE_BOX = $(BVZ_OUTPUT)/debian-wheezy-amd64.box
 STABLE_BOX = $(BVZ_OUTPUT)/debian-jessie-amd64.box
@@ -12,18 +13,18 @@ CONTRIB_STABLE_BOX = $(BVZ_OUTPUT)/contrib-jessie-amd64.box
 all: contrib-stable-test
 
 $(OLD_STABLE_BOX):
-	sudo LANG=C bootstrap-vz wheezy64.yml
+	sudo LANG=C $(BVZ) wheezy64.yml
 $(STABLE_BOX):
-	sudo LANG=C bootstrap-vz --debug jessie64.yml
+	sudo LANG=C $(BVZ) --debug jessie64.yml
 $(CONTRIB_STABLE_BOX):
-	sudo LANG=C bootstrap-vz --debug contrib-jessie64.yml
+	sudo LANG=C $(BVZ) --debug contrib-jessie64.yml
 
 prepare_work:
 	mkdir -p /var/lib/bootstrap-vz/
 
 define functest
  @ # $< is the fist dependency of the target
- @echo functional testing for $(<) box
+ @echo functional testing for $< box
  @vagrant box add --name $1 $2
  @vagrant init $1
  @vagrant up
@@ -37,34 +38,30 @@ define functest
 endef
 
 define boot_benchmark
- @echo functional testing for $(<) box
+ @echo functional testing for $< box
  @vagrant box add --name $1 $2
  @vagrant init $1
  @vagrant up
  @vagrant ssh -c "systemd-analyze"
- @vagrant halt
- @vagrant destroy --force
- @vagrant box remove $1
- @rm Vagrantfile
 endef
 
 # test initialization / login / network
 oldstable-test: $(OLD_STABLE_BOX)
-	$(call functest, fresh-oldstable-bvz, $(<))
+	$(call functest, fresh-oldstable-bvz, $<)
 	touch $@
 
 stable-test: $(STABLE_BOX)
-	$(call functest, fresh-stable-bvz, $(<))
+	$(call functest, fresh-stable-bvz, $<)
 	touch $@
 
 contrib-stable-test: $(CONTRIB_STABLE_BOX)
-	$(call functest, fresh-contrib-stable-bvz, $(<))
+	$(call functest, fresh-contrib-stable-bvz, $<)
 	touch $@
 
 .PHONY: clean old-stablestable
 
 bench: $(CONTRIB_STABLE_BOX)
-	$(call boot_benchmark, fresh-contrib-stable-bvz, $(<))
+	$(call boot_benchmark, fresh-contrib-stable-bvz, $<)
 
 cleanall:
 	-rm oldstable-test
@@ -74,7 +71,7 @@ cleanall:
 	-sudo rm $(STABLE_BOX)
 	-sudo rm $(CONTRIB_STABLE_BOX)
 
-forceclean:
+cleanbench:
 	-vagrant halt
 	-vagrant destroy --force
 	-rm Vagrantfile
