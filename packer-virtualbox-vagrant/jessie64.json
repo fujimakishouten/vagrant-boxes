@@ -1,7 +1,7 @@
 {
   "description": "Vanilla Debian Jessie base box",
   "variables": {
-      "box_version": "8.4.0",
+      "box_version": "8.5.0",
       "box_changelog": "* new stable point release",
       "atlas_token": "{{env `ATLAS_TOKEN`}}"
     },
@@ -30,9 +30,9 @@
       "hard_drive_interface": "sata",
       "headless": true,
       "http_directory": "http",
-      "iso_checksum": "7a6b418e6a4ee3ca75dda04d79ed96c9e2c33bb0c703ca7e40c6374ab4590748",
+      "iso_checksum": "ad4e8c27c561ad8248d5ebc1d36eb172f884057bfeb2c22ead823f59fa8c3dff",
       "iso_checksum_type": "sha256",
-      "iso_url": "http://cdimage.debian.org/cdimage/release/8.4.0/amd64/iso-cd/debian-8.4.0-amd64-netinst.iso",
+      "iso_url": "http://cdimage.debian.org/cdimage/release/8.5.0/amd64/iso-cd/debian-8.5.0-amd64-netinst.iso",
       "shutdown_command": "sudo /sbin/halt -p",
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
