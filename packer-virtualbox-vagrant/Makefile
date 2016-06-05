@@ -38,7 +38,7 @@ stable-test: $(STABLE_BOX)
 	$(call functest, fresh-$(<), $(<))
 	touch $@
 
-.PHONY: cleanall
+.PHONY: cleanall cleanrelease
 
 oldstable-upload: oldstable-test
 	../helpers/atlas-cli.pl $(patsubst %.box, %, $(OLD_STABLE_BOX))
@@ -47,13 +47,11 @@ stable-upload: stable-test
 	../helpers/atlas-cli.pl $(patsubst %.box, %, $(STABLE_BOX))
 
 SHA256SUMS.gpg:
-	-rm SHA256SUMS
-	-rm SHA256SUMS.gpg
 	sha256sum $(OLD_STABLE_BOX) >> SHA256SUMS
 	sha256sum $(STABLE_BOX) >> SHA256SUMS
 	gpg --sign SHA256SUMS
 
-release: SHA256SUMS.gpg
+release: cleanrelease SHA256SUMS.gpg
 	scp SHA256SUMS SHA256SUMS.gpg kdev-guest@alioth.debian.org:/home/groups/cloud/htdocs/vagrantboxes/
 
 cleanall:
@@ -61,3 +59,7 @@ cleanall:
 	-rm stable-test
 	-rm $(OLD_STABLE_BOX)
 	-rm $(STABLE_BOX)
+
+cleanrelease:
+	-rm SHA256SUMS.gpg
+	-rm SHA256SUMS
