@@ -21,6 +21,7 @@ define functest
  @vagrant init $1
  @vagrant up
  @vagrant ssh -c "sudo apt-get --quiet --yes install linuxlogo && linuxlogo"
+ @vagrant ssh -c "lsb_release -dr"
  @vagrant ssh -c "test -f /vagrant/Makefile && echo -e $(tput bold) syncing successfull !"
  @vagrant halt
  @vagrant destroy --force
