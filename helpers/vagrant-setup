@@ -19,7 +19,16 @@ chmod +x $fs/usr/sbin/policy-rc.d
 echo 'Acquire::Languages "none";' > $fs/etc/apt/apt.conf.d/99translations
 chroot $fs apt-get update
 chroot $fs apt-get -qy dist-upgrade
-rm -f $fs/usr/sbin/policy-rc.d
+
+#######################################################################
+# install packages from the 'important' and 'standard' sets
+#######################################################################
+chroot $fs apt-get install -qy dctrl-tools
+chroot $fs grep-aptavail --no-field-names --show-field Package --field Priority --regex 'standard\|important' \
+  | chroot $fs xargs apt-get install -qy --no-install-recommends pinentry-curses
+  # avoid pulling parts of X ____________|                       |
+  # avoid gnupg-agent pulling pinentry-gtk2 on jessie ___________|
+chroot $fs apt-get purge -qy dctrl-tools
 
 #######################################################################
 # setup root user
@@ -50,7 +59,6 @@ chroot $fs chown -R vagrant:vagrant /home/vagrant/.ssh
 # setup passwordless sudo for vagrant user
 #######################################################################
 chroot $fs apt-get install -qy sudo
-chroot $fs apt-get clean
 cat > $fs/etc/sudoers.d/vagrant <<EOF
 vagrant ALL=(ALL) NOPASSWD:ALL
 EOF
@@ -62,3 +70,9 @@ chmod 0440 $fs/etc/sudoers.d/vagrant
 if [ -n "$hostname" ]; then
   echo "${hostname%%.*}" > $fs/etc/hostname
 fi
+
+#######################################################################
+# cleanup
+#######################################################################
+chroot $fs apt-get clean
+rm -f $fs/usr/sbin/policy-rc.d
