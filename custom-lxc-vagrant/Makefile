@@ -36,7 +36,7 @@ $(BOXES): %.box : %/rootfs.tar.gz %/metadata.json %/lxc-config
 
 %/rootfs: %/base.stamp
 	cp -dR --preserve=mode,ownership $(LXC_PATH)/$*-base/rootfs $@ && \
-		./vagrant-setup $@ $* || \
+		$(CURDIR)/../helpers/vagrant-setup $@ $* || \
 		($(RM) -r $@; false)
 
 %/lxc-config.in: %/base.stamp

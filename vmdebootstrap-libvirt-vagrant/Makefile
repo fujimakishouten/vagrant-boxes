@@ -1,5 +1,5 @@
 DISTRIBUTIONS = wheezy jessie stretch sid
-VMDEBOOTSTRAP_OPTIONS = --customize=$(CURDIR)/vagrant-setup --package=rsync
+VMDEBOOTSTRAP_OPTIONS = --customize=$(CURDIR)/../helpers/vagrant-setup --package=rsync
 
 all:
 	@echo "Usage: make <distribution>"
