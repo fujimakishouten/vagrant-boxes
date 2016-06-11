@@ -1,7 +1,7 @@
 {
     "description": "Vanilla Debian Wheezy base box",
     "variables": {
-        "box_version": "7.10.0",
+        "box_version": "7.11.0",
         "box_changelog": "* new oldstable point release",
         "atlas_token": "{{env `ATLAS_TOKEN`}}"
       },
@@ -30,9 +30,9 @@
       "hard_drive_interface": "sata",
       "headless": true,
       "http_directory": "http",
-      "iso_checksum": "1ade0f396aee06e51e6333f2a947c7ab234f63c61e4a8495f9a20a16cff755b2",
+      "iso_checksum": "62876fb786f203bc732ec1bd2ca4c8faea19d0a97c5936d69f3406ef92ff49bd",
       "iso_checksum_type": "sha256",
-      "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.10.0/amd64/iso-cd/debian-7.10.0-amd64-netinst.iso",
+      "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.11.0/amd64/iso-cd/debian-7.11.0-amd64-netinst.iso",
       "shutdown_command": "sudo /sbin/halt -p",
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
