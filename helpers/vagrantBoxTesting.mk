@@ -12,3 +12,10 @@ define functest
  @vagrant box remove $1
  @rm Vagrantfile
 endef
+
+define forcecleantest
+	-vagrant halt --force
+	-vagrant destroy --force
+	-$(RM) Vagrantfile
+	-vagrant box remove $1
+endef
