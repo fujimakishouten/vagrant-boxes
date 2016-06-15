@@ -25,10 +25,8 @@
         "<enter><wait>"
       ],
       "disk_size": "10140",
-      "guest_additions_mode": "upload",
-      "guest_os_type": "Debian_64",
-      "hard_drive_interface": "sata",
-      "headless": true,
+      "disk_interface": "virtio-scsi",
+      "headless": false,
       "http_directory": "http",
       "iso_checksum": "ad4e8c27c561ad8248d5ebc1d36eb172f884057bfeb2c22ead823f59fa8c3dff",
       "iso_checksum_type": "sha256",
@@ -38,33 +36,10 @@
       "ssh_username": "vagrant",
       "ssh_port": "22",
       "ssh_wait_timeout": "10000s",
-      "type": "virtualbox-iso",
-      "vm_name": "debiancontrib-jessie",
-      "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "512"],
-        ["modifyvm", "{{.Name}}", "--cpus", "1"]
-      ]
+      "type": "qemu",
+      "accelerator": "kvm",
+      "vm_name": "debiancontrib-jessie"
     }
-  ],
-  "post-processors": [
-    [
-      {
-        "type": "vagrant",
-        "output": "contrib-jessie64.box"
-      },
-      {
-        "type": "atlas",
-        "artifact": "debian/contrib-jessie64",
-        "artifact_type": "vagrant.box",
-        "token": "{{user `atlas_token`}}",
-        "metadata": {
-          "provider": "virtualbox",
-          "version": "{{user `box_version`}}",
-          "description": "{{user `box_changelog`}}"
-        },
-        "keep_input_artifact": true
-      }
-    ]
   ],
   "provisioners": [
     {
@@ -72,11 +47,10 @@
       "pause_before": "5s",
       "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
       "override": {
-        "virtualbox-iso": {
+        "qemu": {
           "scripts": [
             "scripts/base.sh",
             "scripts/vagrant.sh",
-            "scripts/virtualbox.sh",
             "scripts/cleanup.sh",
             "scripts/minimize.sh"
           ]
