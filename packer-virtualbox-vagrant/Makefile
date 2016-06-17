@@ -1,50 +1,50 @@
 export VAGRANT_DEFAULT_PROVIDER = virtualbox
 
-OLD_STABLE_BOX = wheezy64.box
-STABLE_BOX = jessie64.box
+DISTRIBUTIONS = wheezy jessie stretch sid contrib-jessie
+SHELL := /bin/bash # needed for |&
 
-CONTRIB_STABLE_BOX = contrib-jessie64.box
+include ../helpers/vagrantBoxTesting.mk
 
-all: oldstable-test stable-test
+#.PRECIOUS: %.build %.vmdk %.box
 
-$(OLD_STABLE_BOX):
-	packer build wheezy64.json
-$(STABLE_BOX):
-	packer build jessie64.json
-$(CONTRIB_STABLE_BOX):
-	packer push contrib-jessie64.json
+all:
+	@echo "Usage: make <distribution>"
+	@echo "Available distributions: $(DISTRIBUTIONS)"
 
-define functest
- @ # $< is the fist dependency of the target
- @echo functional testing for $(<) box
- @vagrant box add --name $1 $2
- @vagrant init $1
- @vagrant up
- @vagrant ssh -c "sudo apt-get --quiet --yes install linuxlogo && linuxlogo"
- @vagrant ssh -c "lsb_release -dr"
- @vagrant ssh -c "test -f /vagrant/Makefile && echo -e $(tput bold) syncing successfull !"
- @vagrant halt
- @vagrant destroy --force
- @vagrant box remove $1
- @rm Vagrantfile
-endef
+$(DISTRIBUTIONS): % : %.box
+
+%.box: %.vmdk
+	VBoxManage createvm --name $* --ostype "Debian_64" --register --basefolder $(CURDIR)/vbox/
+	VBoxManage modifyvm $* --memory 512
+	VBoxManage storagectl $* --name "SATA Controller" --add sata  --controller IntelAHCI --portcount 1
+	# kernel waits up to three seconds for a floppy controller, so better add one for faster bootup
+	VBoxManage storagectl $* --name "Floppy Controller Controller" --add floppy
+	VBoxManage storageattach $* --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium $*.vmdk
+	#vagrant package --base $* --vagrantfile Vagrantfile.in --output $*.box
+	vagrant package --base $* --output $*.box
+	VBoxManage unregistervm $*
+	$(RM) vbox/$*/$*.vbox vbox/$*/$*.vbox-prev
+	rmdir vbox/$*
+
+%.vmdk: %.build
+	qemu-img convert -O vmdk $</$*.raw $*.vmdk
+
+%.build:
+	packer build $*.json |& tee $*.log
+
+clean:
+	-$(RM) *.log
+	-$(RM) *.build/*
+	-rmdir *.build
 
 # test initialization / login / network
-oldstable-test: $(OLD_STABLE_BOX)
-	$(call functest, fresh-$(<), $(<))
+%.tested: %.box clean
+	! test -c /dev/kvm # make sure kvm is not loaded, it conflicts with VBox
+	$(call functest, fresh-$(*), $(<))
 	touch $@
 
-stable-test: $(STABLE_BOX)
-	$(call functest, fresh-$(<), $(<))
-	touch $@
-
-.PHONY: cleanall cleanrelease
-
-oldstable-upload: oldstable-test
-	../helpers/atlas-cli.pl $(patsubst %.box, %, $(OLD_STABLE_BOX))
-
-stable-upload: stable-test
-	../helpers/atlas-cli.pl $(patsubst %.box, %, $(STABLE_BOX))
+%.uploaded: $*.test
+	../helpers/atlas-cli.pl $*.box
 
 SHA256SUMS.gpg:
 	sha256sum $(OLD_STABLE_BOX) >> SHA256SUMS
@@ -54,11 +54,12 @@ SHA256SUMS.gpg:
 release: cleanrelease SHA256SUMS.gpg
 	scp SHA256SUMS SHA256SUMS.gpg kdev-guest@alioth.debian.org:/home/groups/cloud/htdocs/vagrantboxes/
 
-cleanall:
-	-rm oldstable-test
-	-rm stable-test
-	-rm $(OLD_STABLE_BOX)
-	-rm $(STABLE_BOX)
+.PHONY: cleanall cleanrelease %.cleantest
+cleanall: clean
+	$(RM) *.vmdk *.box *.uploaded *.tested
+
+%.cleantest:
+	$(call forcecleantest, fresh-$(*))
 
 cleanrelease:
 	-rm SHA256SUMS.gpg
