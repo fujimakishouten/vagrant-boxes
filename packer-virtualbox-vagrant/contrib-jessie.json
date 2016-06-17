@@ -25,7 +25,7 @@
         "<enter><wait>"
       ],
       "disk_size": "10140",
-      "disk_interface": "virtio-scsi",
+      "disk_interface": "virtio",
       "headless": false,
       "http_directory": "http",
       "iso_checksum": "ad4e8c27c561ad8248d5ebc1d36eb172f884057bfeb2c22ead823f59fa8c3dff",
@@ -37,8 +37,11 @@
       "ssh_port": "22",
       "ssh_wait_timeout": "10000s",
       "type": "qemu",
+      "qemuargs": [[ "-m", "1024M" ],[ "-smp", "2" ]],
       "accelerator": "kvm",
-      "vm_name": "debiancontrib-jessie"
+      "vm_name": "contrib-jessie.raw",
+      "output_directory": "contrib-jessie.build",
+      "format": "raw"
     }
   ],
   "provisioners": [
@@ -51,6 +54,7 @@
           "scripts": [
             "scripts/base.sh",
             "scripts/vagrant.sh",
+            "scripts/vb-guest-additions.sh",
             "scripts/cleanup.sh",
             "scripts/minimize.sh"
           ]
