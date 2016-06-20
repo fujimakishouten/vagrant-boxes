@@ -43,10 +43,7 @@ clean:
 
 # test initialization / login / network
 %.tested: %.box clean
-	sudo /sbin/modprobe --remove kvm-intel
-	! test -c /dev/kvm # make sure kvm is not loaded, it conflicts with VBox
 	$(call functest, fresh-$(*), $(<))
-	sudo /sbin/modprobe kvm-intel
 	touch $@
 
 %.uploaded: $*.test
