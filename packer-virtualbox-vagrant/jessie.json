@@ -25,10 +25,8 @@
         "<enter><wait>"
       ],
       "disk_size": "10140",
-      "guest_additions_mode": "disable",
-      "guest_os_type": "Debian_64",
-      "hard_drive_interface": "sata",
-      "headless": true,
+      "disk_interface": "virtio",
+      "headless": false,
       "http_directory": "http",
       "iso_checksum": "ad4e8c27c561ad8248d5ebc1d36eb172f884057bfeb2c22ead823f59fa8c3dff",
       "iso_checksum_type": "sha256",
@@ -38,19 +36,12 @@
       "ssh_username": "vagrant",
       "ssh_port": "22",
       "ssh_wait_timeout": "10000s",
-      "type": "virtualbox-iso",
-      "vm_name": "debian-jessie",
-      "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "512"],
-        ["modifyvm", "{{.Name}}", "--cpus", "1"]
-      ]
-    }
-  ],
-  "post-processors": [
-    {
-      "type": "vagrant",
-      "output": "jessie64.box",
-      "vagrantfile_template": "assets/rsync_for_sharedfolders_Vagrantfile"
+      "type": "qemu",
+      "qemuargs": [[ "-m", "1024M" ],[ "-smp", "2" ]],
+      "accelerator": "kvm",
+      "vm_name": "jessie.raw",
+      "output_directory": "jessie.build",
+      "format": "raw"
     }
   ],
   "provisioners": [
@@ -59,7 +50,7 @@
       "pause_before": "5s",
       "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
       "override": {
-        "virtualbox-iso": {
+        "qemu": {
           "scripts": [
             "scripts/base.sh",
             "scripts/vagrant.sh",

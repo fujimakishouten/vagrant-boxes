@@ -1,10 +1,10 @@
 {
-    "description": "Vanilla Debian Wheezy base box",
-    "variables": {
-        "box_version": "7.11.0",
-        "box_changelog": "* new oldstable point release",
-        "atlas_token": "{{env `ATLAS_TOKEN`}}"
-      },
+  "description": "Vanilla Debian Wheezy base box",
+  "variables": {
+      "box_version": "7.11.0",
+      "box_changelog": "* new stable point release",
+      "atlas_token": "{{env `ATLAS_TOKEN`}}"
+    },
   "builders": [
     {
       "boot_command": [
@@ -25,10 +25,8 @@
         "<enter><wait>"
       ],
       "disk_size": "10140",
-      "guest_os_type": "Debian_64",
-      "guest_additions_mode": "disable",
-      "hard_drive_interface": "sata",
-      "headless": true,
+      "disk_interface": "virtio",
+      "headless": false,
       "http_directory": "http",
       "iso_checksum": "62876fb786f203bc732ec1bd2ca4c8faea19d0a97c5936d69f3406ef92ff49bd",
       "iso_checksum_type": "sha256",
@@ -38,19 +36,12 @@
       "ssh_username": "vagrant",
       "ssh_port": "22",
       "ssh_wait_timeout": "10000s",
-      "type": "virtualbox-iso",
-      "vm_name": "debian-wheezy",
-      "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "512"],
-        ["modifyvm", "{{.Name}}", "--cpus", "1"]
-      ]
-    }
-  ],
-  "post-processors": [
-    {
-      "type": "vagrant",
-      "output": "wheezy64.box",
-      "vagrantfile_template": "assets/rsync_for_sharedfolders_Vagrantfile"
+      "type": "qemu",
+      "qemuargs": [[ "-m", "1024M" ],[ "-smp", "2" ]],
+      "accelerator": "kvm",
+      "vm_name": "wheezy.raw",
+      "output_directory": "wheezy.build",
+      "format": "raw"
     }
   ],
   "provisioners": [
@@ -59,7 +50,7 @@
       "pause_before": "5s",
       "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
       "override": {
-        "virtualbox-iso": {
+        "qemu": {
           "scripts": [
             "scripts/base.sh",
             "scripts/vagrant.sh",
