@@ -1,17 +1,22 @@
 export VAGRANT_DEFAULT_PROVIDER = virtualbox
 
 DISTRIBUTIONS = wheezy jessie stretch sid contrib-jessie
-SHELL := /bin/bash # needed for |&
+SHELL = /bin/bash # needed for |&
 
 include ../helpers/vagrantBoxTesting.mk
 
-#.PRECIOUS: %.build %.vmdk %.box
+.PRECIOUS: %.build %.vmdk %.box
 
 all:
 	@echo "Usage: make <distribution>"
 	@echo "Available distributions: $(DISTRIBUTIONS)"
 
 $(DISTRIBUTIONS): % : %.box
+
+# set the shared floder method to rsync for most boxes
+PACKAGE_FLAGS = --vagrantfile Vagrantfile.in
+# contrib boxes use VirtualBox default, ie vboxfs kernel module
+contrib-%.box: PACKAGE_FLAGS =
 
 %.box: %.vmdk
 	VBoxManage createvm --name $* --ostype "Debian_64" --register --basefolder $(CURDIR)/vbox/
@@ -20,8 +25,7 @@ $(DISTRIBUTIONS): % : %.box
 	# kernel waits up to three seconds for a floppy controller, so better add one for faster bootup
 	VBoxManage storagectl $* --name "Floppy Controller Controller" --add floppy
 	VBoxManage storageattach $* --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium $*.vmdk
-	#vagrant package --base $* --vagrantfile Vagrantfile.in --output $*.box
-	vagrant package --base $* --output $*.box
+	vagrant package --base $* --output $*.box $(PACKAGE_FLAGS)
 	VBoxManage unregistervm $*
 	$(RM) vbox/$*/$*.vbox vbox/$*/$*.vbox-prev
 	rmdir vbox/$*
