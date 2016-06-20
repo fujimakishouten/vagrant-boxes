@@ -20,17 +20,33 @@ use Data::Dumper;
 # export ATLAS_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
 my $atlas_token = $ENV{'ATLAS_TOKEN'} || die 'please set ATLAS_TOKEN';
 my $builder_dir = getcwd;
-my ($codename) = $ARGV[0] // 'testing64';
-
-my $manifest =join('', $builder_dir, '/', $codename, '.json');
-my $version = json_fileread('box_version', $manifest);
-my $version_log = json_fileread('box_changelog', $manifest);
-my $provider = 'virtualbox';
 my $end_point = 'https://atlas.hashicorp.com/api/v1/box/debian';
-
 my $ua = LWP::UserAgent->new;
 my $JSONprinter = JSON->new()->canonical->pretty;
 my $verbose = 1;
+
+sub main {
+    my $codename = $ARGV[0] // 'testing64';
+    my $manifest =join('', $builder_dir, '/', $codename, '.json');
+    my $version = json_fileread('box_version', $manifest);
+    my $version_log = json_fileread('box_changelog', $manifest);
+    my $provider = 'virtualbox';
+
+#	delver() && exit(0);
+#	createver();
+#	checkver();
+#	update();
+#	createprovider();
+#	checkprovider();
+#	get_uploadpath();
+#	uploadbox(get_uploadpath());
+
+    createver($codename, $version, $version_log)
+	&& createprovider($codename, $version, $provider)
+	&& uploadbox(get_uploadpath($codename, $version, $provider), $codename);
+}
+
+main();
 
 sub json_fileread {
 	my ($key, $template) = @_;
@@ -70,12 +86,14 @@ sub printJSON {
 }
 
 sub checkver {
+	my ($codename, $version) = @_;
 	my $url = join('/', $end_point, $codename, "version", "$version?access_token=$atlas_token");
 	my $response = $ua->get($url);
 	printJSON($response);
 }
 
 sub createver {
+	my ($codename, $version, $version_log) = @_;
 	my $url = join('/', $end_point, $codename, "versions");
 	my	$response = $ua->post($url, 
 		[
@@ -89,6 +107,7 @@ sub createver {
 }
 
 sub delver {
+	my ($codename, $version) = @_;
 	my $url = join('/', $end_point, $codename, "version", $version);
 	
 	# Arguments in LWP::UserAgent::delete() are used to create headers not content. 
@@ -103,6 +122,7 @@ sub delver {
 }
 
 sub update {
+	my ($codename, $version, $version_log) = @_;
 	my $url = join('/', $end_point, $codename, "version", $version);
 	my	$response = $ua->put($url, 
 		[
@@ -116,6 +136,7 @@ sub update {
 }
 
 sub createprovider {
+	my ($codename, $version, $provider) = @_;
 	my $url = join('/', $end_point, $codename, "version", $version, "providers");
 	my	$response = $ua->post($url, 
 		[ 'provider[name]', "$provider", 'access_token', "$atlas_token"]
@@ -125,6 +146,7 @@ sub createprovider {
 }
 
 sub checkprovider {
+	my ($codename, $version, $provider) = @_;
 	my $url = join('/', $end_point, $codename, "version", $version, "provider", $provider, "?access_token=$atlas_token");
 	my $response = $ua->get($url);
 	printJSON($response);
@@ -132,6 +154,7 @@ sub checkprovider {
 }
 
 sub get_uploadpath {
+	my ($codename, $version, $provider) = @_;
 	my $url = join('/', $end_point, $codename, "version", $version, "provider", $provider, "upload", "?access_token=$atlas_token");
 	my $response = $ua->get($url);
 	printJSON($response);
@@ -141,7 +164,7 @@ sub get_uploadpath {
 }
 
 sub uploadbox {
-	my ($url) = @_;
+	my ($url, $codename) = @_;
 	my $curl = "curl -X PUT $url --upload-file $codename.box";
 	$OUTPUT_AUTOFLUSH = 1;
 
@@ -149,18 +172,4 @@ sub uploadbox {
     while (<CURL>) { say; }
 }
 
-sub main {
-#	delver() && exit(0);
-#	createver();
-#	checkver();
-#	update();
-#	createprovider();
-#	checkprovider();
-#	get_uploadpath();
-#	uploadbox(get_uploadpath());
 
-createver() && createprovider() && uploadbox(get_uploadpath());
-
-}
-
-main();
