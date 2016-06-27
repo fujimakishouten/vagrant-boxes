@@ -2,11 +2,19 @@
 
 set -e
 
-fs="$1"
-hostname="$2"
-if [ -z "$fs" ]; then
-  echo "usage: $0 ROOTFS [HOSTNAME]"
+if [ $1 ]; then
+  fs=$1
+elif [ $VAGRANT_BUILDER_FS ]; then
+  fs=$VAGRANT_BUILDER_FS
+else
+  echo "usage: $0 ROOTFS [HOSTNAME]";
   exit 1
+fi
+
+if [ $2 ]; then
+  hostname=$2
+elif [ $VAGRANT_BUILDER_HOSTNAME ]; then
+  hostname=$VAGRANT_BUILDER_HOSTNAME
 fi
 
 set -x
