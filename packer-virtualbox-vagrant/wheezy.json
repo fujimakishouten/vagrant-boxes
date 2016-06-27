@@ -48,17 +48,16 @@
     {
       "type": "shell",
       "pause_before": "5s",
-      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
-      "override": {
-        "qemu": {
-          "scripts": [
-            "scripts/base.sh",
-            "scripts/vagrant.sh",
-            "scripts/cleanup.sh",
-            "scripts/minimize.sh"
-          ]
-        }
-      }
+      "execute_command": "echo 'vagrant'| {{.Vars}} sudo -E -S sh '{{.Path}}'",
+      "environment_vars": [
+         "VAGRANT_BUILDER_FS=/",
+         "VAGRANT_BUILDER_HOSTNAME=jessie"
+      ],
+      "scripts": [
+        "scripts/base.sh",
+        "../helpers/vagrant-setup",
+        "scripts/minimize.sh"
+      ]
     }
   ]
 }
