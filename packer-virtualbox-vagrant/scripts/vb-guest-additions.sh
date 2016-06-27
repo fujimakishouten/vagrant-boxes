@@ -8,3 +8,5 @@ apt-get --yes install --no-install-recommends linux-headers-amd64 virtualbox-gue
 
 # cleanup virtualbox stuff
 apt-get --yes remove linux-headers-amd64
+apt-get --yes autoremove
+apt-get --yes clean
