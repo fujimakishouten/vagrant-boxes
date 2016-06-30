@@ -42,12 +42,13 @@ clean:
 	-rmdir *.build
 
 # test initialization / login / network
-%.tested: %.box clean
+%.tested: %.box
+	make clean # don't clean as dependency to prevent being called each time
 	$(call functest, fresh-$(*), $(<))
 	touch $@
 
-%.uploaded: $*.test
-	../helpers/atlas-cli.pl $*.box
+%.uploaded: %.tested
+	../helpers/atlas-cli.pl $*
 
 SHA256SUMS.gpg:
 	sha256sum $(OLD_STABLE_BOX) >> SHA256SUMS
