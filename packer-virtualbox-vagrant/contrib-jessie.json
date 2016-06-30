@@ -26,7 +26,7 @@
       ],
       "disk_size": "10140",
       "disk_interface": "virtio",
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "iso_checksum": "ad4e8c27c561ad8248d5ebc1d36eb172f884057bfeb2c22ead823f59fa8c3dff",
       "iso_checksum_type": "sha256",

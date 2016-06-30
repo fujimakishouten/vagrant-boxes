@@ -26,7 +26,7 @@
       ],
       "disk_size": "10140",
       "disk_interface": "virtio",
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "iso_checksum": "62876fb786f203bc732ec1bd2ca4c8faea19d0a97c5936d69f3406ef92ff49bd",
       "iso_checksum_type": "sha256",
@@ -50,8 +50,7 @@
       "pause_before": "5s",
       "execute_command": "echo 'vagrant'| {{.Vars}} sudo -E -S sh '{{.Path}}'",
       "environment_vars": [
-         "VAGRANT_BUILDER_FS=/",
-         "VAGRANT_BUILDER_HOSTNAME=jessie"
+         "VAGRANT_BUILDER_FS=/"
       ],
       "scripts": [
         "scripts/base.sh",
