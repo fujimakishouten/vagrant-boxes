@@ -1,8 +1,8 @@
 {
   "description": "Contrib Debian Jessie base box, build using contrib sources",
   "variables": {
-      "box_version": "8.5.0",
-      "box_changelog": "* new stable point release",
+      "box_version": "8.5.1",
+      "box_changelog": "* build locally, since free builds in atlas will end up soon\n* build with qemu then convert to VboxImage (allows build system to run inside KVM, workaround for https://www.virtualbox.org/ticket/4032)",
       "atlas_token": "{{env `ATLAS_TOKEN`}}"
     },
   "builders": [
