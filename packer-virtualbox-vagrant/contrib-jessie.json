@@ -54,7 +54,6 @@
          "VAGRANT_BUILDER_HOSTNAME=contrib-jessie"
       ],
       "scripts": [
-        "scripts/base.sh",
         "../helpers/vagrant-setup",
         "scripts/vb-guest-additions.sh",
         "scripts/minimize.sh"

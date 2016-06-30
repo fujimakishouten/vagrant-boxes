@@ -53,7 +53,6 @@
          "VAGRANT_BUILDER_FS=/"
       ],
       "scripts": [
-        "scripts/base.sh",
         "../helpers/vagrant-setup",
         "scripts/minimize.sh"
       ]

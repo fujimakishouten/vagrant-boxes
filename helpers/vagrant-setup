@@ -80,6 +80,23 @@ if [ -n "$hostname" ]; then
 fi
 
 #######################################################################
+# speed up tweaks
+#######################################################################
+
+# Prevent DNS resolution (speed up logins)
+echo 'UseDNS no' >> $fs/etc/ssh/sshd_config
+
+# Reduce grub timeout to 1s to speed up booting
+# but only if we are not in a chroot
+[ -f $fs/etc/default/grub ] && \
+  chroot $fs mountpoint -q /dev/ && \
+  sed -i s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/ $fs/etc/default/grub
+
+[ -x $fs/usr/sbin/update-grub ] && \
+  chroot $fs mountpoint -q /dev/ && \
+  chroot $fs /usr/sbin/update-grub
+
+#######################################################################
 # cleanup
 #######################################################################
 chroot $fs apt-get clean
