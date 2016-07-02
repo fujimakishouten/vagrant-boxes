@@ -1,6 +1,7 @@
 export VAGRANT_DEFAULT_PROVIDER = virtualbox
 
 DISTRIBUTIONS = wheezy jessie stretch sid contrib-jessie
+TESTED = wheezy.tested jessie.tested contrib-jessie.tested
 SHELL = /bin/bash # needed for |&
 
 include ../helpers/vagrantBoxTesting.mk
@@ -12,6 +13,7 @@ all:
 	@echo "Available distributions: $(DISTRIBUTIONS)"
 
 $(DISTRIBUTIONS): % : %.box
+$(TESTED): % :
 
 # set the shared floder method to rsync for most boxes
 PACKAGE_FLAGS = --vagrantfile Vagrantfile.in
@@ -36,35 +38,42 @@ contrib-%.box: PACKAGE_FLAGS =
 %.build:
 	packer build $*.json |& tee $*.log
 
-clean:
-	-$(RM) *.log
-	-$(RM) *.build/*
-	-rmdir *.build
-
 # test initialization / login / network
 %.tested: %.box
-	make clean # don't clean as dependency to prevent being called each time
+	make clean # don- try to rsync gigabytes of data to the vm
 	$(call functest, fresh-$(*), $(<))
 	touch $@
 
 %.uploaded: %.tested
 	../helpers/atlas-cli.pl $*
+	touch $@
 
-SHA256SUMS.gpg:
-	sha256sum $(OLD_STABLE_BOX) >> SHA256SUMS
-	sha256sum $(STABLE_BOX) >> SHA256SUMS
-	gpg --sign SHA256SUMS
+%.SHA256SUM.gpg: %.uploaded
+	make $*.cleansign
+	sha256sum $*.box > $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM
+	gpg --sign $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM
 
-release: cleanrelease SHA256SUMS.gpg
-	scp SHA256SUMS SHA256SUMS.gpg kdev-guest@alioth.debian.org:/home/groups/cloud/htdocs/vagrantboxes/
+%.released: %.SHA256SUM.gpg
+	scp $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM \
+	    $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM.gpg \
+	    kdev-guest@alioth.debian.org:/home/groups/cloud/htdocs/vagrantboxes/
+	@echo "everything done, please release the box $*64 on atlas.com"
+	touch $@
 
-.PHONY: cleanall cleanrelease %.cleantest
+.PHONY: clean cleanall cleanrelease %.cleantest
+
+clean:
+	-$(RM) *.log
+	-$(RM) *.build/*
+	-$(RM) *.vmdk
+	-rmdir *.build
+
 cleanall: clean
-	$(RM) *.vmdk *.box *.uploaded *.tested
+	$(RM) *.box *.uploaded *.tested
 
 %.cleantest:
 	$(call forcecleantest, fresh-$(*))
 
-cleanrelease:
-	-rm SHA256SUMS.gpg
-	-rm SHA256SUMS
+%.cleansign:
+	-rm $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM.gpg
+	-rm $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM
