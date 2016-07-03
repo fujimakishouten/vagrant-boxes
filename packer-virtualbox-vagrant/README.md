@@ -13,11 +13,9 @@ See https://wiki.debian.org/Teams/Cloud/RebuildVagrantBaseBoxes
 
 ## Releasing a new version:
 * Update the changelog and version in $CODENAME.json
-* Call make oldstable-test | make stable-test
 * export ATLAS_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
-* Upload boxes on atlas with make oldstable-upload | stable-upload
+* Call `make $CODENAME.released` to sign the boxes and upload the checksums to Alioth
 * Release the boxes on atlas
-* Call `make release` to sign the boxes and upload the checksums to Alioth
 
 ## Credits
 
