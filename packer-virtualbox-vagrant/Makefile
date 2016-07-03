@@ -63,13 +63,12 @@ contrib-%.box: PACKAGE_FLAGS =
 .PHONY: clean cleanall cleanrelease %.cleantest
 
 clean:
-	-$(RM) *.log
 	-$(RM) *.build/*
 	-$(RM) *.vmdk
 	-rmdir *.build
 
 cleanall: clean
-	$(RM) *.box *.uploaded *.tested
+	$(RM) *.box *.uploaded *.tested *.log
 
 %.cleantest:
 	$(call forcecleantest, fresh-$(*))
