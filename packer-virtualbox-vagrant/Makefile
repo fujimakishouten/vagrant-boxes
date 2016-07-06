@@ -3,6 +3,9 @@ export VAGRANT_DEFAULT_PROVIDER = virtualbox
 DISTRIBUTIONS = wheezy jessie stretch sid contrib-jessie
 TESTED = wheezy.tested jessie.tested contrib-jessie.tested
 SHELL = /bin/bash # needed for |&
+# exit on undefined variables, pipeline fails if one command fails
+.SHELLFLAGS = -u -o pipefail -c
+TEE = |& tee --append $*.log # log every command
 
 include ../helpers/vagrantBoxTesting.mk
 
@@ -21,28 +24,28 @@ PACKAGE_FLAGS = --vagrantfile Vagrantfile.in
 contrib-%.box: PACKAGE_FLAGS =
 
 %.box: %.vmdk
-	VBoxManage createvm --name $* --ostype "Debian_64" --register --basefolder $(CURDIR)/vbox/
-	VBoxManage modifyvm $* --memory 512
-	VBoxManage storagectl $* --name "SATA Controller" --add sata  --controller IntelAHCI --portcount 1
+	VBoxManage createvm --name $* --ostype "Debian_64" --register --basefolder $(CURDIR)/vbox/ $(TEE)
+	VBoxManage modifyvm $* --memory 512 $(TEE)
+	VBoxManage storagectl $* --name "SATA Controller" --add sata  --controller IntelAHCI --portcount 1 $(TEE)
 	# kernel waits up to three seconds for a floppy controller, so better add one for faster bootup
-	VBoxManage storagectl $* --name "Floppy Controller Controller" --add floppy
-	VBoxManage storageattach $* --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium $*.vmdk
-	vagrant package --base $* --output $*.box $(PACKAGE_FLAGS)
-	VBoxManage unregistervm $*
-	$(RM) vbox/$*/$*.vbox vbox/$*/$*.vbox-prev
-	rmdir vbox/$*
+	VBoxManage storagectl $* --name "Floppy Controller Controller" --add floppy $(TEE)
+	VBoxManage storageattach $* --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium $*.vmdk $(TEE)
+	vagrant package --base $* --output $*.box $(PACKAGE_FLAGS) $(TEE)
+	VBoxManage unregistervm $* $(TEE)
+	$(RM) vbox/$*/$*.vbox vbox/$*/$*.vbox-prev $(TEE)
+	rmdir vbox/$* $(TEE)
 
 %.vmdk: %.build
-	qemu-img convert -O vmdk $</$*.raw $*.vmdk
+	qemu-img convert -O vmdk $</$*.raw $*.vmdk $(TEE)
 
 %.build:
-	packer build $*.json |& tee $*.log
+	packer build $*.json $(TEE)
 
 # test initialization / login / network
 %.tested: %.box
-	make clean # don- try to rsync gigabytes of data to the vm
-	$(call functest, fresh-$(*), $(<))
-	touch $@
+	make clean $(TEE) # don't try to rsync gigabytes of data to the vm
+	$(call functest, fresh-$(*), $(<)) $(TEE)
+	touch $@ $(TEE)
 
 %.uploaded: %.tested
 	../helpers/atlas-cli.pl $*
