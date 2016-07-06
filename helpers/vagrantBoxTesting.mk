@@ -5,7 +5,7 @@ define functest
  @vagrant init $1 $(TEE)
  @vagrant up $(TEE)
  @vagrant ssh -c "sudo apt-get --quiet --yes install figlet \
-     && ( grep ^ID /etc/os-release; cat /etc/debian_version) | figlet" $(TEE)
+     && ( lsb_release --release --codename ) | figlet" $(TEE)
  @vagrant ssh -c "test -f /vagrant/Makefile \
      && echo -e $(tput bold) syncing successfull !" $(TEE)
  @vagrant halt $(TEE)

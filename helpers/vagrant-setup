@@ -33,9 +33,8 @@ chroot $fs apt-get -qy dist-upgrade
 #######################################################################
 chroot $fs apt-get install -qy dctrl-tools
 chroot $fs grep-aptavail --no-field-names --show-field Package --field Priority --regex 'standard\|important' \
-  | chroot $fs xargs apt-get install -qy --no-install-recommends pinentry-curses
-  # avoid pulling parts of X ____________|                       |
-  # avoid gnupg-agent pulling pinentry-gtk2 on jessie ___________|
+  | chroot $fs xargs apt-get install -qy pinentry-curses
+  # avoid gnupg-agent pulling pinentry-gtk2 on jessie_|
 chroot $fs apt-get purge -qy dctrl-tools
 
 #######################################################################
