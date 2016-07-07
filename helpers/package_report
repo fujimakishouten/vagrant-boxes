@@ -1,0 +1,7 @@
+#!/bin/sh
+for PRIORITY in required important standard optional; do
+    COUNT=$(dpkg-query --show --showformat='${Priority}\n' | grep --count $PRIORITY)
+    echo "found $COUNT packages with priority $PRIORITY"
+    dpkg-query --show --showformat='${binary:Package} ${Priority}\n'  | grep $PRIORITY
+done
+
