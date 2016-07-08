@@ -1,8 +1,8 @@
 {
   "description": "Vanilla Debian Jessie base box",
   "variables": {
-      "box_version": "8.5.1",
-      "box_changelog": "* virtualbox: build with qemu then convert to VboxImage (allows build system to run inside KVM, workaround for https://www.virtualbox.org/ticket/4032)\n* virtualbox: avoid installing gtk libs by preselecting pinentry-curses when installing gnupg-agent",
+      "box_version": "8.5.2",
+      "box_changelog": "* virtualbox: re add Recommends packages as it missed important packages and follows debian policy better ( see https://lists.debian.org/debian-cloud/2016/07/msg00007.html )",
       "atlas_token": "{{env `ATLAS_TOKEN`}}"
     },
   "builders": [
