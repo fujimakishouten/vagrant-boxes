@@ -1,6 +1,8 @@
 #!/usr/bin/perl
 # uploads a vagrant base to atlas
-# synthax is ./uploadBox.pl jessie64
+
+# all necessaries perl modules should already be present in a standard debian installation
+# except libjson-perl which should be installed manually
 
 use feature 'say';
 use strict;

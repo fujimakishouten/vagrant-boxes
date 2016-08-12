@@ -48,7 +48,7 @@ contrib-%.box: PACKAGE_FLAGS =
 	touch $@ $(TEE)
 
 %.uploaded: %.tested
-	../helpers/atlas-cli.pl $*
+	../helpers/atlas-cli.pl --box $*.box
 	touch $@
 
 %.SHA256SUM.gpg: %.uploaded
