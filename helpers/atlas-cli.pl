@@ -12,43 +12,105 @@ use LWP::UserAgent;
 use HTTP::Request;
 use HTTP::Response;
 use Cwd;
+use Getopt::Long;
+use File::Basename;
 
 use Data::Dumper;
 
 # see https://vagrantcloud.com/docs/versions
 # put an atlas token in your env like this
 # export ATLAS_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
-my $atlas_token = $ENV{'ATLAS_TOKEN'} || die 'please set ATLAS_TOKEN';
+#
+
+#script defaults
+my $atlas_token = $ENV{'ATLAS_TOKEN'} or die "please export ATLAS_TOKEN as environment variable\n";
 my $builder_dir = getcwd;
 my $end_point   = 'https://atlas.hashicorp.com/api/v1/box/debian';
 my $ua          = LWP::UserAgent->new();
 my $JSONprinter = JSON->new()->canonical->pretty;
 my $verbose     = 1;
-my $debug       = 0;
+
+#exit codes from sysexits.h
+use constant EX_OK => 0;
+use constant EX_USAGE => 64;
+
+
+# defaults for command line switches
+my $box = '';
+my $version = '';
+my $changelog = '';
+my $provider = 'virtualbox';
+my $need_help = '';
+my $debug = '';
 
 sub main {
-	my $box = $ARGV[0] // 'testing.box';
+
+	my $parsing_success = GetOptions('box=s' => \$box,
+			'version=s' => \$version,
+			'changelog=s' => \$changelog,
+			'provider=s' => \$provider,
+			'debug' => \$debug,
+			'help' => \$need_help,
+	);
+
+	print_help(EX_USAGE) if (! $parsing_success);
+	print_help(EX_OK) if $need_help;
+
+	$box or die ("please provide a path to a box with --box\n");
+	-e $box or die("box $box not found\n");
 	my ($codename) = split /\.box/, $box;
-	my $cloudname  = join( '', $codename, '64');
+	my $cloudname  = join('', $codename, '64');
 
-	my $manifest   = join( '', $builder_dir, '/', $codename, '.json');
-	my $version    = json_fileread( 'box_version',   $manifest);
-	my $changelog  = json_fileread( 'box_changelog', $manifest);
-	my $provider   = 'virtualbox';
+	if (! $version || ! $changelog) {
+		my $manifest   = join( '', $builder_dir, '/', $codename, '.json');
+		-f $manifest or die("uname to open a manifest $manifest for $box, use command line switches\n");
+		$version    = json_fileread('box_version', $manifest);
+		$changelog  = json_fileread('box_changelog', $manifest);
+	}
 
-#	delver($cloudname, $version);
+	if (! is_version_existing($cloudname, $version)) {
+		createver($cloudname, $version, $changelog) or die("unable to create version $version for $codename\n");
+	}
 
-	createver($cloudname, $version, $changelog )
-	  unless is_version_existing($cloudname, $version);
+	if (! is_provider_existing($cloudname, $version, $provider)) {
+		createprovider($cloudname, $version, $provider) or die("unable to create $cloudname, $version, $provider\n");
+	}
 
-	createprovider($cloudname, $version, $provider )
-	  unless is_provider_existing($cloudname, $version, $provider);
-
-	uploadbox(get_uploadpath($cloudname, $version, $provider ), $box);
-
+	uploadbox(get_uploadpath($cloudname, $version, $provider), $box);
 }
 
 main();
+
+sub print_help {
+		my ($exit_code) = @_;
+		my $help = basename($0) . "\n";
+		$help .= "\t--box  path to box to upload (defaults to $box)\n";
+		$help .= "\t--version version string\n";
+		$help .= "\t--changelog changelog string in Markdown format (defaults to \"$changelog\")\n";
+		$help .= "\t--provider virtualization provider (default to $provider)\n";
+		$help .= "\t--debug print internal perl data structures \n";
+		$help .= "\t--help display this text \n";
+		$help .= <<EOD;
+
+example1: uploading a lxc box to the debian/sandox64 namespace
+namespace is computed as debian/\$box_filename64
+
+atlas-cli.pl \\
+ --box sandbox.box \\
+ --version 10.1  \\
+ --changelog "* uploading to debian/sandbox64" \\
+ --provider lxc
+
+example2: uploading a virtualbox box to the debian/jessie64 namespace
+version and changelog are infered from the presence of \$box_filename.json file,
+provider is not set and defaults to virtualbox
+
+atlas-cli.pl --box jessie.box
+
+EOD
+		print $help;
+		exit($exit_code);
+}
 
 sub json_fileread {
 	my ($key, $template) = @_;
@@ -86,16 +148,17 @@ sub printJSON {
 
 sub is_version_existing {
 	my ($cloudname, $version) = @_;
-	my $url = join('/',
-		$end_point, $cloudname, "version",
-		"$version?access_token=$atlas_token");
+	my $url = join('/',	$end_point,	$cloudname,	"version", "$version?access_token=$atlas_token");
+
 	my $response = $ua->get($url);
 	return $response->is_success();
 }
 
 sub createver {
 	my ($cloudname, $version, $changelog) = @_;
-	my $url = join('/', $end_point, $cloudname, "versions");
+
+	my $url = join('/', $end_point,	$cloudname,	"versions");
+
 	my $response = $ua->post(
 		$url,
 		[
@@ -104,8 +167,9 @@ sub createver {
 			'access_token'         => "$atlas_token"
 		]
 	);
+
 	printJSON($response);
-	return $response->is_success;
+	return $response->is_success();
 }
 
 sub delver {
@@ -121,7 +185,7 @@ sub delver {
 
 	my $response = $ua->request($req);
 	printJSON($response);
-	return $response->is_success;
+	return $response->is_success();
 }
 
 sub update {
@@ -136,7 +200,7 @@ sub update {
 		]
 	);
 	printJSON($response);
-	return $response->is_success;
+	return $response->is_success();
 }
 
 sub createprovider {
@@ -147,7 +211,7 @@ sub createprovider {
 	  $ua->post($url,
 		[ 'provider[name]', "$provider", 'access_token', "$atlas_token" ]);
 	printJSON($response);
-	return $response->is_success;
+	return $response->is_success();
 }
 
 sub is_provider_existing {
@@ -156,7 +220,7 @@ sub is_provider_existing {
 		$end_point, $cloudname, "version", $version, "provider", $provider,
 		"?access_token=$atlas_token");
 	my $response = $ua->get($url);
-	return $response->is_success;
+	return $response->is_success();
 }
 
 sub get_uploadpath {
@@ -174,8 +238,10 @@ sub get_uploadpath {
 sub uploadbox {
 	my ($url, $box) = @_;
 	my $curl = "curl -X PUT $url --upload-file $box";
+	$curl .= " --verbose" if $debug;
 	$OUTPUT_AUTOFLUSH = 1;
 
 	open CURL, '-|', $curl or die "error: $ERRNO";
 	while (<CURL>) { say; }
+	close CURL;
 }
