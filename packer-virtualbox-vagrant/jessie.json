@@ -1,8 +1,8 @@
 {
   "description": "Vanilla Debian Jessie base box",
   "variables": {
-      "box_version": "8.5.2",
-      "box_changelog": "* virtualbox: re add Recommends packages as it missed important packages and follows debian policy better ( see https://lists.debian.org/debian-cloud/2016/07/msg00007.html )",
+      "box_version": "8.6.0",
+      "box_changelog": "* stable point release\n* do not add vagrant insecure key for root user (closes: #831302)",
       "atlas_token": "{{env `ATLAS_TOKEN`}}"
     },
   "builders": [
@@ -28,9 +28,9 @@
       "disk_interface": "virtio",
       "headless": true,
       "http_directory": "http",
-      "iso_checksum": "ad4e8c27c561ad8248d5ebc1d36eb172f884057bfeb2c22ead823f59fa8c3dff",
+      "iso_checksum": "9479c5c2df72ae3878116c43fb42eefae53d1fe363ce514a6afc8289064b9f5f",
       "iso_checksum_type": "sha256",
-      "iso_url": "http://cdimage.debian.org/cdimage/release/8.5.0/amd64/iso-cd/debian-8.5.0-amd64-netinst.iso",
+      "iso_url": "http://cdimage.debian.org/cdimage/release/8.6.0/amd64/iso-cd/debian-8.6.0-amd64-netinst.iso",
       "shutdown_command": "sudo /sbin/halt -p",
       "ssh_password": "vagrant",
       "ssh_username": "vagrant",
