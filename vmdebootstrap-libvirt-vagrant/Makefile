@@ -1,5 +1,6 @@
 DISTRIBUTIONS = wheezy jessie stretch sid
 VMDEBOOTSTRAP_OPTIONS = --customize=$(CURDIR)/../helpers/vagrant-setup --package=rsync
+VAGRANT_DEFAULT_PROVIDER = libvirt
 
 all:
 	@echo "Usage: make <distribution>"
@@ -17,8 +18,19 @@ $(DISTRIBUTIONS): % : %.box
 	ln $< $@
 
 clean::
-	rm -rf $(DISTRIBUTIONS) *.box
+	rm -rf $(DISTRIBUTIONS) *.box *.tested
+
+
+# multiple calls might need a restart of libvirtd.service
+# see https://bugzilla.redhat.com/show_bug.cgi?id=1221304
+%.tested: %.box
+	$(call functest, fresh-$(*), $(<), $(VAGRANT_DEFAULT_PROVIDER))
+	touch $@
+
+%.cleantest:
+	$(call forcecleantest, fresh-$(*), $(VAGRANT_DEFAULT_PROVIDER))
 
 include ../vmdebootstrap-generic-qcow2/common.mk
+include ../helpers/vagrantBoxTesting.mk
 
 
