@@ -21,3 +21,6 @@ define forcecleantest
 	-$(RM) Vagrantfile
 	-vagrant box remove $1 --provider $2
 endef
+
+clean::
+	rm -rf .vagrant/
