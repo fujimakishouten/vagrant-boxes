@@ -27,6 +27,11 @@ Vagrant.configure("2") do |config|
     #test_vm.vm.network :public_network, :ip => '10.20.30.41'
   #end
 
+  # workaround for #837992
+  # use nfsv4 mode by default since rpcbind is not available on startup
+  # we need to force tcp because udp is not availaible for nfsv4
+  config.vm.synced_folder ".", "/vagrant", type: "nfs", nfs_version: "4", nfs_udp: false
+
   # Options for libvirt vagrant provider.
   config.vm.provider :libvirt do |libvirt|
 
