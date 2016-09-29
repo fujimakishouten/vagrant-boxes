@@ -1,8 +1,8 @@
 {
   "description": "Vanilla Debian Jessie base box",
   "variables": {
-      "box_version": "8.6.0",
-      "box_changelog": "* stable point release\n* do not add vagrant insecure key for root user (closes: #831302)",
+      "box_version": "8.6.1",
+      "box_changelog": "* stable point release\n* do not add vagrant insecure key for root user (closes: #831302)\n* force cable connection on vagrant up (closes: #838999)",
       "atlas_token": "{{env `ATLAS_TOKEN`}}"
     },
   "builders": [
