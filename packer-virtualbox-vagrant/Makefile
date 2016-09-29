@@ -65,7 +65,7 @@ contrib-%.box: PACKAGE_FLAGS =
 
 .PHONY: clean cleanall cleanrelease %.cleantest
 
-clean:
+clean::
 	-$(RM) *.build/*
 	-$(RM) *.vmdk
 	-rmdir *.build
