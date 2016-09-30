@@ -5,10 +5,10 @@ define functest
  @cp ../helpers/package_report . $(TEE)
  @vagrant init $1 $(TEE)
  @vagrant up --provider $3 $(TEE)
- @vagrant ssh -c "sudo apt-get --quiet --yes install figlet \
-     && ( lsb_release --release --codename ) | figlet" $(TEE)
  @vagrant ssh -c "sh /vagrant/package_report" $(TEE)
  @$(RM) package_report $(TEE)
+ @vagrant ssh -c "sudo apt-get --quiet --yes install figlet \
+     && ( lsb_release --release --codename ) | figlet" $(TEE)
  @vagrant halt $(TEE)
  @vagrant destroy --force $(TEE)
  @vagrant box remove $1 --provider $3 $(TEE)
