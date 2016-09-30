@@ -1,5 +1,7 @@
 #!/usr/bin/nodejs
-/* 
+/*  update a packer json manifest when a new stable release
+ *  appears on cdimage.debian.org
+ *
  * debian packages required for this script:
  * nodejs node-semver node-xmlhttprequest
  */
@@ -123,7 +125,7 @@ var updateManifest = function updateManifest(lastRelease, pathToManifest, debug)
     	    debug && console.error(lines[i]);
     	}
     	else if (/"iso_checksum"/.test(lines[i])) {
-    	    lines[i] = elt.replace(/"iso_checksum": ".*",/, '"iso_checksum": "' + lastRelease.sha256sum + '",')
+    	    lines[i] = elt.replace(/"iso_checksum": ".*",/, '"iso_checksum": "' + lastRelease.sha256sum + '",');
     	    debug && console.error(lines[i]);
     	}
     	else if(/"iso_url"/.test(lines[i])) {
@@ -139,7 +141,7 @@ var updateManifest = function updateManifest(lastRelease, pathToManifest, debug)
    	}
    });
     fs.writeFileSync(pathToManifest, fileToWrite);
-    
+
     debug && console.error(fs.readFileSync(pathToManifest, 'utf-8'));
     return 'TODO';
 }
