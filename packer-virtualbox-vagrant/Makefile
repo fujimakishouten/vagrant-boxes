@@ -39,7 +39,7 @@ contrib-%.box: PACKAGE_FLAGS =
 	qemu-img convert -O vmdk $</$*.raw $*.vmdk $(TEE)
 
 %.build:
-	packer build $*.json $(TEE)
+	packer build $*.json |& tee $*.log # create a new log file
 
 # test initialization / login / network
 %.tested: %.box
