@@ -19,9 +19,9 @@ $(DISTRIBUTIONS): % : %.box
 $(TESTED): % :
 
 # set the shared floder method to rsync for most boxes
-PACKAGE_FLAGS = --vagrantfile Vagrantfile.in
+PACKAGE_FLAGS = --vagrantfile Vagrantfile.stable.in
 # contrib boxes use VirtualBox default, ie vboxfs kernel module
-contrib-%.box: PACKAGE_FLAGS =
+contrib-%.box: PACKAGE_FLAGS = --vagrantfile Vagrantfile.contrib-stable.in
 
 %.box: %.vmdk
 	VBoxManage createvm --name $* --ostype "Debian_64" --register --basefolder $(CURDIR)/vbox/ $(TEE)
