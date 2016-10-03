@@ -81,21 +81,23 @@ var getlastRelease = function getlastRelease(currentURL, debug) {
 
     var lines = req.responseText.split('\n');
     var netinst;
+    //isoName: debian string and three digits separated dots
+    var isoRegex = /(debian-\d+\.\d+\.\d+-amd64-netinst.iso$)/;
 
     for (var i = 0; i < lines.length; i++) {
-	if (/debian-\d+\.\d+\.\d+-amd64-netinst.iso$/.test(lines[i])) {
+	if (isoRegex.test(lines[i])) {
 	    netinst = lines[i];
 	    break;
 	}
     }
 
     var lastRelease = {};
-    var sumAndIso = netinst.split('  ');
-    var isoComponents = sumAndIso[1].split('-');
+    // sha256 sum: 64 characters at beginning of line, followed by two spaces
+    lastRelease.sha256sum = netinst.match(/^(\S{64})\s{2}/)[1];
+    // version: three digits separated by dots and ended by string amd64..
+    lastRelease.version = netinst.match(/(\d+\.\d+\.\d+)-amd64-netinst.iso$/)[1];
+    lastRelease.url = currentURL + netinst.match(isoRegex)[1];
 
-    lastRelease.sha256sum = sumAndIso[0];
-    lastRelease.url = currentURL + sumAndIso[1];
-    lastRelease.version = isoComponents[1];
 
     if (debug) {
 	for (prop in lastRelease) {
