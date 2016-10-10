@@ -33,8 +33,8 @@ my $JSONprinter = JSON->new()->canonical->pretty;
 my $verbose     = 1;
 
 #exit codes from sysexits.h
-use constant EX_OK => 0;
-use constant EX_USAGE => 64;
+use constant EXIT_OK => 0;
+use constant EXIT_USAGE => 64;
 
 
 # defaults for command line switches
@@ -55,8 +55,8 @@ sub main {
 			'help' => \$need_help,
 	);
 
-	print_help(EX_USAGE) if (! $parsing_success);
-	print_help(EX_OK) if $need_help;
+	print_help(EXIT_USAGE) if (! $parsing_success);
+	print_help(EXIT_OK) if $need_help;
 
 	$box or die ("please provide a path to a box with --box\n");
 	-e $box or die("box $box not found\n");
@@ -126,7 +126,8 @@ sub json_fileread {
 	}
 
 	my $manifest = decode_json($json);
-	my $value = $manifest->{'variables'}->{$key}
+    my $value = undef; 
+	$value = $manifest->{'variables'}->{$key}
 	  if $manifest->{'variables'}->{$key};
 	defined($value) && return $value or die "unable to find $key in $template";
 }
@@ -243,7 +244,7 @@ sub uploadbox {
 	$curl .= " --verbose" if $debug;
 	$OUTPUT_AUTOFLUSH = 1;
 
-	open CURL, '-|', $curl or die "error: $ERRNO";
-	while (<CURL>) { say; }
-	close CURL;
+	open my $curl_output, '-|', $curl or die "error: $ERRNO";
+	while (<$curl_output>) { say; }
+	close $curl_output;
 }
