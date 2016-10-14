@@ -11,22 +11,21 @@ const semver = require('semver');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 const debug = true;
-const noDebug = false;
 const currentURL = 'http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/';
 
 var main = function() {
-    var pathToManifest = getArgs(noDebug);
-    var manifestVersion = getManifestVersion(pathToManifest, noDebug);
-    var lastRelease = getlastRelease(currentURL, noDebug);
+    var pathToManifest = getArgs();
+    var manifestVersion = getManifestVersion(pathToManifest);
+    var lastRelease = getlastRelease(currentURL);
 
     console.log("manifest has", manifestVersion);
     console.log("cdimage has ", lastRelease.version);
 
-    var outdated = isManifestOutdated(lastRelease.version, manifestVersion, noDebug);
+    var outdated = isManifestOutdated(lastRelease.version, manifestVersion);
 
     if (outdated) {
 	console.log("updating ", pathToManifest);
-	updateManifest(lastRelease, pathToManifest, noDebug);
+	updateManifest(lastRelease, pathToManifest);
     }
     else {
 	console.log("no update needed");
