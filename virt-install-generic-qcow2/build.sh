@@ -1,5 +1,5 @@
 #!/bin/bash
-# MN: trap signal has bash semantics
+# NB: trap signal has bash semantics
 
 export OS=Debian8
 
@@ -23,5 +23,6 @@ virt-install \
 --extra-args "auto=true hostname=${OS} domain= url=http://10.0.2.2:8000/vanilla-debian-8-jessie-preseed.cfg console=ttyS0,115200n8 DEBIAN_FRONTEND=text"
 
 kill $child_pid
+virsh undefine $OS
 
-trap "kill $child_pid" SIGINT SIGTERM
+trap "kill $child_pid; virsh undefine $OS" SIGINT SIGTERM
