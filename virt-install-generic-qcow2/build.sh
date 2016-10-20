@@ -1,10 +1,10 @@
-#!/bin/bash
-# NB: trap signal has bash semantics
+#!/bin/sh
 
 export OS=Debian8
 
 python -m SimpleHTTPServer & 2> /dev/null
 child_pid=$!
+trap "kill $child_pid ; virsh undefine $OS" INT QUIT TERM
 
 virt-install \
 --connect qemu:///session \
@@ -24,5 +24,3 @@ virt-install \
 
 kill $child_pid
 virsh undefine $OS
-
-trap "kill $child_pid; virsh undefine $OS" SIGINT SIGTERM
