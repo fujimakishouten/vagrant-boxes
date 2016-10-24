@@ -9,3 +9,5 @@ packer-virtualbox-vagrant/SHA256SUMS
 packer-virtualbox-vagrant/SHA256SUMS.gpg
 helpers/token.gpg
 .project
+.settings
+.tern-project
