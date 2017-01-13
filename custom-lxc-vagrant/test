@@ -1,12 +1,13 @@
 #!/bin/sh
 
 set -e
+export VAGRANT_DEFAULT_PROVIDER=lxc
 
 name=$1
 boxname="test-$name"
 boxfile=$2
 
-testdir=_$1
+testdir=test-$name
 
 cleanup() {
   set -x
