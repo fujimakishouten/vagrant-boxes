@@ -1,12 +1,16 @@
-DISTRIBUTIONS = wheezy jessie stretch sid
+DISTRIBUTIONS = jessie stretch sid
 VMDEBOOTSTRAP_OPTIONS = --customize=$(CURDIR)/../helpers/vagrant-setup --package=rsync
 VAGRANT_DEFAULT_PROVIDER = libvirt
 
 all:
 	@echo "Usage: make <distribution>"
-	@echo "Available distributions: $(DISTRIBUTIONS)"
+	@echo "Available distributions: wheezy $(DISTRIBUTIONS)"
 
 $(DISTRIBUTIONS): % : %.box
+
+wheezy:
+	$(MAKE) wheezy.box EXTRA_VMDEBOOTSTRAP_OPTIONS='--roottype ext3'
+
 
 %.box: %/box.img
 	cp Vagrantfile.in $*/Vagrantfile
