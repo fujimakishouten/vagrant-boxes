@@ -1,11 +1,11 @@
 #!/bin/sh
 
-set -e
-export VAGRANT_DEFAULT_PROVIDER=lxc
+set -eu
 
-name=$1
+provider=$1
+name=$2
 boxname="test-$name"
-boxfile=$2
+boxfile=$3
 
 testdir=test-$name
 
@@ -20,6 +20,7 @@ cleanup() {
 trap cleanup INT TERM EXIT
 
 set -x
+export VAGRANT_DEFAULT_PROVIDER="$provider"
 vagrant box add $boxname $boxfile
 mkdir $testdir
 (

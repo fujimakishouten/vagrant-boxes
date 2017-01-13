@@ -28,7 +28,7 @@ $(RELEASES): % : %.box
 test_all = $(patsubst %, test-%, $(RELEASES))
 test: $(test_all)
 $(test_all): test-% : %.box
-	./test $* $<
+	../helpers/vagrant-test lxc $* $<
 
 $(BOXES): %.box : %/rootfs.tar.gz %/metadata.json %/lxc-config
 	cd $* && tar czf ../$@ $(patsubst $*/%,%,$^) || ($(RM) $@; false)
