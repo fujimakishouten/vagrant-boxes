@@ -27,6 +27,6 @@ $(test_all): test-% : %.box
 
 
 clean::
-	rm -rf $(DISTRIBUTIONS) *.box *.tested
+	rm -rf wheezy $(DISTRIBUTIONS) *.box *.tested
 
 include ../vmdebootstrap-generic-qcow2/common.mk
