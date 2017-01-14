@@ -24,16 +24,10 @@ PACKAGE_FLAGS = --vagrantfile Vagrantfile.stable.in
 contrib-%.box: PACKAGE_FLAGS = --vagrantfile Vagrantfile.contrib-stable.in
 
 %.box: %.vmdk
-	VBoxManage createvm --name $* --ostype "Debian_64" --register --basefolder $(CURDIR)/vbox/ $(TEE)
-	VBoxManage modifyvm $* --memory 512 $(TEE)
-	VBoxManage storagectl $* --name "SATA Controller" --add sata  --controller IntelAHCI --portcount 1 $(TEE)
-	# kernel waits up to three seconds for a floppy controller, so better add one for faster bootup
-	VBoxManage storagectl $* --name "Floppy Controller Controller" --add floppy $(TEE)
-	VBoxManage storageattach $* --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium $*.vmdk $(TEE)
+	import2vbox --memory 512 --vcpus 2 $*.vmdk$(TEE)
+	VBoxManage import $*.ovf
 	vagrant package --base $* --output $*.box $(PACKAGE_FLAGS) $(TEE)
-	VBoxManage unregistervm $* $(TEE)
-	$(RM) vbox/$*/$*.vbox vbox/$*/$*.vbox-prev $(TEE)
-	rmdir vbox/$* $(TEE)
+	VBoxManage unregistervm --delete $* $(TEE)
 
 %.vmdk: %.build
 	qemu-img convert -O vmdk $</$*.raw $*.vmdk $(TEE)
@@ -68,6 +62,7 @@ contrib-%.box: PACKAGE_FLAGS = --vagrantfile Vagrantfile.contrib-stable.in
 clean::
 	-$(RM) *.build/*
 	-$(RM) *.vmdk
+	-$(RM) *.ovf
 	-rmdir *.build
 
 cleanall: clean
