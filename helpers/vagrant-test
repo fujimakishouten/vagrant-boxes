@@ -29,4 +29,5 @@ mkdir $testdir
   vagrant up --no-provision
   vagrant ssh -- true
   vagrant ssh -- sudo true
+  vagrant ssh -- cat /etc/debian_version
 )
