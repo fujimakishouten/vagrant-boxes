@@ -19,15 +19,18 @@ $(DISTRIBUTIONS): % : %.box
 $(TESTED): % :
 
 # set the shared floder method to rsync for most boxes
-PACKAGE_FLAGS = --vagrantfile Vagrantfile.stable.in
+VAGRANT_FILE = Vagrantfile.stable.in
 # contrib boxes use VirtualBox default, ie vboxfs kernel module
-contrib-%.box: PACKAGE_FLAGS = --vagrantfile Vagrantfile.contrib-stable.in
+contrib-%.box: VAGRANT_FILE= Vagrantfile.contrib-stable.in
 
 %.box: %.vmdk
-	import2vbox --memory 512 --vcpus 2 $*.vmdk$(TEE)
-	VBoxManage import $*.ovf
-	vagrant package --base $* --output $*.box $(PACKAGE_FLAGS) $(TEE)
-	VBoxManage unregistervm --delete $* $(TEE)
+	import2vbox --memory 512 --vcpus 2 $*.vmdk $(TEE)
+	mkdir -p $*.box.in
+	cp $(VAGRANT_FILE) $*.box.in/Vagrantfile
+	cp $*.ovf $*.box.in/box.ovf
+	cp $*.ovf $*.vmdk $*.box.in/
+	echo '{"provider": "virtualbox"}' > $*.box.in/metadata.json
+	cd $*.box.in && tar czvf ../$*.box ./metadata.json ./box.ovf ./$*.vmdk ./Vagrantfile
 
 %.vmdk: %.build
 	qemu-img convert -O vmdk $</$*.raw $*.vmdk $(TEE)
@@ -61,9 +64,11 @@ contrib-%.box: PACKAGE_FLAGS = --vagrantfile Vagrantfile.contrib-stable.in
 
 clean::
 	-$(RM) *.build/*
+	-rmdir *.build/
+	-$(RM) *.box.in/*
+	-rmdir *.box.in/
 	-$(RM) *.vmdk
 	-$(RM) *.ovf
-	-rmdir *.build
 
 cleanall: clean
 	$(RM) *.box *.uploaded *.tested *.log
