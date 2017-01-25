@@ -11,7 +11,6 @@
         "<esc><wait>",
         "install <wait>",
         "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/testing-preseed.cfg <wait>",
-        "debian-installer=en_US <wait>",
         "auto <wait>",
         "locale=en_US <wait>",
         "kbd-chooser/method=us <wait>",
