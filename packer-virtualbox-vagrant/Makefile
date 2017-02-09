@@ -24,7 +24,7 @@ VAGRANT_FILE = Vagrantfile.stable.in
 contrib-%.box: VAGRANT_FILE= Vagrantfile.contrib-stable.in
 
 %.box: %.vmdk
-	import2vbox --memory 512 --vcpus 2 $*.vmdk $(TEE)
+	import2vbox --memory 512 --vcpus 2 --no-predictable-nic-names $*.vmdk $(TEE)
 	mkdir -p $*.box.in
 	cp $(VAGRANT_FILE) $*.box.in/Vagrantfile
 	cp $*.ovf $*.box.in/box.ovf
