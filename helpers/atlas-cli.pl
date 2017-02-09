@@ -38,12 +38,12 @@ use constant EXIT_USAGE => 64;
 
 
 # defaults for command line switches
-my $box = '';
-my $version = '';
-my $changelog = '';
+my $box;
+my $version;
+my $changelog;
 my $provider = 'virtualbox';
-my $need_help = '';
-my $debug = '';
+my $need_help;
+my $debug;
 
 sub main {
 
@@ -63,11 +63,16 @@ sub main {
 	my ($codename) = split /\.box/, $box;
 	my $cloudname  = join('', $codename, '64');
 
-	if (! $version || ! $changelog) {
-		my $manifest   = join( '', $builder_dir, '/', $codename, '.json');
-		-f $manifest or die("uname to open a manifest $manifest for $box, use command line switches\n");
-		$version    = json_fileread('box_version', $manifest);
-		$changelog  = json_fileread('box_changelog', $manifest);
+	if (! $version) {
+        my $manifest = join( '', $builder_dir, '/', $codename, '.json');
+        -f $manifest or die("uname to open a manifest $manifest for $box, use command line switches\n");
+		$version = json_fileread('box_version', $manifest);
+	}
+
+	if (! $changelog) {
+		my $manifest = join( '', $builder_dir, '/', $codename, '.json');
+        -f $manifest or die("uname to open a manifest $manifest for $box, use command line switches\n");
+        $changelog = json_fileread('box_changelog', $manifest);
 	}
 
 	if (! is_version_existing($cloudname, $version)) {
