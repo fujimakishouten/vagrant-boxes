@@ -2,8 +2,7 @@
   "description": "Vanilla Debian Wheezy base box",
   "variables": {
       "box_version": "7.11.2",
-      "box_changelog": " * virtualbox: re add Recommends packages as it missed important packages and follows debian policy better ( see https://lists.debian.org/debian-cloud/2016/07/msg00007.html )",
-      "atlas_token": "{{env `ATLAS_TOKEN`}}"
+      "box_changelog": " * virtualbox: re add Recommends packages as it missed important packages and follows debian policy better ( see https://lists.debian.org/debian-cloud/2016/07/msg00007.html )"
     },
   "builders": [
     {

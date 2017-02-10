@@ -2,8 +2,7 @@
   "description": "Vanilla Debian Jessie base box",
   "variables": {
       "box_version": "8.7.1",
-      "box_changelog": "* stable point release\n",
-      "atlas_token": "{{env `ATLAS_TOKEN`}}"
+      "box_changelog": "* stable point release\n"
     },
   "builders": [
     {
