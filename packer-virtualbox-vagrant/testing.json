@@ -1,7 +1,6 @@
 {
   "description": "Vanilla Debian Testing base box",
   "variables": {
-      "box_version": "8.99.99",
       "box_changelog": "* weekly release\n"
     },
   "builders": [
