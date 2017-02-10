@@ -44,8 +44,9 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile.contrib-stable.in
 	$(call functest, fresh-$(*), $(<), $(VAGRANT_DEFAULT_PROVIDER)) $(TEE)
 	touch $@ $(TEE)
 
+testing.uploaded: ISO_DATE_SEMVER = --version $(shell date +%Y.%m.%d)
 %.uploaded: %.tested
-	../helpers/atlas-cli.pl --box $*.box
+	../helpers/atlas-cli.pl --box $*.box $(ISO_DATE_SEMVER)
 	touch $@
 
 %.SHA256SUM.gpg: %.uploaded
