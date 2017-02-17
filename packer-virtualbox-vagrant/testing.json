@@ -1,7 +1,7 @@
 {
   "description": "Vanilla Debian Testing base box",
   "variables": {
-      "box_changelog": "* weekly release\n"
+      "box_changelog": "* weekly release\n* fix disk format for Virtualbox 4.3\n"
     },
   "builders": [
     {
