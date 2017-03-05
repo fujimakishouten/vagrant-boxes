@@ -1,0 +1,59 @@
+{
+  "description": "Vanilla Debian Stretch base box",
+  "variables": {
+    "box_version": "9.0.0",
+    "box_changelog": "* initial Stretch release \n"
+    },
+  "builders": [
+    {
+      "boot_command": [
+        "<esc><wait>",
+        "install <wait>",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/stretch-preseed.cfg <wait>",
+        "auto <wait>",
+        "locale=en_US <wait>",
+        "kbd-chooser/method=us <wait>",
+        "netcfg/get_hostname={{ .Name }} <wait>",
+        "netcfg/get_domain=vagrantup.com <wait>",
+        "fb=false <wait>",
+        "debconf/frontend=noninteractive <wait>",
+        "console-setup/ask_detect=false <wait>",
+        "console-keymaps-at/keymap=us <wait>",
+        "keyboard-configuration/xkb-keymap=us <wait>",
+        "<enter><wait>"
+      ],
+      "disk_size": "10140",
+      "disk_interface": "virtio",
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum": "e18e99fcc7e19c3f61a67ee4eb1041b3dbf240bf36aee533054e5d7aff40fdfd",
+      "iso_checksum_type": "sha256",
+      "iso_url": "http://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/debian-testing-amd64-netinst.iso",
+      "shutdown_command": "sudo /sbin/halt -p",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "ssh_port": "22",
+      "ssh_wait_timeout": "10000s",
+      "type": "qemu",
+      "qemuargs": [[ "-m", "1024M" ],[ "-smp", "2" ]],
+      "accelerator": "kvm",
+      "vm_name": "stretch.raw",
+      "output_directory": "stretch.build",
+      "format": "raw"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "pause_before": "5s",
+      "execute_command": "echo 'vagrant'| {{.Vars}} sudo --preserve-env --stdin sh '{{.Path}}'",
+      "environment_vars": [
+         "VAGRANT_BUILDER_FS=/"
+      ],
+      "scripts": [
+        "../helpers/vagrant-setup",
+        "scripts/minimize.sh"
+      ]
+    }
+  ]
+}
