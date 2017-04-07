@@ -18,7 +18,7 @@ all:
 $(DISTRIBUTIONS): % : %.box
 $(TESTED): % :
 
-# set the shared floder method to rsync for most boxes
+# set the shared folder method to rsync for most boxes
 VAGRANT_FILE = Vagrantfile.stable.in
 # contrib boxes use VirtualBox default, ie vboxfs kernel module
 contrib-%.box: VAGRANT_FILE= Vagrantfile.contrib-stable.in
