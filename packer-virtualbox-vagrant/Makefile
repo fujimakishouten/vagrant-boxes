@@ -19,9 +19,9 @@ $(DISTRIBUTIONS): % : %.box
 $(TESTED): % :
 
 # set the shared folder method to rsync for most boxes
-VAGRANT_FILE = Vagrantfile.stable.in
+VAGRANT_FILE = Vagrantfile.in
 # contrib boxes use VirtualBox default, ie vboxfs kernel module
-contrib-%.box: VAGRANT_FILE= Vagrantfile.contrib-stable.in
+contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 
 %.box: %.vmdk
 	import2vbox --memory 512 --vcpus 2 --no-predictable-nic-names $*.vmdk $(TEE)
