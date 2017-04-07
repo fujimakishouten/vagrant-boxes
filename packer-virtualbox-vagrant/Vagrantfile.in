@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
   config.vm.base_mac = "0800278dc04d"
   config.vm.synced_folder ".", "/vagrant", type: "rsync"
   config.vm.post_up_message = "Vanilla Debian box. See https://atlas.hashicorp.com/debian/ for help and bug reports"
-
+   #TODO check if this is still needed now that we use import2vox
   config.vm.provider "virtualbox" do |v|
       v.customize ["modifyvm", :id, "--cableconnected1", "on"]
   end

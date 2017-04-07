@@ -24,6 +24,8 @@ VAGRANT_FILE = Vagrantfile.in
 contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 
 %.box: %.vmdk
+	#TODO remove --no-predictable-nic-names
+	# should not be needed since BTS #853855 is now fixed
 	import2vbox --memory 512 --vcpus 2 --no-predictable-nic-names $*.vmdk $(TEE)
 	mkdir -p $*.box.in
 	cp $(VAGRANT_FILE) $*.box.in/Vagrantfile
@@ -41,6 +43,7 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 # test initialization / login / network
 %.tested: %.box
 	make clean $(TEE) # don't try to rsync gigabytes of data to the vm
+	#TODO replace with shellp helper ../helpers/vagrant-test
 	$(call functest, fresh-$(*), $(<), $(VAGRANT_DEFAULT_PROVIDER)) $(TEE)
 	touch $@ $(TEE)
 
