@@ -247,7 +247,7 @@ sub uploadbox {
 	my ($url, $box) = @_;
 	my $curl = "curl -X PUT $url --upload-file $box";
 	$curl .= " --verbose" if $debug;
-	$OUTPUT_AUTOFLUSH = 1;
+	local $OUTPUT_AUTOFLUSH = 1;
 
 	open my $curl_output, '-|', $curl or die "error: $ERRNO";
 	while (<$curl_output>) { say; }
