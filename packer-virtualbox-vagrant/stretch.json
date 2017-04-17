@@ -20,6 +20,7 @@
         "console-setup/ask_detect=false <wait>",
         "console-keymaps-at/keymap=us <wait>",
         "keyboard-configuration/xkb-keymap=us <wait>",
+        "net.ifnames=0 <wait>",
         "<enter><wait>"
       ],
       "disk_size": "10140",

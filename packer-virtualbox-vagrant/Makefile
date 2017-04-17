@@ -24,9 +24,7 @@ VAGRANT_FILE = Vagrantfile.in
 contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 
 %.box: %.vmdk
-	#TODO remove --no-predictable-nic-names
-	# should not be needed since BTS #853855 is now fixed
-	import2vbox --memory 512 --vcpus 2 --no-predictable-nic-names $*.vmdk $(TEE)
+	import2vbox --memory 512 --vcpus 2 $*.vmdk $(TEE)
 	mkdir -p $*.box.in
 	cp $(VAGRANT_FILE) $*.box.in/Vagrantfile
 	cp $*.ovf $*.box.in/box.ovf
