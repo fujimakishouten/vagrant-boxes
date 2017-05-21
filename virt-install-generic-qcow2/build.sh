@@ -14,7 +14,7 @@ virt-install \
 --file ${OS}.qcow2 \
 --file-size=4 \
 --controller type=scsi,model=virtio-scsi \
---location http://httpredir.debian.org/debian/dists/stable/main/installer-amd64/ \
+--location http://deb.debian.org/debian/dists/stable/main/installer-amd64/ \
 --virt-type kvm \
 --os-variant Debian8 \
 --network=user \
