@@ -28,7 +28,7 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 	mkdir -p $*.box.in
 	cp $(VAGRANT_FILE) $*.box.in/Vagrantfile
 	cp $*.ovf $*.box.in/box.ovf
-	cp $*.ovf $*.vmdk $*.box.in/
+	cp $*.vmdk $*.box.in/
 	echo '{"provider": "virtualbox"}' > $*.box.in/metadata.json
 	cd $*.box.in && tar czvf ../$*.box ./metadata.json ./box.ovf ./$*.vmdk ./Vagrantfile
 
