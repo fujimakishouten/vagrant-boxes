@@ -58,7 +58,7 @@ var getManifestVersion = function getManifestVersion(pathToManifest, debug) {
 	usage();
     }
     debug && console.error(jsonFile.toString());
-    
+
     try {
 	var manifest = JSON.parse(jsonFile);
     }
@@ -68,7 +68,7 @@ var getManifestVersion = function getManifestVersion(pathToManifest, debug) {
     }
     var version = manifest.variables.box_version;
     debug && console.error(version);
-    
+
     return version;
 }
 
@@ -121,25 +121,25 @@ var updateManifest = function updateManifest(lastRelease, pathToManifest, debug)
 
     var lines = manifest.split('\n');
     lines.forEach(function(elt, i) {
-    	if (/"box_version"/.test(elt)) {
-    	    lines[i] = elt.replace(/\d+\.\d+\.\d+/, lastRelease.version);
-    	    debug && console.error(lines[i]);
-    	}
-    	else if (/"iso_checksum"/.test(lines[i])) {
-    	    lines[i] = elt.replace(/"iso_checksum": ".*",/, '"iso_checksum": "' + lastRelease.sha256sum + '",');
-    	    debug && console.error(lines[i]);
-    	}
-    	else if(/"iso_url"/.test(lines[i])) {
-    	    lines[i] = elt.replace(/"iso_url": ".*",/, '"iso_url": "' + lastRelease.url + '",');
-    	    debug && console.error(lines[i]);
-    	}
-    });
+	if (/"box_version"/.test(elt)) {
+	    lines[i] = elt.replace(/\d+\.\d+\.\d+/, lastRelease.version);
+	    debug && console.error(lines[i]);
+	}
+	else if (/"iso_checksum"/.test(lines[i])) {
+	    lines[i] = elt.replace(/"iso_checksum": ".*",/, '"iso_checksum": "' + lastRelease.sha256sum + '",');
+	    debug && console.error(lines[i]);
+	}
+	else if(/"iso_url"/.test(lines[i])) {
+	    lines[i] = elt.replace(/"iso_url": ".*",/, '"iso_url": "' + lastRelease.url + '",');
+	    debug && console.error(lines[i]);
+	}
+});
 
     var fileToWrite ='';
-   lines.forEach(function(elt, i) {
-   	if (lines[i] !== lines[lines.length -1]) {
-   	    fileToWrite += elt + '\n';
-   	}
+    lines.forEach(function(elt, i) {
+	if (lines[i] !== lines[lines.length -1]) {
+	    fileToWrite += elt + '\n';
+	}
    });
     fs.writeFileSync(pathToManifest, fileToWrite);
 
