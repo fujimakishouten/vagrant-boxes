@@ -1,8 +1,8 @@
 {
   "description": "Vanilla Debian Jessie base box",
   "variables": {
-      "box_version": "8.8.0",
-      "box_changelog": "* stable point release\n"
+      "box_version": "8.8.1",
+      "box_changelog": "* make sure all VM nics are type 82540EM (fix for debian bug #863580)"
     },
   "builders": [
     {
