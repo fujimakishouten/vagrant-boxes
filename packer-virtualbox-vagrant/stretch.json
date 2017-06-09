@@ -37,7 +37,7 @@
       "type": "qemu",
       "qemuargs": [[ "-m", "1024M" ],[ "-smp", "2" ]],
       "accelerator": "kvm",
-      "vm_name": "stretch.raw",
+      "vm_name": "stretch",
       "output_directory": "stretch.build",
       "format": "raw"
     }

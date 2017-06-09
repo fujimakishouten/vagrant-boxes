@@ -33,7 +33,7 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 	cd $*.box.in && tar czvf ../$*.box ./metadata.json ./box.ovf ./$*.vmdk ./Vagrantfile
 
 %.vmdk: %.build
-	qemu-img convert -O vmdk $</$*.raw $*.vmdk $(TEE)
+	qemu-img convert -O vmdk $</$* $*.vmdk $(TEE)
 
 %.build:
 	packer build $*.json |& tee $*.log # create a new log file

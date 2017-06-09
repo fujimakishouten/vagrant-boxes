@@ -39,7 +39,7 @@
       "type": "qemu",
       "qemuargs": [[ "-m", "1024M" ],[ "-smp", "2" ]],
       "accelerator": "kvm",
-      "vm_name": "contrib-jessie.raw",
+      "vm_name": "contrib-jessie",
       "output_directory": "contrib-jessie.build",
       "format": "raw"
     }
