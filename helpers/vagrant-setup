@@ -92,3 +92,9 @@ echo 'PasswordAuthentication no' >> $fs/etc/ssh/sshd_config
 #######################################################################
 chroot $fs apt-get clean
 rm -f $fs/usr/sbin/policy-rc.d
+
+# make sure /etc/machine-id is generated on next book
+# /etc/machine-id needs to be unique so multiple systemd-networkd dhcp clients
+# get different ip addresses from the DHCP server
+rm $fs/var/lib/dbus/machine-id
+> $fs/etc/machine-id
