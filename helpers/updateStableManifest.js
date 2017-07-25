@@ -11,12 +11,13 @@ const semver = require('semver');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 const debug = true;
-const currentURL = 'http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/';
+const releaseURL = 'http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/';
+//const releaseURL = 'http://cdimage.debian.org/mirror/cdimage/archive/8.9.0/amd64/iso-cd/';
 
 var main = function() {
     var pathToManifest = getArgs();
     var manifestVersion = getManifestVersion(pathToManifest);
-    var lastRelease = getlastRelease(currentURL);
+    var lastRelease = getlastRelease(releaseURL);
 
     console.log("manifest has", manifestVersion);
     console.log("cdimage has ", lastRelease.version);
@@ -72,10 +73,10 @@ var getManifestVersion = function getManifestVersion(pathToManifest, debug) {
     return version;
 }
 
-var getlastRelease = function getlastRelease(currentURL, debug) {
+var getlastRelease = function getlastRelease(releaseURL, debug) {
     debug && console.error(getlastRelease.name);
     var req = new XMLHttpRequest();
-    req.open('GET', currentURL + 'SHA256SUMS', false);
+    req.open('GET', releaseURL + 'SHA256SUMS', false);
     req.send(null);
 
     var lines = req.responseText.split('\n');
@@ -95,7 +96,7 @@ var getlastRelease = function getlastRelease(currentURL, debug) {
     lastRelease.sha256sum = netinst.match(/^(\S{64})\s{2}/)[1];
     // version: three digits separated by dots and ended by string amd64..
     lastRelease.version = netinst.match(/(\d+\.\d+\.\d+)-amd64-netinst.iso$/)[1];
-    lastRelease.url = currentURL + netinst.match(isoRegex)[1];
+    lastRelease.url = releaseURL + netinst.match(isoRegex)[1];
 
 
     if (debug) {
