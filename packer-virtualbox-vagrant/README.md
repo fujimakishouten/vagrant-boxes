@@ -1,7 +1,7 @@
 # Vanilla Debian Packer templates
 
 The templates here are used to create the Debian Vagrant base boxes available at 
-https://atlas.hashicorp.com/debian/
+https://app.vagrantup.com/debian
 
 ## Direct Download
 

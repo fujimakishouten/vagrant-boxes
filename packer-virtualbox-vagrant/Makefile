@@ -59,7 +59,7 @@ testing.uploaded: ISO_DATE_SEMVER = --version $(shell date +%Y.%m.%d)
 	scp $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM \
 	    $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM.gpg \
 	    kdev-guest@alioth.debian.org:/home/groups/cloud/htdocs/vagrantboxes/
-	@echo "everything done, please release the box $*64 on atlas.com"
+	@echo "everything done, please release the box $*64 on app.vagrantup.com"
 	touch $@
 
 .PHONY: clean cleanall cleanrelease %.cleantest
