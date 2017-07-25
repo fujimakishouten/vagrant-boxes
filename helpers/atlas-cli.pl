@@ -27,7 +27,7 @@ use Data::Dumper;
 #script defaults
 my $atlas_token = $ENV{'ATLAS_TOKEN'} or die "please export ATLAS_TOKEN as environment variable\n";
 my $builder_dir = getcwd;
-my $end_point   = 'https://atlas.hashicorp.com/api/v1/box/debian';
+my $end_point   = 'https://app.vagrantup.com/api/v1/box/debian';
 my $ua          = LWP::UserAgent->new();
 my $JSONprinter = JSON->new()->canonical->pretty;
 my $verbose     = 1;
