@@ -7,13 +7,13 @@ SHELL = /bin/bash # needed for |&
 .SHELLFLAGS = -u -o pipefail -c
 TEE = |& tee --append $*.log # log every command
 
-include ../helpers/vagrantBoxTesting.mk
-
-.PRECIOUS: %.build %.vmdk %.box
-
 all:
 	@echo "Usage: make <distribution>"
 	@echo "Available distributions: $(DISTRIBUTIONS)"
+
+include ../helpers/vagrantBoxTesting.mk
+
+.PRECIOUS: %.build %.vmdk %.box
 
 $(DISTRIBUTIONS): % : %.box
 $(TESTED): % :
