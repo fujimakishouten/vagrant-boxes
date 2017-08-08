@@ -1,7 +1,7 @@
 export VAGRANT_DEFAULT_PROVIDER = virtualbox
 
-DISTRIBUTIONS = wheezy jessie stretch sid contrib-jessie
-TESTED = wheezy.tested jessie.tested contrib-jessie.tested
+DISTRIBUTIONS = $(basename $(wildcard *.json))
+TESTED = $(addsuffix .tested, $(DISTRIBUTIONS))
 SHELL = /bin/bash # needed for |&
 # exit on undefined variables, pipeline fails if one command fails
 .SHELLFLAGS = -u -o pipefail -c
