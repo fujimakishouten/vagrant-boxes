@@ -17,6 +17,7 @@ include ../helpers/vagrantBoxTesting.mk
 
 $(DISTRIBUTIONS): % : %.box
 $(TESTED): % :
+test-all: $(TESTED)
 
 # set the shared folder method to rsync for most boxes
 VAGRANT_FILE = Vagrantfile.in
