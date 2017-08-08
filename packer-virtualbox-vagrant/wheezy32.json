@@ -38,7 +38,7 @@
       "type": "qemu",
       "qemuargs": [[ "-m", "1024M" ],[ "-smp", "2" ]],
       "accelerator": "kvm",
-      "vm_name": "wheezy32.raw",
+      "vm_name": "wheezy32",
       "output_directory": "wheezy32.build",
       "format": "raw"
     }
