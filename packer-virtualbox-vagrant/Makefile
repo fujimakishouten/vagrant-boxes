@@ -42,8 +42,7 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 # test initialization / login / network
 %.tested: %.box
 	make clean $(TEE) # don't try to rsync gigabytes of data to the vm
-	#TODO replace with shellp helper ../helpers/vagrant-test
-	$(call functest, fresh-$(*), $(<), $(VAGRANT_DEFAULT_PROVIDER)) $(TEE)
+	../helpers/vagrant-test virtualbox $* $< $(TEE)
 	touch $@ $(TEE)
 
 testing.uploaded: ISO_DATE_SEMVER = --version $(shell date +%Y.%m.%d)

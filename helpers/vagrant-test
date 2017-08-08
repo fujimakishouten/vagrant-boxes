@@ -23,6 +23,7 @@ set -x
 export VAGRANT_DEFAULT_PROVIDER="$provider"
 vagrant box add $boxname $boxfile
 mkdir $testdir
+cp ../helpers/package_report $testdir
 (
   cd $testdir
   vagrant init $boxname
@@ -30,4 +31,7 @@ mkdir $testdir
   vagrant ssh -- true
   vagrant ssh -- sudo true
   vagrant ssh -- cat /etc/debian_version
+  vagrant ssh -c "sh /vagrant/package_report"
+  vagrant ssh -c "sudo apt-get --quiet --yes install figlet \
+     && ( lsb_release --release --codename ) | figlet"
 )
