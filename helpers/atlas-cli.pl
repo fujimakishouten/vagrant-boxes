@@ -25,7 +25,7 @@ use Data::Dumper;
 #
 
 #script defaults
-my $atlas_token = $ENV{'ATLAS_TOKEN'} or die "please export ATLAS_TOKEN as environment variable\n";
+my $atlas_token = $ENV{'ATLAS_TOKEN'};
 my $builder_dir = getcwd;
 my $end_point   = 'https://app.vagrantup.com/api/v1/box/debian';
 my $ua          = LWP::UserAgent->new();
@@ -58,7 +58,9 @@ sub main {
 	print_help(EXIT_USAGE) if (! $parsing_success);
 	print_help(EXIT_OK) if $need_help;
 
-	$box or die ("please provide a path to a box with --box\n");
+    defined $atlas_token or die "please export ATLAS_TOKEN as environment variable\n";
+	defined $box or die ("please provide a path to a box with --box\n");
+
 	-e $box or die("box $box not found\n");
 	my ($codename) = split /\.box/, $box;
 	my $cloudname  = join('', $codename, '64');
@@ -91,10 +93,10 @@ main();
 sub print_help {
 		my ($exit_code) = @_;
 		my $help = basename($0) . "\n";
-		$help .= "\t--box  path to box to upload (defaults to $box)\n";
+		$help .= "\t--box  path to box to upload \n";
 		$help .= "\t--version version string\n";
-		$help .= "\t--changelog changelog string in Markdown format (defaults to \"$changelog\")\n";
-		$help .= "\t--provider virtualization provider (default to $provider)\n";
+		$help .= "\t--changelog changelog string in Markdown format \n";
+		$help .= "\t--provider virtualization provider \n";
 		$help .= "\t--debug print internal perl data structures \n";
 		$help .= "\t--help display this text \n";
 		$help .= <<EOD;
