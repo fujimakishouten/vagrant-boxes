@@ -1,3 +1,5 @@
+# this is not used anymore
+
 define functest
  @echo functional testing for $< box
  @vagrant box add --name $1 $2 --provider $3 $(TEE)

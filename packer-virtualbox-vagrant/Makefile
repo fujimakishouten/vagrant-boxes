@@ -74,9 +74,6 @@ clean::
 cleanall: clean
 	$(RM) *.box *.uploaded *.tested *.log
 
-%.cleantest:
-	$(call forcecleantest, fresh-$(*), $(VAGRANT_DEFAULT_PROVIDER))
-
 %.cleansign:
 	-rm $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM.gpg
 	-rm $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM
