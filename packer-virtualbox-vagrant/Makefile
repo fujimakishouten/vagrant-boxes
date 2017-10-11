@@ -41,7 +41,6 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 
 # test initialization / login / network
 %.tested: %.box
-	make clean $(TEE) # don't try to rsync gigabytes of data to the vm
 	../helpers/vagrant-test virtualbox $* $< $(TEE)
 	touch $@ $(TEE)
 
