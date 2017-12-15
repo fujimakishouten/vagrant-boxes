@@ -236,9 +236,9 @@ if ($no_pred) {
 
 # Get the virtual size of each disk.
 my @virtual_sizes;
-foreach (@disks) {
-    push @virtual_sizes, $g->disk_virtual_size ($_);
-}
+
+my @devices = $g->list_devices();
+push @virtual_sizes, $g->blockdev_getsize64($_) foreach @devices;
 
 $g->close ();
 
@@ -262,7 +262,7 @@ elsif ($type eq "linux" && $distro eq "debian") {
     }
 }
 elsif ($type eq "linux") {
-    $ostype = "OtherLinux"
+    $ostype = 101
 }
 elsif ($type eq "windows" && $major_version == 5 && $minor_version == 1) {
     $ostype = "WindowsXP"
