@@ -23,6 +23,8 @@ use Data::Dumper;
 # put an atlas token in your env like this
 # export ATLAS_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
 #
+# you can optionally set VAGRANTUP_UPLOAD_LIMIT in your env (KB/s) to throttle the upload
+# this uses the 'trickle' command line tool
 
 #script defaults
 my $atlas_token = $ENV{'ATLAS_TOKEN'};
