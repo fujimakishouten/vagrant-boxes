@@ -65,6 +65,13 @@ sub main {
 	my ($codename) = split /\.box/, $box;
 	my $cloudname  = join('', $codename, '64');
 
+	my $upload_limit = $ENV{VAGRANTUP_UPLOAD_LIMIT} || "";
+	my $upload_limit_command = "";
+	if ($ENV{VAGRANTUP_UPLOAD_LIMIT} && -x '/usr/bin/trickle') {
+	    $upload_limit_command = "/usr/bin/trickle -u $upload_limit -w $upload_limit -- ";
+		print "limiting upload bandwith useage with $upload_limit_command\n";
+	}
+
 	if (! $version) {
         my $manifest = join( '', $builder_dir, '/', $codename, '.json');
         -f $manifest or die("uname to open a manifest $manifest for $box, use command line switches\n");
@@ -85,7 +92,7 @@ sub main {
 		createprovider($cloudname, $version, $provider) or die("unable to create $cloudname, $version, $provider\n");
 	}
 
-	uploadbox(get_uploadpath($cloudname, $version, $provider), $box);
+	uploadbox(get_uploadpath($cloudname, $version, $provider), $box, $upload_limit_command);
 }
 
 main();
@@ -246,8 +253,8 @@ sub get_uploadpath {
 }
 
 sub uploadbox {
-	my ($url, $box) = @_;
-	my $curl = "curl -X PUT $url --upload-file $box";
+	my ($url, $box, $upload_limit_command) = @_;
+	my $curl = $upload_limit_command . "curl -X PUT $url --upload-file $box";
 	$curl .= " --verbose" if $debug;
 	local $OUTPUT_AUTOFLUSH = 1;
 
