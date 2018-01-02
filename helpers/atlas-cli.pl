@@ -4,7 +4,6 @@
 # all necessaries perl modules should already be present in a standard debian installation
 # except libjson-perl which should be installed manually
 
-use feature 'say';
 use strict;
 use warnings;
 use English;
@@ -67,11 +66,11 @@ sub main {
 	my ($codename) = split /\.box/, $box;
 	my $cloudname  = join('', $codename, '64');
 
-	my $upload_limit = $ENV{VAGRANTUP_UPLOAD_LIMIT} || "";
+	my $upload_limit = $ENV{VAGRANTUP_UPLOAD_LIMIT};
 	my $upload_limit_command = "";
-	if ($ENV{VAGRANTUP_UPLOAD_LIMIT} && -x '/usr/bin/trickle') {
+	if ($upload_limit && -x '/usr/bin/trickle') {
 	    $upload_limit_command = "/usr/bin/trickle -u $upload_limit -w $upload_limit -- ";
-		print "limiting upload bandwith useage with $upload_limit_command\n";
+		print "limiting upload bandwith usage with $upload_limit_command\n";
 	}
 
 	if (! $version) {
@@ -261,6 +260,6 @@ sub uploadbox {
 	local $OUTPUT_AUTOFLUSH = 1;
 
 	open my $curl_output, '-|', $curl or die "error: $ERRNO";
-	while (<$curl_output>) { say; }
+	while (<$curl_output>) { print; }
 	close $curl_output;
 }
