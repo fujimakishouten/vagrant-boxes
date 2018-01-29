@@ -1,0 +1,79 @@
+{
+    "description": "Fujimakishouten Debian Buster base box",
+    "variables" : {
+        "atlas_token" : "{{env `ATLAS_TOKEN`}}",
+        "box_tag": "fujimakishouten/debian-buster64",
+        "box_changelog" : "Daily build",
+        "box_version" : "10.0.0.20180129",
+        "description" : "Debian buster 2018.01.29",
+        "vm_name" : "debian-buster"
+    },
+    "builders" : [{
+        "boot_command": [
+            "<esc><wait>",
+            "install <wait>",
+            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/testing-preseed.cfg <wait>",
+            "auto <wait>",
+            "locale=en_US <wait>",
+            "netcfg/get_hostname={{ .Name }} <wait>",
+            "netcfg/get_domain=localdomain <wait>",
+            "debconf/frontend=noninteractive <wait>",
+            "console-setup/ask_detect=false <wait>",
+            "kbd-chooser/method=us <wait>",
+            "console-keymaps-at/keymap=us <wait>",
+            "keyboard-configuration/xkb-keymap=us <wait>",
+            "net.ifnames=0 <wait>",
+            "<enter><wait>"
+        ],
+        "disk_size" : "10140",
+        "guest_os_type" : "Debian_64",
+        "hard_drive_interface" : "sata",
+        "headless" : false,
+        "http_directory" : "http",
+        "iso_checksum" : "195b700aae60e58d6e8f44e4825e231e68d58a266b78856d35fda3729a49567727bda7193fbe3873f78bcd3a88329dc13fe4fbb78e007d408c9289aca307a7d3",
+        "iso_checksum_type" : "sha512",
+        "iso_url" : "https://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/debian-testing-amd64-netinst.iso",
+        "shutdown_command" : "sudo /sbin/halt -p",
+        "ssh_password" : "vagrant",
+        "ssh_username" : "vagrant",
+        "ssh_port" : "22",
+        "ssh_wait_timeout" : "10000s",
+        "type" : "virtualbox-iso",
+        "vboxmanage" : [
+            ["modifyvm", "{{.Name}}", "--memory", "512"],
+            ["modifyvm", "{{.Name}}", "--cpus", "1"]
+         ],
+        "output_directory": "buster.build",
+        "vm_name" : "{{user `vm_name`}}"
+    }],
+    "provisioners" : [{
+        "pause_before" : "5s",
+        "type" : "shell",
+        "execute_command" : "echo 'vagrant'| {{.Vars}} sudo --preserve-env --stdin sh '{{.Path}}'",
+        "environment_vars" : [
+            "VAGRANT_BUILDER_FS=/",
+            "VAGRANT_BUILDER_HOSTNAME={{user `vm_name`}}"
+        ],
+        "override" : {
+            "virtualbox-iso" : {
+                "scripts" : [
+                    "scripts/timezone.sh",
+                    "scripts/apt.sh",
+                    "scripts/fujimakishouten-vagrant-setup.sh",
+                    "scripts/vb-guest-additions.sh",
+                    "scripts/minimize.sh"
+                ]
+            }
+        }
+    }],
+    "post-processors" : [[{
+            "type": "vagrant",
+            "output": "{{user `vm_name`}}.box"
+        }, {
+            "type": "vagrant-cloud",
+            "access_token": "{{user `atlas_token`}}",
+            "box_tag": "{{user `box_tag`}}",
+            "version": "{{user `box_version`}}",
+            "version_description": "{{user `description`}}"
+    }]]
+}
