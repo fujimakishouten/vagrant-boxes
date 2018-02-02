@@ -76,11 +76,11 @@ echo 'UseDNS no' >> $fs/etc/ssh/sshd_config
 echo 'PasswordAuthentication no' >> $fs/etc/ssh/sshd_config
 
 # Reduce grub timeout to 1s to speed up booting
-# but only if we are not in a chroot
 [ -f $fs/etc/default/grub ] && \
-  chroot $fs mountpoint -q /dev/ && \
   sed -i s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/ $fs/etc/default/grub
 
+# Updating grub config right now is only safe if we are not in a chroot
+# otherwise  grub complains on the lack of a mounted /
 [ -x $fs/usr/sbin/update-grub ] && \
   chroot $fs mountpoint -q /dev/ && \
   chroot $fs /usr/sbin/update-grub
