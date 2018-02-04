@@ -69,7 +69,7 @@ sub main {
 	my $upload_limit = $ENV{VAGRANTUP_UPLOAD_LIMIT};
 	my $upload_limit_command = "";
 	if ($upload_limit && -x '/usr/bin/trickle') {
-	    $upload_limit_command = "/usr/bin/trickle -u $upload_limit -w $upload_limit -- ";
+	    $upload_limit_command = "/usr/bin/trickle -s -u $upload_limit -w $upload_limit -- ";
 		print "limiting upload bandwith usage with $upload_limit_command\n";
 	}
 
