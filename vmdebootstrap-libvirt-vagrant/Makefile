@@ -1,5 +1,6 @@
 DISTRIBUTIONS = jessie stretch sid
 VMDEBOOTSTRAP_OPTIONS = --customize=$(CURDIR)/../helpers/vagrant-setup --package=rsync
+MINOR_RELEASE=0
 
 all:
 	@echo "Usage: make <distribution>"
@@ -30,10 +31,11 @@ clean::
 	rm -rf wheezy $(DISTRIBUTIONS) *.box *.tested
 
 upload-%: test-%
+		# extract debian version from inside the disk image
 		$(eval RELEASE != $(CURDIR)/../helpers/get_numeric_version.pl $*.qcow2)
 		$(CURDIR)/../helpers/atlas-cli.pl \
 			--box $*.box \
-			--version $(RELEASE) \
+			--version $(RELEASE).$(MINOR_RELEASE) \
 			--provider libvirt \
 			--changelog "* stable point release \n"
 
