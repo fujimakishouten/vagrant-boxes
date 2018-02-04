@@ -29,4 +29,12 @@ $(test_all): test-% : %.box
 clean::
 	rm -rf wheezy $(DISTRIBUTIONS) *.box *.tested
 
+upload-%: test-%
+		$(eval RELEASE != $(CURDIR)/../helpers/get_numeric_version.pl $*.qcow2)
+		$(CURDIR)/../helpers/atlas-cli.pl \
+			--box $*.box \
+			--version $(RELEASE) \
+			--provider libvirt \
+			--changelog "* stable point release \n"
+
 include ../vmdebootstrap-generic-qcow2/common.mk
