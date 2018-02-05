@@ -18,6 +18,7 @@ elif [ $VAGRANT_BUILDER_HOSTNAME ]; then
 fi
 
 set -x
+
 #######################################################################
 # upgrade Debian images as the LXC template does not do it.
 #######################################################################
@@ -40,9 +41,7 @@ chroot $fs apt-get purge -qy dctrl-tools
 # setup vagrant user
 #######################################################################
 chroot $fs id ubuntu >/dev/null 2>&1 && chroot $fs deluser ubuntu
-chroot $fs id vagrant >/dev/null 2>&1 || chroot $fs useradd --uid 1000 --shell /bin/bash vagrant
-mkdir -p $fs/home/vagrant
-chroot $fs chown vagrant:vagrant /home/vagrant
+chroot $fs id vagrant >/dev/null 2>&1 || chroot $fs useradd --create-home --uid 1000 --shell /bin/bash vagrant
 mkdir -p $fs/home/vagrant/.ssh
 chmod 700 $fs/home/vagrant/.ssh
 cat > $fs/home/vagrant/.ssh/authorized_keys << EOF
@@ -77,11 +76,11 @@ echo 'UseDNS no' >> $fs/etc/ssh/sshd_config
 echo 'PasswordAuthentication no' >> $fs/etc/ssh/sshd_config
 
 # Reduce grub timeout to 1s to speed up booting
-# but only if we are not in a chroot
 [ -f $fs/etc/default/grub ] && \
-  chroot $fs mountpoint -q /dev/ && \
   sed -i s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/ $fs/etc/default/grub
 
+# Updating grub config right now is only safe if we are not in a chroot
+# otherwise  grub complains on the lack of a mounted /
 [ -x $fs/usr/sbin/update-grub ] && \
   chroot $fs mountpoint -q /dev/ && \
   chroot $fs /usr/sbin/update-grub
@@ -91,6 +90,7 @@ echo 'PasswordAuthentication no' >> $fs/etc/ssh/sshd_config
 #######################################################################
 chroot $fs apt-get clean
 rm -f $fs/usr/sbin/policy-rc.d
+
 # make sure /etc/machine-id is generated on next book
 # /etc/machine-id needs to be unique so multiple systemd-networkd dhcp clients
 # get different ip addresses from the DHCP server
