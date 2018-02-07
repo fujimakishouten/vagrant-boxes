@@ -11,8 +11,8 @@ const semver = require('semver');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 const debug = false;
-//const releaseURL = 'http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/';
-const releaseURL = 'http://cdimage.debian.org/mirror/cdimage/archive/8.11.0/amd64/iso-cd/';
+const releaseURL = 'http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/';
+//const releaseURL = 'http://cdimage.debian.org/mirror/cdimage/archive/8.11.0/amd64/iso-cd/';
 
 const pathToManifest = getArgs();
 const manifestVersion = getManifestVersion(pathToManifest);
@@ -78,6 +78,16 @@ function getlastRelease(releaseURL, debug) {
   const req = new XMLHttpRequest();
   req.open('GET', releaseURL + 'SHA256SUMS', false);
   req.send(null);
+
+  // req.status from the XMLHttpRequest node module is buggy,
+  // it appends the responseText to the HTTP status code
+  // TODO: replace with node-fetch ?
+  const realStatus = parseInt(req.status.slice(0, 3));
+
+  if (realStatus >= 400 ) {
+    console.error(`error fetching ${releaseURL}SHA256SUMS, got HTTP status code ${realStatus}`);
+    usage();
+  }
 
   const lines = req.responseText.split('\n');
   let netinst;
