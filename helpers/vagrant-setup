@@ -20,6 +20,13 @@ fi
 set -x
 
 #######################################################################
+# Debconf Dialog frontend does not work without a controlling terminal
+# We restore this in the end
+#######################################################################
+echo 'debconf debconf/frontend select Noninteractive' | \
+	chroot $fs debconf-set-selections
+
+#######################################################################
 # upgrade Debian images as the LXC template does not do it.
 #######################################################################
 printf '#!/bin/sh\nexit 101\n' > $fs/usr/sbin/policy-rc.d
@@ -90,6 +97,8 @@ echo 'PasswordAuthentication no' >> $fs/etc/ssh/sshd_config
 #######################################################################
 chroot $fs apt-get clean
 rm -f $fs/usr/sbin/policy-rc.d
+echo 'debconf debconf/frontend select Dialog' | \
+    chroot $fs debconf-set-selections
 
 # make sure /etc/machine-id is generated on next book
 # /etc/machine-id needs to be unique so multiple systemd-networkd dhcp clients

@@ -32,6 +32,7 @@ cp ../helpers/package_report $testdir
   vagrant ssh -- sudo true
   vagrant ssh -- cat /etc/debian_version
   vagrant ssh -c "sh /vagrant/package_report"
-  vagrant ssh -c "sudo apt-get --quiet --yes install figlet \
-     && ( lsb_release --release --codename ) | figlet"
+  vagrant ssh -- sudo apt-get --quiet --yes install debconf-utils figlet
+  vagrant ssh -c "sudo debconf-get-selections | egrep '^debconf.*debconf/frontend'"
+  vagrant ssh -c "lsb_release --release --codename | figlet"
 )
