@@ -4,8 +4,8 @@
         "atlas_token" : "{{env `ATLAS_TOKEN`}}",
         "box_tag": "fujimakishouten/debian-buster64",
         "box_changelog" : "Daily build",
-        "box_version" : "10.0.0.20180205",
-        "description" : "Debian buster 2018.02.05",
+        "box_version" : "10.0.0.20180219",
+        "description" : "Debian buster 2018.02.19",
         "vm_name" : "debian-buster"
     },
     "builders" : [{
@@ -30,7 +30,7 @@
         "hard_drive_interface" : "sata",
         "headless" : false,
         "http_directory" : "http",
-        "iso_checksum" : "82cdf5163a4fd11f81d904b70d059c6eea9c31ee5fcb50115fa6ddf4a0512cbe51c55b8b69a1d5a46dba896e147df3bb80212fd17669441f82cb865ec52d2ce6",
+        "iso_checksum" : "cef8f13ec9b110ab84977cb25c5e335a5c902023330f61531784d6a65f4f082a0569b5a2ea5e9bbdd8c5b819211781827bc74537ee1f4aef34de1f2d299af3e2",
         "iso_checksum_type" : "sha512",
         "iso_url" : "https://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/debian-testing-amd64-netinst.iso",
         "shutdown_command" : "sudo /sbin/halt -p",
