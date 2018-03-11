@@ -65,7 +65,7 @@ $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA25
 	@echo "everything done, please release the box $*64 on app.vagrantup.com"
 	touch $@
 
-.PRECIOUS: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM
+.PRECIOUS: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
 .PHONY: clean cleanall cleanrelease %.cleantest
 
 clean::
