@@ -6,7 +6,7 @@ SHELL = /bin/bash # needed for |&
 # exit on undefined variables, pipeline fails if one command fails
 .SHELLFLAGS = -u -o pipefail -c
 RELEASE_NUMERIC = $(shell jq '.variables.box_version' $*.json | sed 's/"//g')
-TEE = |& ts |& tee --append $*-$(RELEASE_NUMERIC).log # log every command
+TEE = |& ts |& tee --append $*.log # log every command
 
 all:
 	@echo "Usage: make <distribution>"
@@ -38,7 +38,7 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 	qemu-img convert -O vmdk $</$* $*.vmdk $(TEE)
 
 %.build:
-	packer build $*.json |& ts |& tee $*-$(RELEASE_NUMERIC).log # create a new log file
+	packer build $*.json |& ts |& tee $*.log # create a new log file
 
 # test initialization / login / network
 %.tested: %.box
