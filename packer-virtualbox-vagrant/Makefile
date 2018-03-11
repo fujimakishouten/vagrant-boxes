@@ -75,6 +75,7 @@ clean::
 	-rmdir *.box.in/
 	-$(RM) *.vmdk
 	-$(RM) *.ovf
+	-$(RM) *.SHA256SUM.gpg
 
 cleanall: clean
-	$(RM) *.box *.uploaded *.tested *.log *.SHA256SUM  *.SHA256SUM.gpg
+	$(RM) *.box *.tested *.uploaded *.released
