@@ -5,7 +5,8 @@ TESTED = $(addsuffix .tested, $(DISTRIBUTIONS))
 SHELL = /bin/bash # needed for |&
 # exit on undefined variables, pipeline fails if one command fails
 .SHELLFLAGS = -u -o pipefail -c
-TEE = |& tee --append $*.log # log every command
+RELEASE_NUMERIC = $(shell jq '.variables.box_version' $*.json | sed 's/"//g')
+TEE = |& ts |& tee --append $*-$(RELEASE_NUMERIC).log # log every command
 
 all:
 	@echo "Usage: make <distribution>"
@@ -37,7 +38,7 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 	qemu-img convert -O vmdk $</$* $*.vmdk $(TEE)
 
 %.build:
-	packer build $*.json |& tee $*.log # create a new log file
+	packer build $*.json |& ts |& tee $*-$(RELEASE_NUMERIC).log # create a new log file
 
 # test initialization / login / network
 %.tested: %.box
@@ -45,22 +46,26 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 	touch $@ $(TEE)
 
 testing.uploaded: ISO_DATE_SEMVER = --version $(shell date +%Y.%m.%d)
-%.uploaded: %.tested
+%.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
 	../helpers/atlas-cli.pl --box $*.box $(ISO_DATE_SEMVER)
 	touch $@
 
-%.SHA256SUM.gpg: %.uploaded
-	make $*.cleansign
-	sha256sum $*.box > $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM
-	gpg --sign $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM
+$(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM: %.tested
+	sha256sum $*.box > $@
+	tr '\n' ' ' < $@ | sponge $@
+	echo $(RELEASE_NUMERIC) >> $@
 
-%.released: %.SHA256SUM.gpg
-	scp $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM \
-	    $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM.gpg \
+$(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM
+	gpg --batch --yes --sign $<
+
+%.released: %.uploaded
+	scp $(VAGRANT_DEFAULT_PROVIDER)-$*.SHA256SUM \
+	    $(VAGRANT_DEFAULT_PROVIDER)-$*.SHA256SUM.gpg \
 	    kdev-guest@alioth.debian.org:/home/groups/cloud/htdocs/vagrantboxes/
 	@echo "everything done, please release the box $*64 on app.vagrantup.com"
 	touch $@
 
+.PRECIOUS: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM
 .PHONY: clean cleanall cleanrelease %.cleantest
 
 clean::
@@ -72,8 +77,4 @@ clean::
 	-$(RM) *.ovf
 
 cleanall: clean
-	$(RM) *.box *.uploaded *.tested *.log
-
-%.cleansign:
-	-rm $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM.gpg
-	-rm $(VAGRANT_DEFAULT_PROVIDER)-$*64.SHA256SUM
+	$(RM) *.box *.uploaded *.tested *.log *.SHA256SUM  *.SHA256SUM.gpg
