@@ -1,8 +1,8 @@
 *.build
-*.log
 *.vmdk
 *.tested
 *.uploaded
 *.released
-*.SHA256SUM
+stretch.box.in/
+stretch.ovf
 *.SHA256SUM.gpg
