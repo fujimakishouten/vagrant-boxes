@@ -47,7 +47,7 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 
 testing.uploaded: ISO_DATE_SEMVER = --version $(shell date +%Y.%m.%d)
 %.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
-	../helpers/atlas-cli.pl --box $*.box $(ISO_DATE_SEMVER)
+	../helpers/vagrant-cloud.pl --box $*.box $(ISO_DATE_SEMVER)
 	touch $@
 
 $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM: %.tested

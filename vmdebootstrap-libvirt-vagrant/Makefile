@@ -33,7 +33,7 @@ clean::
 upload-%: test-%
 		# extract debian version from inside the disk image
 		$(eval RELEASE != $(CURDIR)/../helpers/get_numeric_version.pl $*.qcow2)
-		$(CURDIR)/../helpers/atlas-cli.pl \
+		$(CURDIR)/../helpers/vagrant-cloud.pl \
 			--box $*.box \
 			--version $(RELEASE).$(MINOR_RELEASE) \
 			--provider libvirt \

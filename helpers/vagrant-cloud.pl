@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# uploads a vagrant base to atlas
+# uploads a vagrant base to app.vagrantup.com
 
 # all necessaries perl modules should already be present in a standard debian installation
 # except libjson-perl which should be installed manually
@@ -19,14 +19,14 @@ use File::Basename;
 use Data::Dumper;
 
 # see https://vagrantcloud.com/docs/versions
-# put an atlas token in your env like this
-# export ATLAS_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
+# put an vagrant_cloud token in your env like this
+# export VAGRANT_CLOUD_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
 #
 # you can optionally set VAGRANTUP_UPLOAD_LIMIT in your env (KB/s) to throttle the upload
 # this uses the 'trickle' command line tool
 
 #script defaults
-my $atlas_token = $ENV{'ATLAS_TOKEN'};
+my $vagrant_cloud_token = $ENV{'VAGRANT_CLOUD_TOKEN'};
 my $builder_dir = getcwd;
 my $end_point   = 'https://app.vagrantup.com/api/v1/box/debian';
 my $ua          = LWP::UserAgent->new();
@@ -59,7 +59,7 @@ sub main {
 	print_help(EXIT_USAGE) if (! $parsing_success);
 	print_help(EXIT_OK) if $need_help;
 
-    defined $atlas_token or die "please export ATLAS_TOKEN as environment variable\n";
+    defined $vagrant_cloud_token or die "please export VAGRANT_CLOUD_TOKEN as environment variable\n";
 	defined $box or die ("please provide a path to a box with --box\n");
 
 	-e $box or die("box $box not found\n");
@@ -112,7 +112,7 @@ sub print_help {
 example1: uploading a lxc box to the debian/sandox64 namespace
 namespace is computed as debian/\$box_filename64
 
-atlas-cli.pl \\
+vagrant-cloud.pl \\
  --box sandbox.box \\
  --version 10.1  \\
  --changelog "* uploading to debian/sandbox64" \\
@@ -122,7 +122,7 @@ example2: uploading a virtualbox box to the debian/jessie64 namespace
 version and changelog are infered from the presence of \$box_filename.json file,
 provider is not set and defaults to virtualbox
 
-atlas-cli.pl --box jessie.box
+vagrant-cloud.pl --box jessie.box
 
 EOD
 		print $help;
@@ -166,7 +166,7 @@ sub printJSON {
 
 sub is_version_existing {
 	my ($cloudname, $version) = @_;
-	my $url = join('/',	$end_point,	$cloudname,	"version", "$version?access_token=$atlas_token");
+	my $url = join('/',	$end_point,	$cloudname,	"version", "$version?access_token=$vagrant_cloud_token");
 
 	my $response = $ua->get($url);
 	return $response->is_success();
@@ -182,7 +182,7 @@ sub createver {
 		[
 			'version[version]'     => "$version",
 			'version[description]' => "$changelog",
-			'access_token'         => "$atlas_token"
+			'access_token'         => "$vagrant_cloud_token"
 		]
 	);
 
@@ -198,7 +198,7 @@ sub delver {
  # So Use HTTP:Request for that
 	my $headers = HTTP::Headers->new(
 		'content-type' => 'application/x-www-form-urlencoded');
-	my $content = "access_token=$atlas_token";
+	my $content = "access_token=$vagrant_cloud_token";
 	my $req = HTTP::Request->new(DELETE => $url, $headers, $content);
 
 	my $response = $ua->request($req);
@@ -214,7 +214,7 @@ sub update {
 		[
 			'version[version]'     => "$version",
 			'version[description]' => "$changelog",
-			'access_token'         => "$atlas_token"
+			'access_token'         => "$vagrant_cloud_token"
 		]
 	);
 	printJSON($response);
@@ -227,7 +227,7 @@ sub createprovider {
 	  join('/', $end_point, $cloudname, "version", $version, "providers");
 	my $response =
 	  $ua->post($url,
-		[ 'provider[name]', "$provider", 'access_token', "$atlas_token" ]);
+		[ 'provider[name]', "$provider", 'access_token', "$vagrant_cloud_token" ]);
 	printJSON($response);
 	return $response->is_success();
 }
@@ -236,7 +236,7 @@ sub is_provider_existing {
 	my ($cloudname, $version, $provider) = @_;
 	my $url = join('/',
 		$end_point, $cloudname, "version", $version, "provider", $provider,
-		"?access_token=$atlas_token");
+		"?access_token=$vagrant_cloud_token");
 	my $response = $ua->get($url);
 	return $response->is_success();
 }
@@ -245,7 +245,7 @@ sub get_uploadpath {
 	my ($cloudname, $version, $provider) = @_;
 	my $url = join('/',
 		$end_point, $cloudname, "version", $version, "provider", $provider,
-		"upload", "?access_token=$atlas_token");
+		"upload", "?access_token=$vagrant_cloud_token");
 	my $response = $ua->get($url);
 	printJSON($response);
 
