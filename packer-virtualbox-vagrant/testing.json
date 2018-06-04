@@ -44,16 +44,27 @@
   "provisioners": [
     {
       "type": "shell",
-      "pause_before": "5s",
+      "pause_before": "10s",
       "execute_command": "echo 'vagrant'| {{.Vars}} sudo --preserve-env --stdin sh '{{.Path}}'",
       "environment_vars": [
          "VAGRANT_BUILDER_FS=/"
       ],
       "scripts": [
-	"scripts/upgrade-to-testing.sh",
+	"scripts/upgrade-to-testing.sh"
+      ]
+    },
+    {
+      "type": "shell",
+      "pause_before": "10s",
+      "execute_command": "echo 'vagrant'| {{.Vars}} sudo --preserve-env --stdin sh '{{.Path}}'",
+      "environment_vars": [
+         "VAGRANT_BUILDER_FS=/"
+      ],
+      "scripts": [
         "../helpers/vagrant-setup",
         "scripts/minimize.sh"
       ]
     }
+
   ]
 }

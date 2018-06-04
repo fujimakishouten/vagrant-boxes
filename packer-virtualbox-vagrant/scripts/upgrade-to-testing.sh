@@ -24,3 +24,4 @@ apt-get --yes upgrade
 apt-get --yes dist-upgrade
 apt-get --yes autoremove
 apt-get --yes clean
+reboot
