@@ -1,7 +1,7 @@
 {
   "description": "Vanilla Debian Testing base box",
   "variables": {
-      "box_changelog": "* monthly release, based on stretch installer and upgrade to testing\n"
+      "box_changelog": "* snapshot release, based on stretch installer and upgrade to testing\n"
     },
   "builders": [
     {
