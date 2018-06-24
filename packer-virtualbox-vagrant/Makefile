@@ -48,6 +48,7 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 testing.uploaded: ISO_DATE_SEMVER = --version $(shell date +%Y.%m.%d)
 %.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
 	../helpers/vagrant-cloud.pl --box $*.box $(ISO_DATE_SEMVER)
+	@echo "everything done, please release the box $*64 on app.vagrantup.com"
 	touch $@
 
 $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM: %.tested
@@ -57,13 +58,6 @@ $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM: %.tested
 
 $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM
 	gpg --batch --yes --sign $<
-
-%.released: %.uploaded
-	scp $(VAGRANT_DEFAULT_PROVIDER)-$*.SHA256SUM \
-	    $(VAGRANT_DEFAULT_PROVIDER)-$*.SHA256SUM.gpg \
-	    kdev-guest@alioth.debian.org:/home/groups/cloud/htdocs/vagrantboxes/
-	@echo "everything done, please release the box $*64 on app.vagrantup.com"
-	touch $@
 
 .PRECIOUS: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
 .PHONY: clean cleanall cleanrelease %.cleantest
