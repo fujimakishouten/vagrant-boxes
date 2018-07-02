@@ -25,6 +25,8 @@ test_all = test-wheezy $(patsubst %, test-%, $(DISTRIBUTIONS))
 test: $(test_all)
 $(test_all): test-% : %.box
 	../helpers/vagrant-test libvirt $* $<
+	# workaround for https://github.com/vagrant-libvirt/vagrant-libvirt/issues/85
+	virsh vol-delete --pool default test-$*_vagrant_box_image_0.img
 
 
 clean::
