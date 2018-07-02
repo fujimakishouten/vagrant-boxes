@@ -24,6 +24,8 @@ export VAGRANT_DEFAULT_PROVIDER="$provider"
 vagrant box add $boxname $boxfile
 mkdir $testdir
 cp ../helpers/package_report $testdir
+this_codename_last_release=$(../helpers/getLatestRelease.js $name)
+
 (
   cd $testdir
   vagrant init $boxname
@@ -36,5 +38,7 @@ cp ../helpers/package_report $testdir
   # test that we have the debconf front end set to the defauilt of 'Dialog'
   # see man debconf-set-selections (1) for regexp format
   vagrant ssh -c "sudo debconf-get-selections | egrep '^debconf.?debconf/frontend.?select.?Dialog$'"
+  # test that this box version matches the latest major / minor release
+  vagrant ssh -c "cat /etc/debian_version" | grep $this_codename_last_release
   vagrant ssh -c "lsb_release --release --codename | figlet"
 )
