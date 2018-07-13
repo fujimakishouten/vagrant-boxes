@@ -5,7 +5,7 @@ TESTED = $(addsuffix .tested, $(DISTRIBUTIONS))
 SHELL = /bin/bash # needed for |&
 # exit on undefined variables, pipeline fails if one command fails
 .SHELLFLAGS = -u -o pipefail -c
-RELEASE_NUMERIC = $(shell jq '.variables.box_version' $*.json | sed 's/"//g')
+RELEASE_NUMERIC = $(shell jq --raw-output '.variables.box_version' $*.json )
 TEE = |& ts |& tee --append $*.log # log every command
 
 all:
