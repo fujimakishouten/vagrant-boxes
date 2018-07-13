@@ -37,7 +37,6 @@ my $verbose     = 1;
 use constant EXIT_OK => 0;
 use constant EXIT_USAGE => 64;
 
-
 # defaults for command line switches
 my $box;
 my $version;
@@ -49,40 +48,40 @@ my $debug;
 sub main {
 
 	my $parsing_success = GetOptions('box=s' => \$box,
-			'version=s' => \$version,
-			'changelog=s' => \$changelog,
-			'provider=s' => \$provider,
-			'debug' => \$debug,
-			'help' => \$need_help,
+		'version=s' => \$version,
+		'changelog=s' => \$changelog,
+		'provider=s' => \$provider,
+		'debug' => \$debug,
+		'help' => \$need_help,
 	);
 
 	print_help(EXIT_USAGE) if (! $parsing_success);
 	print_help(EXIT_OK) if $need_help;
 
-    defined $vagrant_cloud_token or die "please export VAGRANT_CLOUD_TOKEN as environment variable\n";
+  defined $vagrant_cloud_token or die "please export VAGRANT_CLOUD_TOKEN as environment variable\n";
 	defined $box or die ("please provide a path to a box with --box\n");
 
 	-e $box or die("box $box not found\n");
 	my ($codename) = split /\.box/, $box;
-	my $cloudname  = join('', $codename, '64');
+	my $cloudname  = "${codename}64";
 
 	my $upload_limit = $ENV{VAGRANTUP_UPLOAD_LIMIT};
 	my $upload_limit_command = "";
 	if ($upload_limit && -x '/usr/bin/trickle') {
-	    $upload_limit_command = "/usr/bin/trickle -s -u $upload_limit -w $upload_limit -- ";
+    $upload_limit_command = "/usr/bin/trickle -s -u $upload_limit -w $upload_limit -- ";
 		print "limiting upload bandwith usage with $upload_limit_command\n";
 	}
 
 	if (! $version) {
-        my $manifest = join( '', $builder_dir, '/', $codename, '.json');
-        -f $manifest or die("uname to open a manifest $manifest for $box, use command line switches\n");
+    my $manifest = "$builder_dir/$codename.json";
+    -f $manifest or die("uname to open a manifest $manifest for $box, use command line switches\n");
 		$version = json_fileread('box_version', $manifest);
 	}
 
 	if (! $changelog) {
-		my $manifest = join( '', $builder_dir, '/', $codename, '.json');
-        -f $manifest or die("uname to open a manifest $manifest for $box, use command line switches\n");
-        $changelog = json_fileread('box_changelog', $manifest);
+		my $manifest = "$builder_dir/$codename.json";
+    -f $manifest or die("uname to open a manifest $manifest for $box, use command line switches\n");
+    $changelog = json_fileread('box_changelog', $manifest);
 	}
 
 	if (! is_version_existing($cloudname, $version)) {
@@ -99,15 +98,15 @@ sub main {
 main();
 
 sub print_help {
-		my ($exit_code) = @_;
-		my $help = basename($0) . "\n";
-		$help .= "\t--box  path to box to upload \n";
-		$help .= "\t--version version string\n";
-		$help .= "\t--changelog changelog string in Markdown format \n";
-		$help .= "\t--provider virtualization provider \n";
-		$help .= "\t--debug print internal perl data structures \n";
-		$help .= "\t--help display this text \n";
-		$help .= <<EOD;
+  my ($exit_code) = @_;
+  my $help = basename($0) . "\n";
+  $help .= "\t--box  path to box to upload \n";
+  $help .= "\t--version version string\n";
+  $help .= "\t--changelog changelog string in Markdown format \n";
+  $help .= "\t--provider virtualization provider \n";
+  $help .= "\t--debug print internal perl data structures \n";
+  $help .= "\t--help display this text \n";
+  $help .= <<EOD;
 
 example1: uploading a lxc box to the debian/sandox64 namespace
 namespace is computed as debian/\$box_filename64
@@ -125,8 +124,8 @@ provider is not set and defaults to virtualbox
 vagrant-cloud.pl --box jessie.box
 
 EOD
-		print $help;
-		exit($exit_code);
+  print $help;
+  exit($exit_code);
 }
 
 sub json_fileread {
@@ -141,32 +140,30 @@ sub json_fileread {
 	}
 
 	my $manifest = decode_json($json);
-    my $value = undef; 
-	$value = $manifest->{'variables'}->{$key}
-	  if $manifest->{'variables'}->{$key};
+  my $value = undef;
+	$value = $manifest->{'variables'}->{$key} if $manifest->{'variables'}->{$key};
 	defined($value) && return $value or die "unable to find $key in $template";
 }
 
 sub printJSON {
 	my ($response) = @_;
 	if ($debug) {
-		print $response->status_line(), "\n";
-		print Dumper($response);
-		return;
+  	print $response->status_line(), "\n";
+	  print Dumper($response);
+	return;
 	}
 
-	if ($response->is_success && $verbose ) {
+	if ($response->is_success && $verbose) {
 		my $jsonref = decode_json($response->decoded_content);
 		print $JSONprinter->encode($jsonref);
-	}
-	else {
+	} else {
 		print $response->status_line(), "\n";
 	}
 }
 
 sub is_version_existing {
 	my ($cloudname, $version) = @_;
-	my $url = join('/',	$end_point,	$cloudname,	"version", "$version?access_token=$vagrant_cloud_token");
+  my $url = "$end_point/$cloudname/version/$version?access_token=$vagrant_cloud_token";
 
 	my $response = $ua->get($url);
 	return $response->is_success();
@@ -175,8 +172,7 @@ sub is_version_existing {
 sub createver {
 	my ($cloudname, $version, $changelog) = @_;
 
-	my $url = join('/', $end_point,	$cloudname,	"versions");
-
+  my $url = "$end_point/$cloudname/versions";
 	my $response = $ua->post(
 		$url,
 		[
@@ -192,12 +188,11 @@ sub createver {
 
 sub delver {
 	my ($cloudname, $version) = @_;
-	my $url = join('/', $end_point, $cloudname, "version", $version);
+   my $url = "$end_point/$cloudname/version/$version";
 
  # Arguments in LWP::UserAgent::delete() are used to create headers not content.
  # So Use HTTP:Request for that
-	my $headers = HTTP::Headers->new(
-		'content-type' => 'application/x-www-form-urlencoded');
+	my $headers = HTTP::Headers->new('content-type' => 'application/x-www-form-urlencoded');
 	my $content = "access_token=$vagrant_cloud_token";
 	my $req = HTTP::Request->new(DELETE => $url, $headers, $content);
 
@@ -208,7 +203,7 @@ sub delver {
 
 sub update {
 	my ($cloudname, $version, $changelog) = @_;
-	my $url = join('/', $end_point, $cloudname, "version", $version);
+  my $url = "$end_point/$cloudname/version/$version";
 	my $response = $ua->put(
 		$url,
 		[
@@ -223,10 +218,8 @@ sub update {
 
 sub createprovider {
 	my ($cloudname, $version, $provider) = @_;
-	my $url =
-	  join('/', $end_point, $cloudname, "version", $version, "providers");
-	my $response =
-	  $ua->post($url,
+  my $url = "$end_point/$cloudname/version/$version/providers";
+	my $response = $ua->post($url,
 		[ 'provider[name]', "$provider", 'access_token', "$vagrant_cloud_token" ]);
 	printJSON($response);
 	return $response->is_success();
@@ -234,18 +227,16 @@ sub createprovider {
 
 sub is_provider_existing {
 	my ($cloudname, $version, $provider) = @_;
-	my $url = join('/',
-		$end_point, $cloudname, "version", $version, "provider", $provider,
-		"?access_token=$vagrant_cloud_token");
+  my $url = "$end_point/$cloudname/version/$version/provider/$provider"
+  . "?access_token=$vagrant_cloud_token";
 	my $response = $ua->get($url);
 	return $response->is_success();
 }
 
 sub get_uploadpath {
 	my ($cloudname, $version, $provider) = @_;
-	my $url = join('/',
-		$end_point, $cloudname, "version", $version, "provider", $provider,
-		"upload", "?access_token=$vagrant_cloud_token");
+  my $url = "$end_point/$cloudname/version/$version/provider/$provider/upload"
+  . "?access_token=$vagrant_cloud_token";
 	my $response = $ua->get($url);
 	printJSON($response);
 
