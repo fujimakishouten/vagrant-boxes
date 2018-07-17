@@ -3,6 +3,6 @@
 *.tested
 *.uploaded
 *.released
-stretch.box.in/
-stretch.ovf
+*.box.in/
+*.ovf
 *.SHA256SUM.gpg
