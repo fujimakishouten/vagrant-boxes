@@ -4,8 +4,8 @@
         "atlas_token" : "{{env `ATLAS_TOKEN`}}",
         "box_tag": "fujimakishouten/debian-buster64",
         "box_changelog" : "Daily build",
-        "box_version" : "10.0.0.20180219",
-        "description" : "Debian buster 2018.02.19",
+        "box_version" : "10.0.0.20180717",
+        "description" : "Debian buster 2018.07.17",
         "vm_name" : "debian-buster"
     },
     "builders" : [{
@@ -30,7 +30,7 @@
         "hard_drive_interface" : "sata",
         "headless" : false,
         "http_directory" : "http",
-        "iso_checksum" : "cef8f13ec9b110ab84977cb25c5e335a5c902023330f61531784d6a65f4f082a0569b5a2ea5e9bbdd8c5b819211781827bc74537ee1f4aef34de1f2d299af3e2",
+        "iso_checksum" : "38ca5be644834bed06d4a3b9a908b8b18a13fc84ca65444c330d56b6883304d1c09d037b6ad7b2bd876c037ff3eae691506e1358a771ee4ca5ca1cda7ef4f8b2",
         "iso_checksum_type" : "sha512",
         "iso_url" : "https://cdimage.debian.org/cdimage/daily-builds/daily/arch-latest/amd64/iso-cd/debian-testing-amd64-netinst.iso",
         "shutdown_command" : "sudo /sbin/halt -p",
@@ -60,7 +60,7 @@
                     "scripts/timezone.sh",
                     "scripts/apt.sh",
                     "scripts/fujimakishouten-vagrant-setup.sh",
-                    "scripts/vb-guest-additions.sh",
+                    "scripts/vb-guest-additions-testing.sh",
                     "scripts/minimize.sh"
                 ]
             }
