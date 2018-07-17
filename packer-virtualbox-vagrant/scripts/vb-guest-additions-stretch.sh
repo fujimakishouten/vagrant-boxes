@@ -4,7 +4,7 @@ set -e
 
 echo "installing virtualbox guest additions"
 
-VBOXVER=5.1.30-dfsg-1~bpo9+1
+VBOXVER=5.2.10-dfsg-6~bpo9+1
 td=$(mktemp -d)
 cd $td
 apt-get --yes install linux-headers-amd64

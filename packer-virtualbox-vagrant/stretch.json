@@ -1,7 +1,7 @@
 {
   "description": "Vanilla Debian Stretch base box",
   "variables": {
-    "box_version": "9.4.0",
+    "box_version": "9.5.0",
     "box_changelog": "* New point release"
     },
   "builders": [
