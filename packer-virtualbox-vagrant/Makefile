@@ -5,8 +5,9 @@ TESTED = $(addsuffix .tested, $(DISTRIBUTIONS))
 SHELL = /bin/bash # needed for |&
 # exit on undefined variables, pipeline fails if one command fails
 .SHELLFLAGS = -u -o pipefail -c
-RELEASE_NUMERIC = $(shell jq --raw-output '.variables.box_version' $*.json )
 TEE = |& ts |& tee --append $*.log # log every command
+ISO_DATE_SEMVER = $(shell date +%Y.%m.%d)
+MINOR_RELEASE = 0
 
 all:
 	@echo "Usage: make <distribution>"
@@ -45,21 +46,37 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 	../helpers/vagrant-test virtualbox $* $< $(TEE)
 	touch $@ $(TEE)
 
-testing.uploaded: ISO_DATE_SEMVER = --version $(shell date +%Y.%m.%d)
 %.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
-	../helpers/vagrant-cloud.pl --box $*.box $(ISO_DATE_SEMVER)
+	# extract debian version from inside the disk image
+	$(eval RELEASE != $(CURDIR)/../helpers/get_numeric_version.pl $*.vmdk)
+	../helpers/vagrant-cloud.pl \
+		--box $*.box \
+		--provider $(VAGRANT_DEFAULT_PROVIDER) \
+		--version $(RELEASE).$(MINOR_RELEASE) \
+		--changelog "* stable point release"
+	@echo "everything done, please release the box $*64 on app.vagrantup.com"
+	touch $@
+
+# we don't have a debian version for testing images, hence a date base version number
+contrib-testing.uploaded:
+	../helpers/vagrant-cloud.pl \
+		--box $*.box \
+		--provider $(VAGRANT_DEFAULT_PROVIDER) \
+		--version $(ISO_DATE_SEMVER)
+		--changelog "* rebuild of testing box"
 	@echo "everything done, please release the box $*64 on app.vagrantup.com"
 	touch $@
 
 $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM: %.tested
 	sha256sum $*.box > $@
 	tr '\n' ' ' < $@ | sponge $@
-	echo $(RELEASE_NUMERIC) >> $@
+	$(eval RELEASE != $(CURDIR)/../helpers/get_numeric_version.pl $*.vmdk)
+	echo $(RELEASE) >> $@
 
 $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM
 	gpg --batch --yes --sign $<
 
-.PRECIOUS: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
+.PRECIOUS: %.vmdk $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
 .PHONY: clean cleanall cleanrelease %.cleantest
 
 clean::
