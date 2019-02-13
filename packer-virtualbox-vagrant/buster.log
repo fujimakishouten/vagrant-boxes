@@ -1,0 +1,1011 @@
+Feb 13 15:56:32 [1;32mqemu output will be in this color.[0m
+Feb 13 15:56:32 
+Feb 13 15:56:32 [1;32m==> qemu: Retrieving ISO[0m
+Feb 13 15:56:34 [0;32m    qemu: Found already downloaded, initial checksum matched, no download needed: https://cdimage.debian.org/cdimage/buster_di_alpha5/amd64/iso-cd/debian-buster-DI-alpha5-amd64-netinst.iso[0m
+Feb 13 15:56:34 [1;32m==> qemu: Creating hard drive...[0m
+Feb 13 15:56:34 [1;32m==> qemu: Starting HTTP server on port 8000[0m
+Feb 13 15:56:34 [1;32m==> qemu: Found port for communicator (SSH, WinRM, etc): 3015.[0m
+Feb 13 15:56:34 [1;32m==> qemu: Looking for available port between 5900 and 6000 on 127.0.0.1[0m
+Feb 13 15:56:34 [1;32m==> qemu: Starting VM, booting from CD-ROM[0m
+Feb 13 15:56:34 [0;32m    qemu: The VM will be run headless, without a GUI. If you want to
+Feb 13 15:56:34     qemu: view the screen of the VM, connect via VNC without a password to
+Feb 13 15:56:34     qemu: vnc://127.0.0.1:5914[0m
+Feb 13 15:56:34 [1;32m==> qemu: Overriding defaults Qemu arguments with QemuArgs...[0m
+Feb 13 15:56:36 [1;32m==> qemu: Waiting 10s for boot...[0m
+Feb 13 15:56:46 [1;32m==> qemu: Connecting to VM via VNC[0m
+Feb 13 15:56:46 [1;32m==> qemu: Typing the boot command over VNC...[0m
+Feb 13 15:58:02 [1;32m==> qemu: Using ssh communicator to connect: 127.0.0.1[0m
+Feb 13 15:58:02 [1;32m==> qemu: Waiting for SSH to become available...[0m
+Feb 13 16:08:32 [1;32m==> qemu: Connected to SSH![0m
+Feb 13 16:08:32 [1;32m==> qemu: Pausing 5s before the next provisioner...[0m
+Feb 13 16:08:37 [1;32m==> qemu: Provisioning with shell script: ../helpers/vagrant-setup[0m
+Feb 13 16:08:37 [0;32m    qemu:[0m
+Feb 13 16:08:37 [0;32m    qemu: We trust you have received the usual lecture from the local System[0m
+Feb 13 16:08:37 [0;32m    qemu: Administrator. It usually boils down to these three things:[0m
+Feb 13 16:08:37 [0;32m    qemu:[0m
+Feb 13 16:08:37 [0;32m    qemu:     #1) Respect the privacy of others.[0m
+Feb 13 16:08:37 [0;32m    qemu:     #2) Think before you type.[0m
+Feb 13 16:08:37 [0;32m    qemu:     #3) With great power comes great responsibility.[0m
+Feb 13 16:08:37 [0;32m    qemu:[0m
+Feb 13 16:08:37 [0;32m    qemu: [sudo] password for vagrant: + echo debconf debconf/frontend select Noninteractive[0m
+Feb 13 16:08:37 [0;32m    qemu: + chroot / debconf-set-selections[0m
+Feb 13 16:08:37 [0;32m    qemu: + printf #!/bin/sh\nexit 101\n[0m
+Feb 13 16:08:37 [0;32m    qemu: + chmod +x //usr/sbin/policy-rc.d[0m
+Feb 13 16:08:37 [0;32m    qemu: + echo Acquire::Languages "none";[0m
+Feb 13 16:08:37 [0;32m    qemu: + chroot / apt-get update[0m
+Feb 13 16:08:38 [0;32m    qemu: Hit:1 http://security.debian.org/debian-security buster/updates InRelease[0m
+Feb 13 16:08:38 [0;32m    qemu: Hit:2 http://deb.debian.org/debian buster InRelease[0m
+Feb 13 16:08:38 [0;32m    qemu: Reading package lists...[0m
+Feb 13 16:08:38 [0;32m    qemu: + chroot / apt-get -qy dist-upgrade[0m
+Feb 13 16:08:38 [0;32m    qemu: Reading package lists...[0m
+Feb 13 16:08:39 [0;32m    qemu: Building dependency tree...[0m
+Feb 13 16:08:39 [0;32m    qemu: Reading state information...[0m
+Feb 13 16:08:39 [0;32m    qemu: Calculating upgrade...[0m
+Feb 13 16:08:39 [0;32m    qemu: 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.[0m
+Feb 13 16:08:39 [0;32m    qemu: + chroot / apt-get install -qy dctrl-tools[0m
+Feb 13 16:08:39 [0;32m    qemu: Reading package lists...[0m
+Feb 13 16:08:39 [0;32m    qemu: Building dependency tree...[0m
+Feb 13 16:08:39 [0;32m    qemu: Reading state information...[0m
+Feb 13 16:08:39 [0;32m    qemu: Suggested packages:[0m
+Feb 13 16:08:39 [0;32m    qemu:   debtags[0m
+Feb 13 16:08:39 [0;32m    qemu: The following NEW packages will be installed:[0m
+Feb 13 16:08:39 [0;32m    qemu:   dctrl-tools[0m
+Feb 13 16:08:39 [0;32m    qemu: 0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.[0m
+Feb 13 16:08:39 [0;32m    qemu: Need to get 103 kB of archives.[0m
+Feb 13 16:08:39 [0;32m    qemu: After this operation, 431 kB of additional disk space will be used.[0m
+Feb 13 16:08:39 [0;32m    qemu: Get:1 http://deb.debian.org/debian buster/main amd64 dctrl-tools amd64 2.24-3 [103 kB][0m
+Feb 13 16:08:40 [0;32m    qemu: Fetched 103 kB in 0s (378 kB/s)[0m
+Feb 13 16:08:40 [0;32m    qemu: Selecting previously unselected package dctrl-tools.[0m
+Feb 13 16:08:40 [0;32m    qemu: (Reading database ... 23823 files and directories currently installed.)[0m
+Feb 13 16:08:40 [0;32m    qemu: Preparing to unpack .../dctrl-tools_2.24-3_amd64.deb ...[0m
+Feb 13 16:08:40 [0;32m    qemu: Unpacking dctrl-tools (2.24-3) ...[0m
+Feb 13 16:08:40 [0;32m    qemu: Setting up dctrl-tools (2.24-3) ...[0m
+Feb 13 16:08:40 [0;32m    qemu: + + chroot / xargs apt-get install -qy pinentry-curses[0m
+Feb 13 16:08:40 [0;32m    qemu: chroot / grep-aptavail --no-field-names --show-field Package --field Priority --regex standard\|important[0m
+Feb 13 16:08:40 [0;32m    qemu: Reading package lists...[0m
+Feb 13 16:08:40 [0;32m    qemu: Building dependency tree...[0m
+Feb 13 16:08:40 [0;32m    qemu: Reading state information...[0m
+Feb 13 16:08:40 [0;32m    qemu: adduser is already the newest version (3.118).[0m
+Feb 13 16:08:40 [0;32m    qemu: apt-utils is already the newest version (1.8.0~rc2).[0m
+Feb 13 16:08:40 [0;32m    qemu: bsdmainutils is already the newest version (11.1.2+b1).[0m
+Feb 13 16:08:40 [0;32m    qemu: cpio is already the newest version (2.12+dfsg-6).[0m
+Feb 13 16:08:40 [0;32m    qemu: cron is already the newest version (3.0pl1-130).[0m
+Feb 13 16:08:40 [0;32m    qemu: dbus is already the newest version (1.12.12-1).[0m
+Feb 13 16:08:40 [0;32m    qemu: dbus set to manually installed.[0m
+Feb 13 16:08:40 [0;32m    qemu: debconf-i18n is already the newest version (1.5.70).[0m
+Feb 13 16:08:40 [0;32m    qemu: debian-archive-keyring is already the newest version (2018.1).[0m
+Feb 13 16:08:40 [0;32m    qemu: dmidecode is already the newest version (3.2-1).[0m
+Feb 13 16:08:40 [0;32m    qemu: gdbm-l10n is already the newest version (1.18.1-2).[0m
+Feb 13 16:08:40 [0;32m    qemu: gettext-base is already the newest version (0.19.8.1-9).[0m
+Feb 13 16:08:40 [0;32m    qemu: gettext-base set to manually installed.[0m
+Feb 13 16:08:40 [0;32m    qemu: libc-l10n is already the newest version (2.28-6).[0m
+Feb 13 16:08:40 [0;32m    qemu: libc-l10n set to manually installed.[0m
+Feb 13 16:08:40 [0;32m    qemu: locales is already the newest version (2.28-6).[0m
+Feb 13 16:08:40 [0;32m    qemu: gpgv is already the newest version (2.2.12-1).[0m
+Feb 13 16:08:40 [0;32m    qemu: ifupdown is already the newest version (0.8.35).[0m
+Feb 13 16:08:40 [0;32m    qemu: init is already the newest version (1.56+nmu1).[0m
+Feb 13 16:08:40 [0;32m    qemu: iproute2 is already the newest version (4.20.0-2).[0m
+Feb 13 16:08:40 [0;32m    qemu: iptables is already the newest version (1.8.2-3).[0m
+Feb 13 16:08:40 [0;32m    qemu: iputils-ping is already the newest version (3:20180629-2).[0m
+Feb 13 16:08:40 [0;32m    qemu: isc-dhcp-client is already the newest version (4.4.1-2).[0m
+Feb 13 16:08:40 [0;32m    qemu: isc-dhcp-common is already the newest version (4.4.1-2).[0m
+Feb 13 16:08:40 [0;32m    qemu: kmod is already the newest version (25-2).[0m
+Feb 13 16:08:40 [0;32m    qemu: krb5-locales is already the newest version (1.17-1).[0m
+Feb 13 16:08:40 [0;32m    qemu: krb5-locales set to manually installed.[0m
+Feb 13 16:08:40 [0;32m    qemu: less is already the newest version (487-0.1+b1).[0m
+Feb 13 16:08:40 [0;32m    qemu: logrotate is already the newest version (3.14.0-4).[0m
+Feb 13 16:08:40 [0;32m    qemu: nano is already the newest version (3.2-1).[0m
+Feb 13 16:08:40 [0;32m    qemu: ncurses-term is already the newest version (6.1+20181013-1).[0m
+Feb 13 16:08:40 [0;32m    qemu: ncurses-term set to manually installed.[0m
+Feb 13 16:08:40 [0;32m    qemu: netbase is already the newest version (5.5).[0m
+Feb 13 16:08:40 [0;32m    qemu: whiptail is already the newest version (0.52.20-8).[0m
+Feb 13 16:08:40 [0;32m    qemu: openssh-client is already the newest version (1:7.9p1-6).[0m
+Feb 13 16:08:40 [0;32m    qemu: openssh-client set to manually installed.[0m
+Feb 13 16:08:40 [0;32m    qemu: pciutils is already the newest version (1:3.5.2-1).[0m
+Feb 13 16:08:40 [0;32m    qemu: procps is already the newest version (2:3.3.15-2).[0m
+Feb 13 16:08:40 [0;32m    qemu: readline-common is already the newest version (7.0-5).[0m
+Feb 13 16:08:40 [0;32m    qemu: rsyslog is already the newest version (8.40.0-1+b1).[0m
+Feb 13 16:08:40 [0;32m    qemu: wamerican is already the newest version (2018.04.16-1).[0m
+Feb 13 16:08:40 [0;32m    qemu: wamerican set to manually installed.[0m
+Feb 13 16:08:40 [0;32m    qemu: sensible-utils is already the newest version (0.0.12).[0m
+Feb 13 16:08:40 [0;32m    qemu: libpam-systemd is already the newest version (240-5).[0m
+Feb 13 16:08:40 [0;32m    qemu: libpam-systemd set to manually installed.[0m
+Feb 13 16:08:40 [0;32m    qemu: systemd is already the newest version (240-5).[0m
+Feb 13 16:08:40 [0;32m    qemu: systemd-sysv is already the newest version (240-5).[0m
+Feb 13 16:08:40 [0;32m    qemu: udev is already the newest version (240-5).[0m
+Feb 13 16:08:40 [0;32m    qemu: tasksel is already the newest version (3.49).[0m
+Feb 13 16:08:40 [0;32m    qemu: tasksel-data is already the newest version (3.49).[0m
+Feb 13 16:08:40 [0;32m    qemu: ucf is already the newest version (3.0038+nmu1).[0m
+Feb 13 16:08:40 [0;32m    qemu: ucf set to manually installed.[0m
+Feb 13 16:08:40 [0;32m    qemu: fdisk is already the newest version (2.33.1-0.1).[0m
+Feb 13 16:08:40 [0;32m    qemu: vim-common is already the newest version (2:8.1.0875-1).[0m
+Feb 13 16:08:40 [0;32m    qemu: vim-tiny is already the newest version (2:8.1.0875-1).[0m
+Feb 13 16:08:40 [0;32m    qemu: The following additional packages will be installed:[0m
+Feb 13 16:08:40 [0;32m    qemu:   ca-certificates distro-info-data geoip-database iso-codes libassuan0[0m
+Feb 13 16:08:40 [0;32m    qemu:   libbind9-161 libcurl3-gnutls libdns1104 libfstrm0 libgdbm-compat4 libgdbm6[0m
+Feb 13 16:08:40 [0;32m    qemu:   libgeoip1 libicu63 libisc1100 libisccc161 libisccfg163 libldap-2.4-2[0m
+Feb 13 16:08:40 [0;32m    qemu:   libldap-common liblmdb0 liblwres161 libmagic-mgc libmagic1 libmpdec2[0m
+Feb 13 16:08:40 [0;32m    qemu:   libnghttp2-14 libpcre2-8-0 libperl5.28 libpipeline1 libprotobuf-c1 libpsl5[0m
+Feb 13 16:08:40 [0;32m    qemu:   libpython-stdlib libpython2-stdlib libpython2.7-minimal libpython2.7-stdlib[0m
+Feb 13 16:08:40 [0;32m    qemu:   libpython3-stdlib libpython3.7-minimal libpython3.7-stdlib libreadline7[0m
+Feb 13 16:08:40 [0;32m    qemu:   librtmp1 libsasl2-2 libsasl2-modules libsasl2-modules-db libsqlite3-0[0m
+Feb 13 16:08:40 [0;32m    qemu:   libssh2-1 libuchardet0 libxml2 lsb-release openssl powermgmt-base[0m
+Feb 13 16:08:40 [0;32m    qemu:   publicsuffix python-apt-common python2 python2-minimal python2.7-minimal[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3 python3-apt python3-certifi python3-chardet python3-debconf[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3-debian python3-debianbts python3-httplib2 python3-idna[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3-minimal python3-pkg-resources python3-pycurl python3-pysimplesoap[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3-requests python3-six python3-urllib3 python3.7 python3.7-minimal[0m
+Feb 13 16:08:40 [0;32m    qemu: Suggested packages:[0m
+Feb 13 16:08:40 [0;32m    qemu:   default-mta | mail-transport-agent python3-gi www-browser[0m
+Feb 13 16:08:40 [0;32m    qemu:   x-terminal-emulator bzip2-doc postscript-viewer groff apmd isoquery[0m
+Feb 13 16:08:40 [0;32m    qemu:   geoip-bin libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal[0m
+Feb 13 16:08:40 [0;32m    qemu:   libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql lsb apparmor[0m
+Feb 13 16:08:40 [0;32m    qemu:   perl-doc libterm-readline-gnu-perl | libterm-readline-perl-perl make[0m
+Feb 13 16:08:40 [0;32m    qemu:   libb-debug-perl liblocale-codes-perl pinentry-doc python-doc python-tk[0m
+Feb 13 16:08:40 [0;32m    qemu:   python2-doc python2.7-doc binutils binfmt-support python3-doc python3-tk[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3-venv python3-apt-dbg python-apt-doc python3-setuptools[0m
+Feb 13 16:08:40 [0;32m    qemu:   libcurl4-gnutls-dev python-pycurl-doc python3-pycurl-dbg[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3-cryptography python3-openssl python3-socks python3.7-venv[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3.7-doc postfix | exim4 | mail-transport-agent gnupg | pgp[0m
+Feb 13 16:08:40 [0;32m    qemu:   debconf-utils debsums dlocate python3-urwid reportbug-gtk xdg-utils[0m
+Feb 13 16:08:40 [0;32m    qemu:   emacs24-bin-common | emacs25-bin-common claws-mail[0m
+Feb 13 16:08:40 [0;32m    qemu: The following NEW packages will be installed:[0m
+Feb 13 16:08:40 [0;32m    qemu:   apt-listchanges bash-completion bind9-host bzip2 ca-certificates debian-faq[0m
+Feb 13 16:08:40 [0;32m    qemu:   distro-info-data doc-debian file geoip-database groff-base hdparm iso-codes[0m
+Feb 13 16:08:40 [0;32m    qemu:   libassuan0 libbind9-161 libcurl3-gnutls libdns1104 libfstrm0 libgdbm-compat4[0m
+Feb 13 16:08:40 [0;32m    qemu:   libgdbm6 libgeoip1 libicu63 libisc1100 libisccc161 libisccfg163[0m
+Feb 13 16:08:40 [0;32m    qemu:   libldap-2.4-2 libldap-common liblmdb0 liblockfile-bin liblwres161[0m
+Feb 13 16:08:40 [0;32m    qemu:   libmagic-mgc libmagic1 libmpdec2 libnghttp2-14 libnss-systemd libpcre2-8-0[0m
+Feb 13 16:08:40 [0;32m    qemu:   libperl5.28 libpipeline1 libprotobuf-c1 libpsl5 libpython-stdlib[0m
+Feb 13 16:08:40 [0;32m    qemu:   libpython2-stdlib libpython2.7-minimal libpython2.7-stdlib libpython3-stdlib[0m
+Feb 13 16:08:40 [0;32m    qemu:   libpython3.7-minimal libpython3.7-stdlib libreadline7 librtmp1 libsasl2-2[0m
+Feb 13 16:08:40 [0;32m    qemu:   libsasl2-modules libsasl2-modules-db libsqlite3-0 libssh2-1 libuchardet0[0m
+Feb 13 16:08:40 [0;32m    qemu:   libxml2 lsb-release lsof man-db manpages mime-support netcat-traditional[0m
+Feb 13 16:08:40 [0;32m    qemu:   openssl perl perl-modules-5.28 pinentry-curses powermgmt-base publicsuffix[0m
+Feb 13 16:08:40 [0;32m    qemu:   python python-apt-common python-minimal python2 python2-minimal python2.7[0m
+Feb 13 16:08:40 [0;32m    qemu:   python2.7-minimal python3 python3-apt python3-certifi python3-chardet[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3-debconf python3-debian python3-debianbts python3-httplib2[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3-idna python3-minimal python3-pkg-resources python3-pycurl[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3-pysimplesoap python3-reportbug python3-requests python3-six[0m
+Feb 13 16:08:40 [0;32m    qemu:   python3-urllib3 python3.7 python3.7-minimal reportbug telnet traceroute wget[0m
+Feb 13 16:08:40 [0;32m    qemu:   xz-utils[0m
+Feb 13 16:08:41 [0;32m    qemu: 0 upgraded, 99 newly installed, 0 to remove and 0 not upgraded.[0m
+Feb 13 16:08:41 [0;32m    qemu: Need to get 45.1 MB of archives.[0m
+Feb 13 16:08:41 [0;32m    qemu: After this operation, 193 MB of additional disk space will be used.[0m
+Feb 13 16:08:41 [0;32m    qemu: Get:1 http://deb.debian.org/debian buster/main amd64 libuchardet0 amd64 0.0.6-3 [64.9 kB][0m
+Feb 13 16:08:41 [0;32m    qemu: Get:2 http://deb.debian.org/debian buster/main amd64 groff-base amd64 1.22.4-2 [917 kB][0m
+Feb 13 16:08:41 [0;32m    qemu: Get:3 http://deb.debian.org/debian buster/main amd64 libgdbm6 amd64 1.18.1-2 [64.5 kB][0m
+Feb 13 16:08:41 [0;32m    qemu: Get:4 http://deb.debian.org/debian buster/main amd64 libpipeline1 amd64 1.5.1-1 [31.2 kB][0m
+Feb 13 16:08:41 [0;32m    qemu: Get:5 http://deb.debian.org/debian buster/main amd64 man-db amd64 2.8.5-1 [1,274 kB][0m
+Feb 13 16:08:42 [0;32m    qemu: Get:6 http://deb.debian.org/debian buster/main amd64 perl-modules-5.28 all 5.28.1-4 [2,874 kB][0m
+Feb 13 16:08:43 [0;32m    qemu: Get:7 http://deb.debian.org/debian buster/main amd64 libgdbm-compat4 amd64 1.18.1-2 [44.0 kB][0m
+Feb 13 16:08:43 [0;32m    qemu: Get:8 http://deb.debian.org/debian buster/main amd64 libperl5.28 amd64 5.28.1-4 [3,890 kB][0m
+Feb 13 16:08:44 [0;32m    qemu: Get:9 http://deb.debian.org/debian buster/main amd64 perl amd64 5.28.1-4 [204 kB][0m
+Feb 13 16:08:44 [0;32m    qemu: Get:10 http://deb.debian.org/debian buster/main amd64 libpython2.7-minimal amd64 2.7.15-8 [394 kB][0m
+Feb 13 16:08:44 [0;32m    qemu: Get:11 http://deb.debian.org/debian buster/main amd64 python2.7-minimal amd64 2.7.15-8 [1,371 kB][0m
+Feb 13 16:08:45 [0;32m    qemu: Get:12 http://deb.debian.org/debian buster/main amd64 python2-minimal amd64 2.7.15-4 [41.4 kB][0m
+Feb 13 16:08:45 [0;32m    qemu: Get:13 http://deb.debian.org/debian buster/main amd64 python-minimal amd64 2.7.15-4 [21.0 kB][0m
+Feb 13 16:08:45 [0;32m    qemu: Get:14 http://deb.debian.org/debian buster/main amd64 mime-support all 3.61 [37.1 kB][0m
+Feb 13 16:08:45 [0;32m    qemu: Get:15 http://deb.debian.org/debian buster/main amd64 libreadline7 amd64 7.0-5 [151 kB][0m
+Feb 13 16:08:45 [0;32m    qemu: Get:16 http://deb.debian.org/debian buster/main amd64 libsqlite3-0 amd64 3.26.0+fossilbc891ac6b-2 [635 kB][0m
+Feb 13 16:08:45 [0;32m    qemu: Get:17 http://deb.debian.org/debian buster/main amd64 libpython2.7-stdlib amd64 2.7.15-8 [1,909 kB][0m
+Feb 13 16:08:46 [0;32m    qemu: Get:18 http://deb.debian.org/debian buster/main amd64 python2.7 amd64 2.7.15-8 [299 kB][0m
+Feb 13 16:08:46 [0;32m    qemu: Get:19 http://deb.debian.org/debian buster/main amd64 libpython2-stdlib amd64 2.7.15-4 [20.8 kB][0m
+Feb 13 16:08:46 [0;32m    qemu: Get:20 http://deb.debian.org/debian buster/main amd64 libpython-stdlib amd64 2.7.15-4 [20.8 kB][0m
+Feb 13 16:08:46 [0;32m    qemu: Get:21 http://deb.debian.org/debian buster/main amd64 python2 amd64 2.7.15-4 [41.6 kB][0m
+Feb 13 16:08:46 [0;32m    qemu: Get:22 http://deb.debian.org/debian buster/main amd64 python amd64 2.7.15-4 [22.8 kB][0m
+Feb 13 16:08:46 [0;32m    qemu: Get:23 http://deb.debian.org/debian buster/main amd64 libpython3.7-minimal amd64 3.7.2-2 [588 kB][0m
+Feb 13 16:08:46 [0;32m    qemu: Get:24 http://deb.debian.org/debian buster/main amd64 python3.7-minimal amd64 3.7.2-2 [1,734 kB][0m
+Feb 13 16:08:46 [0;32m    qemu: Get:25 http://deb.debian.org/debian buster/main amd64 python3-minimal amd64 3.7.2-1 [36.6 kB][0m
+Feb 13 16:08:46 [0;32m    qemu: Get:26 http://deb.debian.org/debian buster/main amd64 libmpdec2 amd64 2.4.2-2 [87.2 kB][0m
+Feb 13 16:08:46 [0;32m    qemu: Get:27 http://deb.debian.org/debian buster/main amd64 libpython3.7-stdlib amd64 3.7.2-2 [1,731 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:28 http://deb.debian.org/debian buster/main amd64 python3.7 amd64 3.7.2-2 [323 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:29 http://deb.debian.org/debian buster/main amd64 libpython3-stdlib amd64 3.7.2-1 [20.0 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:30 http://deb.debian.org/debian buster/main amd64 python3 amd64 3.7.2-1 [61.5 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:31 http://deb.debian.org/debian buster/main amd64 python-apt-common all 1.8.3 [94.9 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:32 http://deb.debian.org/debian buster/main amd64 python3-apt amd64 1.8.3 [183 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:33 http://deb.debian.org/debian buster/main amd64 python3-debconf all 1.5.70 [4,016 B][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:34 http://deb.debian.org/debian buster/main amd64 apt-listchanges all 3.18 [120 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:35 http://deb.debian.org/debian buster/main amd64 bash-completion all 1:2.8-5 [208 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:36 http://deb.debian.org/debian buster/main amd64 libfstrm0 amd64 0.4.0-1 [20.8 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:37 http://deb.debian.org/debian buster/main amd64 libgeoip1 amd64 1.6.12-1 [93.1 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:38 http://deb.debian.org/debian buster/main amd64 liblmdb0 amd64 0.9.22-1 [45.0 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:39 http://deb.debian.org/debian buster/main amd64 libprotobuf-c1 amd64 1.3.1-1+b1 [26.5 kB][0m
+Feb 13 16:08:47 [0;32m    qemu: Get:40 http://deb.debian.org/debian buster/main amd64 libicu63 amd64 63.1-6 [8,292 kB][0m
+Feb 13 16:08:50 [0;32m    qemu: Get:41 http://deb.debian.org/debian buster/main amd64 libxml2 amd64 2.9.4+dfsg1-7+b3 [687 kB][0m
+Feb 13 16:08:50 [0;32m    qemu: Get:42 http://deb.debian.org/debian buster/main amd64 libisc1100 amd64 1:9.11.5.P1+dfsg-1 [455 kB][0m
+Feb 13 16:08:51 [0;32m    qemu: Get:43 http://deb.debian.org/debian buster/main amd64 libdns1104 amd64 1:9.11.5.P1+dfsg-1 [1,221 kB][0m
+Feb 13 16:08:51 [0;32m    qemu: Get:44 http://deb.debian.org/debian buster/main amd64 libisccc161 amd64 1:9.11.5.P1+dfsg-1 [235 kB][0m
+Feb 13 16:08:51 [0;32m    qemu: Get:45 http://deb.debian.org/debian buster/main amd64 libisccfg163 amd64 1:9.11.5.P1+dfsg-1 [265 kB][0m
+Feb 13 16:08:51 [0;32m    qemu: Get:46 http://deb.debian.org/debian buster/main amd64 libbind9-161 amd64 1:9.11.5.P1+dfsg-1 [246 kB][0m
+Feb 13 16:08:51 [0;32m    qemu: Get:47 http://deb.debian.org/debian buster/main amd64 liblwres161 amd64 1:9.11.5.P1+dfsg-1 [250 kB][0m
+Feb 13 16:08:51 [0;32m    qemu: Get:48 http://deb.debian.org/debian buster/main amd64 bind9-host amd64 1:9.11.5.P1+dfsg-1 [269 kB][0m
+Feb 13 16:08:51 [0;32m    qemu: Get:49 http://deb.debian.org/debian buster/main amd64 bzip2 amd64 1.0.6-9 [48.3 kB][0m
+Feb 13 16:08:51 [0;32m    qemu: Get:50 http://deb.debian.org/debian buster/main amd64 debian-faq all 8.1 [697 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:51 http://deb.debian.org/debian buster/main amd64 doc-debian all 6.4 [137 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:52 http://deb.debian.org/debian buster/main amd64 libmagic-mgc amd64 1:5.35-2 [242 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:53 http://deb.debian.org/debian buster/main amd64 libmagic1 amd64 1:5.35-2 [117 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:54 http://deb.debian.org/debian buster/main amd64 file amd64 1:5.35-2 [66.1 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:55 http://deb.debian.org/debian buster/main amd64 hdparm amd64 9.58+ds-1 [116 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:56 http://deb.debian.org/debian buster/main amd64 liblockfile-bin amd64 1.14-1.1 [19.7 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:57 http://deb.debian.org/debian buster/main amd64 libnss-systemd amd64 240-5 [200 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:58 http://deb.debian.org/debian buster/main amd64 lsof amd64 4.91+dfsg-1 [319 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:59 http://deb.debian.org/debian buster/main amd64 manpages all 4.16-1 [1,276 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:60 http://deb.debian.org/debian buster/main amd64 netcat-traditional amd64 1.10-41.1 [66.9 kB][0m
+Feb 13 16:08:52 [0;32m    qemu: Get:61 http://deb.debian.org/debian buster/main amd64 python3-pkg-resources all 40.7.1-1 [152 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:62 http://deb.debian.org/debian buster/main amd64 python3-chardet all 3.0.4-3 [80.5 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:63 http://deb.debian.org/debian buster/main amd64 python3-six all 1.12.0-1 [15.7 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:64 http://deb.debian.org/debian buster/main amd64 python3-debian all 0.1.34 [78.6 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:65 http://deb.debian.org/debian buster/main amd64 openssl amd64 1.1.1a-1 [836 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:66 http://deb.debian.org/debian buster/main amd64 ca-certificates all 20190110 [157 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:67 http://deb.debian.org/debian buster/main amd64 python3-httplib2 all 0.11.3-1 [28.8 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:68 http://deb.debian.org/debian buster/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg-1 [69.0 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:69 http://deb.debian.org/debian buster/main amd64 libsasl2-2 amd64 2.1.27+dfsg-1 [106 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:70 http://deb.debian.org/debian buster/main amd64 libldap-common all 2.4.47+dfsg-3 [89.4 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:71 http://deb.debian.org/debian buster/main amd64 libldap-2.4-2 amd64 2.4.47+dfsg-3 [224 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:72 http://deb.debian.org/debian buster/main amd64 libnghttp2-14 amd64 1.36.0-2 [84.9 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:73 http://deb.debian.org/debian buster/main amd64 libpsl5 amd64 0.20.2-2 [53.7 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:74 http://deb.debian.org/debian buster/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2 [60.5 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:75 http://deb.debian.org/debian buster/main amd64 libssh2-1 amd64 1.8.0-2 [138 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:76 http://deb.debian.org/debian buster/main amd64 libcurl3-gnutls amd64 7.64.0-1 [329 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:77 http://deb.debian.org/debian buster/main amd64 python3-pycurl amd64 7.43.0.2-0.1 [66.3 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:78 http://deb.debian.org/debian buster/main amd64 python3-pysimplesoap all 1.16.2-1 [43.1 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:79 http://deb.debian.org/debian buster/main amd64 python3-debianbts all 2.8.2 [14.0 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:80 http://deb.debian.org/debian buster/main amd64 python3-certifi all 2018.8.24-1 [140 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:81 http://deb.debian.org/debian buster/main amd64 python3-idna all 2.6-1 [34.3 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:82 http://deb.debian.org/debian buster/main amd64 python3-urllib3 all 1.24-1 [96.8 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:83 http://deb.debian.org/debian buster/main amd64 python3-requests all 2.20.0-2 [66.7 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:84 http://deb.debian.org/debian buster/main amd64 python3-reportbug all 7.5.2 [133 kB][0m
+Feb 13 16:08:53 [0;32m    qemu: Get:85 http://deb.debian.org/debian buster/main amd64 reportbug all 7.5.2 [128 kB][0m
+Feb 13 16:08:54 [0;32m    qemu: Get:86 http://deb.debian.org/debian buster/main amd64 telnet amd64 0.17-41.1 [72.8 kB][0m
+Feb 13 16:08:54 [0;32m    qemu: Get:87 http://deb.debian.org/debian buster/main amd64 traceroute amd64 1:2.1.0-2 [55.3 kB][0m
+Feb 13 16:08:54 [0;32m    qemu: Get:88 http://deb.debian.org/debian buster/main amd64 libpcre2-8-0 amd64 10.32-4 [213 kB][0m
+Feb 13 16:08:54 [0;32m    qemu: Get:89 http://deb.debian.org/debian buster/main amd64 wget amd64 1.20.1-1 [902 kB][0m
+Feb 13 16:08:54 [0;32m    qemu: Get:90 http://deb.debian.org/debian buster/main amd64 xz-utils amd64 5.2.4-1 [183 kB][0m
+Feb 13 16:08:54 [0;32m    qemu: Get:91 http://deb.debian.org/debian buster/main amd64 distro-info-data all 0.39 [6,272 B][0m
+Feb 13 16:08:54 [0;32m    qemu: Get:92 http://deb.debian.org/debian buster/main amd64 geoip-database all 20181108-1 [2,449 kB][0m
+Feb 13 16:08:55 [0;32m    qemu: Get:93 http://deb.debian.org/debian buster/main amd64 iso-codes all 4.2-1 [2,713 kB][0m
+Feb 13 16:08:56 [0;32m    qemu: Get:94 http://deb.debian.org/debian buster/main amd64 libassuan0 amd64 2.5.2-1 [49.4 kB][0m
+Feb 13 16:08:56 [0;32m    qemu: Get:95 http://deb.debian.org/debian buster/main amd64 libsasl2-modules amd64 2.1.27+dfsg-1 [104 kB][0m
+Feb 13 16:08:56 [0;32m    qemu: Get:96 http://deb.debian.org/debian buster/main amd64 lsb-release all 10.2018112800 [27.4 kB][0m
+Feb 13 16:08:56 [0;32m    qemu: Get:97 http://deb.debian.org/debian buster/main amd64 pinentry-curses amd64 1.1.0-1+b1 [64.5 kB][0m
+Feb 13 16:08:56 [0;32m    qemu: Get:98 http://deb.debian.org/debian buster/main amd64 powermgmt-base all 1.33 [11.0 kB][0m
+Feb 13 16:08:56 [0;32m    qemu: Get:99 http://deb.debian.org/debian buster/main amd64 publicsuffix all 20190128.1516-1 [114 kB][0m
+Feb 13 16:08:56 [0;32m    qemu: Preconfiguring packages ...[0m
+Feb 13 16:08:56 [0;32m    qemu: Deferring configuration of apt-listchanges until /usr/bin/python3[0m
+Feb 13 16:08:56 [0;32m    qemu: and python's debconf module are available[0m
+Feb 13 16:08:56 [0;32m    qemu: Fetched 45.1 MB in 15s (2,943 kB/s)[0m
+Feb 13 16:08:56 [0;32m    qemu: Selecting previously unselected package libuchardet0:amd64.[0m
+Feb 13 16:08:56 [0;32m    qemu: (Reading database ... 23863 files and directories currently installed.)[0m
+Feb 13 16:08:56 [0;32m    qemu: Preparing to unpack .../00-libuchardet0_0.0.6-3_amd64.deb ...[0m
+Feb 13 16:08:56 [0;32m    qemu: Unpacking libuchardet0:amd64 (0.0.6-3) ...[0m
+Feb 13 16:08:56 [0;32m    qemu: Selecting previously unselected package groff-base.[0m
+Feb 13 16:08:56 [0;32m    qemu: Preparing to unpack .../01-groff-base_1.22.4-2_amd64.deb ...[0m
+Feb 13 16:08:56 [0;32m    qemu: Unpacking groff-base (1.22.4-2) ...[0m
+Feb 13 16:08:57 [0;32m    qemu: Selecting previously unselected package libgdbm6:amd64.[0m
+Feb 13 16:08:57 [0;32m    qemu: Preparing to unpack .../02-libgdbm6_1.18.1-2_amd64.deb ...[0m
+Feb 13 16:08:57 [0;32m    qemu: Unpacking libgdbm6:amd64 (1.18.1-2) ...[0m
+Feb 13 16:08:57 [0;32m    qemu: Selecting previously unselected package libpipeline1:amd64.[0m
+Feb 13 16:08:57 [0;32m    qemu: Preparing to unpack .../03-libpipeline1_1.5.1-1_amd64.deb ...[0m
+Feb 13 16:08:57 [0;32m    qemu: Unpacking libpipeline1:amd64 (1.5.1-1) ...[0m
+Feb 13 16:08:57 [0;32m    qemu: Selecting previously unselected package man-db.[0m
+Feb 13 16:08:57 [0;32m    qemu: Preparing to unpack .../04-man-db_2.8.5-1_amd64.deb ...[0m
+Feb 13 16:08:57 [0;32m    qemu: Unpacking man-db (2.8.5-1) ...[0m
+Feb 13 16:08:57 [0;32m    qemu: Selecting previously unselected package perl-modules-5.28.[0m
+Feb 13 16:08:57 [0;32m    qemu: Preparing to unpack .../05-perl-modules-5.28_5.28.1-4_all.deb ...[0m
+Feb 13 16:08:57 [0;32m    qemu: Unpacking perl-modules-5.28 (5.28.1-4) ...[0m
+Feb 13 16:08:58 [0;32m    qemu: Selecting previously unselected package libgdbm-compat4:amd64.[0m
+Feb 13 16:08:58 [0;32m    qemu: Preparing to unpack .../06-libgdbm-compat4_1.18.1-2_amd64.deb ...[0m
+Feb 13 16:08:58 [0;32m    qemu: Unpacking libgdbm-compat4:amd64 (1.18.1-2) ...[0m
+Feb 13 16:08:58 [0;32m    qemu: Selecting previously unselected package libperl5.28:amd64.[0m
+Feb 13 16:08:58 [0;32m    qemu: Preparing to unpack .../07-libperl5.28_5.28.1-4_amd64.deb ...[0m
+Feb 13 16:08:58 [0;32m    qemu: Unpacking libperl5.28:amd64 (5.28.1-4) ...[0m
+Feb 13 16:08:59 [0;32m    qemu: Selecting previously unselected package perl.[0m
+Feb 13 16:08:59 [0;32m    qemu: Preparing to unpack .../08-perl_5.28.1-4_amd64.deb ...[0m
+Feb 13 16:08:59 [0;32m    qemu: Unpacking perl (5.28.1-4) ...[0m
+Feb 13 16:08:59 [0;32m    qemu: Selecting previously unselected package libpython2.7-minimal:amd64.[0m
+Feb 13 16:08:59 [0;32m    qemu: Preparing to unpack .../09-libpython2.7-minimal_2.7.15-8_amd64.deb ...[0m
+Feb 13 16:08:59 [0;32m    qemu: Unpacking libpython2.7-minimal:amd64 (2.7.15-8) ...[0m
+Feb 13 16:08:59 [0;32m    qemu: Selecting previously unselected package python2.7-minimal.[0m
+Feb 13 16:08:59 [0;32m    qemu: Preparing to unpack .../10-python2.7-minimal_2.7.15-8_amd64.deb ...[0m
+Feb 13 16:08:59 [0;32m    qemu: Unpacking python2.7-minimal (2.7.15-8) ...[0m
+Feb 13 16:08:59 [0;32m    qemu: Selecting previously unselected package python2-minimal.[0m
+Feb 13 16:08:59 [0;32m    qemu: Preparing to unpack .../11-python2-minimal_2.7.15-4_amd64.deb ...[0m
+Feb 13 16:08:59 [0;32m    qemu: Unpacking python2-minimal (2.7.15-4) ...[0m
+Feb 13 16:08:59 [0;32m    qemu: Selecting previously unselected package python-minimal.[0m
+Feb 13 16:08:59 [0;32m    qemu: Preparing to unpack .../12-python-minimal_2.7.15-4_amd64.deb ...[0m
+Feb 13 16:08:59 [0;32m    qemu: Unpacking python-minimal (2.7.15-4) ...[0m
+Feb 13 16:09:00 [0;32m    qemu: Selecting previously unselected package mime-support.[0m
+Feb 13 16:09:00 [0;32m    qemu: Preparing to unpack .../13-mime-support_3.61_all.deb ...[0m
+Feb 13 16:09:00 [0;32m    qemu: Unpacking mime-support (3.61) ...[0m
+Feb 13 16:09:00 [0;32m    qemu: Selecting previously unselected package libreadline7:amd64.[0m
+Feb 13 16:09:00 [0;32m    qemu: Preparing to unpack .../14-libreadline7_7.0-5_amd64.deb ...[0m
+Feb 13 16:09:00 [0;32m    qemu: Unpacking libreadline7:amd64 (7.0-5) ...[0m
+Feb 13 16:09:00 [0;32m    qemu: Selecting previously unselected package libsqlite3-0:amd64.[0m
+Feb 13 16:09:00 [0;32m    qemu: Preparing to unpack .../15-libsqlite3-0_3.26.0+fossilbc891ac6b-2_amd64.deb ...[0m
+Feb 13 16:09:00 [0;32m    qemu: Unpacking libsqlite3-0:amd64 (3.26.0+fossilbc891ac6b-2) ...[0m
+Feb 13 16:09:00 [0;32m    qemu: Selecting previously unselected package libpython2.7-stdlib:amd64.[0m
+Feb 13 16:09:00 [0;32m    qemu: Preparing to unpack .../16-libpython2.7-stdlib_2.7.15-8_amd64.deb ...[0m
+Feb 13 16:09:00 [0;32m    qemu: Unpacking libpython2.7-stdlib:amd64 (2.7.15-8) ...[0m
+Feb 13 16:09:00 [0;32m    qemu: Selecting previously unselected package python2.7.[0m
+Feb 13 16:09:00 [0;32m    qemu: Preparing to unpack .../17-python2.7_2.7.15-8_amd64.deb ...[0m
+Feb 13 16:09:00 [0;32m    qemu: Unpacking python2.7 (2.7.15-8) ...[0m
+Feb 13 16:09:01 [0;32m    qemu: Selecting previously unselected package libpython2-stdlib:amd64.[0m
+Feb 13 16:09:01 [0;32m    qemu: Preparing to unpack .../18-libpython2-stdlib_2.7.15-4_amd64.deb ...[0m
+Feb 13 16:09:01 [0;32m    qemu: Unpacking libpython2-stdlib:amd64 (2.7.15-4) ...[0m
+Feb 13 16:09:01 [0;32m    qemu: Selecting previously unselected package libpython-stdlib:amd64.[0m
+Feb 13 16:09:01 [0;32m    qemu: Preparing to unpack .../19-libpython-stdlib_2.7.15-4_amd64.deb ...[0m
+Feb 13 16:09:01 [0;32m    qemu: Unpacking libpython-stdlib:amd64 (2.7.15-4) ...[0m
+Feb 13 16:09:01 [0;32m    qemu: Setting up libpython2.7-minimal:amd64 (2.7.15-8) ...[0m
+Feb 13 16:09:01 [0;32m    qemu: Setting up python2.7-minimal (2.7.15-8) ...[0m
+Feb 13 16:09:01 [0;32m    qemu: Linking and byte-compiling packages for runtime python2.7...[0m
+Feb 13 16:09:01 [0;32m    qemu: Setting up python2-minimal (2.7.15-4) ...[0m
+Feb 13 16:09:01 [0;32m    qemu: Selecting previously unselected package python2.[0m
+Feb 13 16:09:01 [0;32m    qemu: (Reading database ... 27121 files and directories currently installed.)[0m
+Feb 13 16:09:01 [0;32m    qemu: Preparing to unpack .../python2_2.7.15-4_amd64.deb ...[0m
+Feb 13 16:09:01 [0;32m    qemu: Unpacking python2 (2.7.15-4) ...[0m
+Feb 13 16:09:01 [0;32m    qemu: Setting up python-minimal (2.7.15-4) ...[0m
+Feb 13 16:09:02 [0;32m    qemu: Selecting previously unselected package python.[0m
+Feb 13 16:09:02 [0;32m    qemu: (Reading database ... 27154 files and directories currently installed.)[0m
+Feb 13 16:09:02 [0;32m    qemu: Preparing to unpack .../python_2.7.15-4_amd64.deb ...[0m
+Feb 13 16:09:02 [0;32m    qemu: Unpacking python (2.7.15-4) ...[0m
+Feb 13 16:09:02 [0;32m    qemu: Selecting previously unselected package libpython3.7-minimal:amd64.[0m
+Feb 13 16:09:02 [0;32m    qemu: Preparing to unpack .../libpython3.7-minimal_3.7.2-2_amd64.deb ...[0m
+Feb 13 16:09:02 [0;32m    qemu: Unpacking libpython3.7-minimal:amd64 (3.7.2-2) ...[0m
+Feb 13 16:09:02 [0;32m    qemu: Selecting previously unselected package python3.7-minimal.[0m
+Feb 13 16:09:02 [0;32m    qemu: Preparing to unpack .../python3.7-minimal_3.7.2-2_amd64.deb ...[0m
+Feb 13 16:09:02 [0;32m    qemu: Unpacking python3.7-minimal (3.7.2-2) ...[0m
+Feb 13 16:09:02 [0;32m    qemu: Setting up libpython3.7-minimal:amd64 (3.7.2-2) ...[0m
+Feb 13 16:09:02 [0;32m    qemu: Setting up python3.7-minimal (3.7.2-2) ...[0m
+Feb 13 16:09:03 [0;32m    qemu: Selecting previously unselected package python3-minimal.[0m
+Feb 13 16:09:03 [0;32m    qemu: (Reading database ... 27408 files and directories currently installed.)[0m
+Feb 13 16:09:03 [0;32m    qemu: Preparing to unpack .../python3-minimal_3.7.2-1_amd64.deb ...[0m
+Feb 13 16:09:03 [0;32m    qemu: Unpacking python3-minimal (3.7.2-1) ...[0m
+Feb 13 16:09:03 [0;32m    qemu: Selecting previously unselected package libmpdec2:amd64.[0m
+Feb 13 16:09:03 [0;32m    qemu: Preparing to unpack .../libmpdec2_2.4.2-2_amd64.deb ...[0m
+Feb 13 16:09:03 [0;32m    qemu: Unpacking libmpdec2:amd64 (2.4.2-2) ...[0m
+Feb 13 16:09:03 [0;32m    qemu: Selecting previously unselected package libpython3.7-stdlib:amd64.[0m
+Feb 13 16:09:03 [0;32m    qemu: Preparing to unpack .../libpython3.7-stdlib_3.7.2-2_amd64.deb ...[0m
+Feb 13 16:09:03 [0;32m    qemu: Unpacking libpython3.7-stdlib:amd64 (3.7.2-2) ...[0m
+Feb 13 16:09:03 [0;32m    qemu: Selecting previously unselected package python3.7.[0m
+Feb 13 16:09:03 [0;32m    qemu: Preparing to unpack .../python3.7_3.7.2-2_amd64.deb ...[0m
+Feb 13 16:09:03 [0;32m    qemu: Unpacking python3.7 (3.7.2-2) ...[0m
+Feb 13 16:09:03 [0;32m    qemu: Selecting previously unselected package libpython3-stdlib:amd64.[0m
+Feb 13 16:09:03 [0;32m    qemu: Preparing to unpack .../libpython3-stdlib_3.7.2-1_amd64.deb ...[0m
+Feb 13 16:09:03 [0;32m    qemu: Unpacking libpython3-stdlib:amd64 (3.7.2-1) ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Setting up python3-minimal (3.7.2-1) ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Selecting previously unselected package python3.[0m
+Feb 13 16:09:04 [0;32m    qemu: (Reading database ... 27817 files and directories currently installed.)[0m
+Feb 13 16:09:04 [0;32m    qemu: Preparing to unpack .../00-python3_3.7.2-1_amd64.deb ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Unpacking python3 (3.7.2-1) ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Selecting previously unselected package python-apt-common.[0m
+Feb 13 16:09:04 [0;32m    qemu: Preparing to unpack .../01-python-apt-common_1.8.3_all.deb ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Unpacking python-apt-common (1.8.3) ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Selecting previously unselected package python3-apt.[0m
+Feb 13 16:09:04 [0;32m    qemu: Preparing to unpack .../02-python3-apt_1.8.3_amd64.deb ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Unpacking python3-apt (1.8.3) ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Selecting previously unselected package python3-debconf.[0m
+Feb 13 16:09:04 [0;32m    qemu: Preparing to unpack .../03-python3-debconf_1.5.70_all.deb ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Unpacking python3-debconf (1.5.70) ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Selecting previously unselected package apt-listchanges.[0m
+Feb 13 16:09:04 [0;32m    qemu: Preparing to unpack .../04-apt-listchanges_3.18_all.deb ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Unpacking apt-listchanges (3.18) ...[0m
+Feb 13 16:09:04 [0;32m    qemu: Selecting previously unselected package bash-completion.[0m
+Feb 13 16:09:04 [0;32m    qemu: Preparing to unpack .../05-bash-completion_1%3a2.8-5_all.deb ...[0m
+Feb 13 16:09:05 [0;32m    qemu: Unpacking bash-completion (1:2.8-5) ...[0m
+Feb 13 16:09:05 [0;32m    qemu: Selecting previously unselected package libfstrm0:amd64.[0m
+Feb 13 16:09:05 [0;32m    qemu: Preparing to unpack .../06-libfstrm0_0.4.0-1_amd64.deb ...[0m
+Feb 13 16:09:05 [0;32m    qemu: Unpacking libfstrm0:amd64 (0.4.0-1) ...[0m
+Feb 13 16:09:06 [0;32m    qemu: Selecting previously unselected package libgeoip1:amd64.[0m
+Feb 13 16:09:06 [0;32m    qemu: Preparing to unpack .../07-libgeoip1_1.6.12-1_amd64.deb ...[0m
+Feb 13 16:09:06 [0;32m    qemu: Unpacking libgeoip1:amd64 (1.6.12-1) ...[0m
+Feb 13 16:09:06 [0;32m    qemu: Selecting previously unselected package liblmdb0:amd64.[0m
+Feb 13 16:09:06 [0;32m    qemu: Preparing to unpack .../08-liblmdb0_0.9.22-1_amd64.deb ...[0m
+Feb 13 16:09:06 [0;32m    qemu: Unpacking liblmdb0:amd64 (0.9.22-1) ...[0m
+Feb 13 16:09:06 [0;32m    qemu: Selecting previously unselected package libprotobuf-c1:amd64.[0m
+Feb 13 16:09:06 [0;32m    qemu: Preparing to unpack .../09-libprotobuf-c1_1.3.1-1+b1_amd64.deb ...[0m
+Feb 13 16:09:06 [0;32m    qemu: Unpacking libprotobuf-c1:amd64 (1.3.1-1+b1) ...[0m
+Feb 13 16:09:06 [0;32m    qemu: Selecting previously unselected package libicu63:amd64.[0m
+Feb 13 16:09:06 [0;32m    qemu: Preparing to unpack .../10-libicu63_63.1-6_amd64.deb ...[0m
+Feb 13 16:09:06 [0;32m    qemu: Unpacking libicu63:amd64 (63.1-6) ...[0m
+Feb 13 16:09:07 [0;32m    qemu: Selecting previously unselected package libxml2:amd64.[0m
+Feb 13 16:09:07 [0;32m    qemu: Preparing to unpack .../11-libxml2_2.9.4+dfsg1-7+b3_amd64.deb ...[0m
+Feb 13 16:09:07 [0;32m    qemu: Unpacking libxml2:amd64 (2.9.4+dfsg1-7+b3) ...[0m
+Feb 13 16:09:07 [0;32m    qemu: Selecting previously unselected package libisc1100:amd64.[0m
+Feb 13 16:09:07 [0;32m    qemu: Preparing to unpack .../12-libisc1100_1%3a9.11.5.P1+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:07 [0;32m    qemu: Unpacking libisc1100:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:07 [0;32m    qemu: Selecting previously unselected package libdns1104:amd64.[0m
+Feb 13 16:09:07 [0;32m    qemu: Preparing to unpack .../13-libdns1104_1%3a9.11.5.P1+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:07 [0;32m    qemu: Unpacking libdns1104:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:07 [0;32m    qemu: Selecting previously unselected package libisccc161:amd64.[0m
+Feb 13 16:09:07 [0;32m    qemu: Preparing to unpack .../14-libisccc161_1%3a9.11.5.P1+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:07 [0;32m    qemu: Unpacking libisccc161:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Selecting previously unselected package libisccfg163:amd64.[0m
+Feb 13 16:09:08 [0;32m    qemu: Preparing to unpack .../15-libisccfg163_1%3a9.11.5.P1+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Unpacking libisccfg163:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Selecting previously unselected package libbind9-161:amd64.[0m
+Feb 13 16:09:08 [0;32m    qemu: Preparing to unpack .../16-libbind9-161_1%3a9.11.5.P1+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Unpacking libbind9-161:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Selecting previously unselected package liblwres161:amd64.[0m
+Feb 13 16:09:08 [0;32m    qemu: Preparing to unpack .../17-liblwres161_1%3a9.11.5.P1+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Unpacking liblwres161:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Selecting previously unselected package bind9-host.[0m
+Feb 13 16:09:08 [0;32m    qemu: Preparing to unpack .../18-bind9-host_1%3a9.11.5.P1+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Unpacking bind9-host (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Selecting previously unselected package bzip2.[0m
+Feb 13 16:09:08 [0;32m    qemu: Preparing to unpack .../19-bzip2_1.0.6-9_amd64.deb ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Unpacking bzip2 (1.0.6-9) ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Selecting previously unselected package debian-faq.[0m
+Feb 13 16:09:08 [0;32m    qemu: Preparing to unpack .../20-debian-faq_8.1_all.deb ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Unpacking debian-faq (8.1) ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Selecting previously unselected package doc-debian.[0m
+Feb 13 16:09:08 [0;32m    qemu: Preparing to unpack .../21-doc-debian_6.4_all.deb ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Unpacking doc-debian (6.4) ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Selecting previously unselected package libmagic-mgc.[0m
+Feb 13 16:09:08 [0;32m    qemu: Preparing to unpack .../22-libmagic-mgc_1%3a5.35-2_amd64.deb ...[0m
+Feb 13 16:09:08 [0;32m    qemu: Unpacking libmagic-mgc (1:5.35-2) ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Selecting previously unselected package libmagic1:amd64.[0m
+Feb 13 16:09:09 [0;32m    qemu: Preparing to unpack .../23-libmagic1_1%3a5.35-2_amd64.deb ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Unpacking libmagic1:amd64 (1:5.35-2) ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Selecting previously unselected package file.[0m
+Feb 13 16:09:09 [0;32m    qemu: Preparing to unpack .../24-file_1%3a5.35-2_amd64.deb ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Unpacking file (1:5.35-2) ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Selecting previously unselected package hdparm.[0m
+Feb 13 16:09:09 [0;32m    qemu: Preparing to unpack .../25-hdparm_9.58+ds-1_amd64.deb ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Unpacking hdparm (9.58+ds-1) ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Selecting previously unselected package liblockfile-bin.[0m
+Feb 13 16:09:09 [0;32m    qemu: Preparing to unpack .../26-liblockfile-bin_1.14-1.1_amd64.deb ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Unpacking liblockfile-bin (1.14-1.1) ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Selecting previously unselected package libnss-systemd:amd64.[0m
+Feb 13 16:09:09 [0;32m    qemu: Preparing to unpack .../27-libnss-systemd_240-5_amd64.deb ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Unpacking libnss-systemd:amd64 (240-5) ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Selecting previously unselected package lsof.[0m
+Feb 13 16:09:09 [0;32m    qemu: Preparing to unpack .../28-lsof_4.91+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Unpacking lsof (4.91+dfsg-1) ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Selecting previously unselected package manpages.[0m
+Feb 13 16:09:09 [0;32m    qemu: Preparing to unpack .../29-manpages_4.16-1_all.deb ...[0m
+Feb 13 16:09:09 [0;32m    qemu: Unpacking manpages (4.16-1) ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Selecting previously unselected package netcat-traditional.[0m
+Feb 13 16:09:10 [0;32m    qemu: Preparing to unpack .../30-netcat-traditional_1.10-41.1_amd64.deb ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Unpacking netcat-traditional (1.10-41.1) ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Selecting previously unselected package python3-pkg-resources.[0m
+Feb 13 16:09:10 [0;32m    qemu: Preparing to unpack .../31-python3-pkg-resources_40.7.1-1_all.deb ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Unpacking python3-pkg-resources (40.7.1-1) ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Selecting previously unselected package python3-chardet.[0m
+Feb 13 16:09:10 [0;32m    qemu: Preparing to unpack .../32-python3-chardet_3.0.4-3_all.deb ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Unpacking python3-chardet (3.0.4-3) ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Selecting previously unselected package python3-six.[0m
+Feb 13 16:09:10 [0;32m    qemu: Preparing to unpack .../33-python3-six_1.12.0-1_all.deb ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Unpacking python3-six (1.12.0-1) ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Selecting previously unselected package python3-debian.[0m
+Feb 13 16:09:10 [0;32m    qemu: Preparing to unpack .../34-python3-debian_0.1.34_all.deb ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Unpacking python3-debian (0.1.34) ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Selecting previously unselected package openssl.[0m
+Feb 13 16:09:10 [0;32m    qemu: Preparing to unpack .../35-openssl_1.1.1a-1_amd64.deb ...[0m
+Feb 13 16:09:10 [0;32m    qemu: Unpacking openssl (1.1.1a-1) ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Selecting previously unselected package ca-certificates.[0m
+Feb 13 16:09:11 [0;32m    qemu: Preparing to unpack .../36-ca-certificates_20190110_all.deb ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Unpacking ca-certificates (20190110) ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Selecting previously unselected package python3-httplib2.[0m
+Feb 13 16:09:11 [0;32m    qemu: Preparing to unpack .../37-python3-httplib2_0.11.3-1_all.deb ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Unpacking python3-httplib2 (0.11.3-1) ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Selecting previously unselected package libsasl2-modules-db:amd64.[0m
+Feb 13 16:09:11 [0;32m    qemu: Preparing to unpack .../38-libsasl2-modules-db_2.1.27+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg-1) ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Selecting previously unselected package libsasl2-2:amd64.[0m
+Feb 13 16:09:11 [0;32m    qemu: Preparing to unpack .../39-libsasl2-2_2.1.27+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Unpacking libsasl2-2:amd64 (2.1.27+dfsg-1) ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Selecting previously unselected package libldap-common.[0m
+Feb 13 16:09:11 [0;32m    qemu: Preparing to unpack .../40-libldap-common_2.4.47+dfsg-3_all.deb ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Unpacking libldap-common (2.4.47+dfsg-3) ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Selecting previously unselected package libldap-2.4-2:amd64.[0m
+Feb 13 16:09:11 [0;32m    qemu: Preparing to unpack .../41-libldap-2.4-2_2.4.47+dfsg-3_amd64.deb ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Unpacking libldap-2.4-2:amd64 (2.4.47+dfsg-3) ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Selecting previously unselected package libnghttp2-14:amd64.[0m
+Feb 13 16:09:11 [0;32m    qemu: Preparing to unpack .../42-libnghttp2-14_1.36.0-2_amd64.deb ...[0m
+Feb 13 16:09:11 [0;32m    qemu: Unpacking libnghttp2-14:amd64 (1.36.0-2) ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Selecting previously unselected package libpsl5:amd64.[0m
+Feb 13 16:09:12 [0;32m    qemu: Preparing to unpack .../43-libpsl5_0.20.2-2_amd64.deb ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Unpacking libpsl5:amd64 (0.20.2-2) ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Selecting previously unselected package librtmp1:amd64.[0m
+Feb 13 16:09:12 [0;32m    qemu: Preparing to unpack .../44-librtmp1_2.4+20151223.gitfa8646d.1-2_amd64.deb ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2) ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Selecting previously unselected package libssh2-1:amd64.[0m
+Feb 13 16:09:12 [0;32m    qemu: Preparing to unpack .../45-libssh2-1_1.8.0-2_amd64.deb ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Unpacking libssh2-1:amd64 (1.8.0-2) ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Selecting previously unselected package libcurl3-gnutls:amd64.[0m
+Feb 13 16:09:12 [0;32m    qemu: Preparing to unpack .../46-libcurl3-gnutls_7.64.0-1_amd64.deb ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Unpacking libcurl3-gnutls:amd64 (7.64.0-1) ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Selecting previously unselected package python3-pycurl.[0m
+Feb 13 16:09:12 [0;32m    qemu: Preparing to unpack .../47-python3-pycurl_7.43.0.2-0.1_amd64.deb ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Unpacking python3-pycurl (7.43.0.2-0.1) ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Selecting previously unselected package python3-pysimplesoap.[0m
+Feb 13 16:09:12 [0;32m    qemu: Preparing to unpack .../48-python3-pysimplesoap_1.16.2-1_all.deb ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Unpacking python3-pysimplesoap (1.16.2-1) ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Selecting previously unselected package python3-debianbts.[0m
+Feb 13 16:09:12 [0;32m    qemu: Preparing to unpack .../49-python3-debianbts_2.8.2_all.deb ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Unpacking python3-debianbts (2.8.2) ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Selecting previously unselected package python3-certifi.[0m
+Feb 13 16:09:12 [0;32m    qemu: Preparing to unpack .../50-python3-certifi_2018.8.24-1_all.deb ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Unpacking python3-certifi (2018.8.24-1) ...[0m
+Feb 13 16:09:12 [0;32m    qemu: Selecting previously unselected package python3-idna.[0m
+Feb 13 16:09:12 [0;32m    qemu: Preparing to unpack .../51-python3-idna_2.6-1_all.deb ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Unpacking python3-idna (2.6-1) ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Selecting previously unselected package python3-urllib3.[0m
+Feb 13 16:09:13 [0;32m    qemu: Preparing to unpack .../52-python3-urllib3_1.24-1_all.deb ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Unpacking python3-urllib3 (1.24-1) ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Selecting previously unselected package python3-requests.[0m
+Feb 13 16:09:13 [0;32m    qemu: Preparing to unpack .../53-python3-requests_2.20.0-2_all.deb ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Unpacking python3-requests (2.20.0-2) ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Selecting previously unselected package python3-reportbug.[0m
+Feb 13 16:09:13 [0;32m    qemu: Preparing to unpack .../54-python3-reportbug_7.5.2_all.deb ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Unpacking python3-reportbug (7.5.2) ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Selecting previously unselected package reportbug.[0m
+Feb 13 16:09:13 [0;32m    qemu: Preparing to unpack .../55-reportbug_7.5.2_all.deb ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Unpacking reportbug (7.5.2) ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Selecting previously unselected package telnet.[0m
+Feb 13 16:09:13 [0;32m    qemu: Preparing to unpack .../56-telnet_0.17-41.1_amd64.deb ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Unpacking telnet (0.17-41.1) ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Selecting previously unselected package traceroute.[0m
+Feb 13 16:09:13 [0;32m    qemu: Preparing to unpack .../57-traceroute_1%3a2.1.0-2_amd64.deb ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Unpacking traceroute (1:2.1.0-2) ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Selecting previously unselected package libpcre2-8-0:amd64.[0m
+Feb 13 16:09:13 [0;32m    qemu: Preparing to unpack .../58-libpcre2-8-0_10.32-4_amd64.deb ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Unpacking libpcre2-8-0:amd64 (10.32-4) ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Selecting previously unselected package wget.[0m
+Feb 13 16:09:13 [0;32m    qemu: Preparing to unpack .../59-wget_1.20.1-1_amd64.deb ...[0m
+Feb 13 16:09:13 [0;32m    qemu: Unpacking wget (1.20.1-1) ...[0m
+Feb 13 16:09:14 [0;32m    qemu: Selecting previously unselected package xz-utils.[0m
+Feb 13 16:09:14 [0;32m    qemu: Preparing to unpack .../60-xz-utils_5.2.4-1_amd64.deb ...[0m
+Feb 13 16:09:14 [0;32m    qemu: Unpacking xz-utils (5.2.4-1) ...[0m
+Feb 13 16:09:14 [0;32m    qemu: Selecting previously unselected package distro-info-data.[0m
+Feb 13 16:09:14 [0;32m    qemu: Preparing to unpack .../61-distro-info-data_0.39_all.deb ...[0m
+Feb 13 16:09:14 [0;32m    qemu: Unpacking distro-info-data (0.39) ...[0m
+Feb 13 16:09:14 [0;32m    qemu: Selecting previously unselected package geoip-database.[0m
+Feb 13 16:09:14 [0;32m    qemu: Preparing to unpack .../62-geoip-database_20181108-1_all.deb ...[0m
+Feb 13 16:09:14 [0;32m    qemu: Unpacking geoip-database (20181108-1) ...[0m
+Feb 13 16:09:14 [0;32m    qemu: Selecting previously unselected package iso-codes.[0m
+Feb 13 16:09:14 [0;32m    qemu: Preparing to unpack .../63-iso-codes_4.2-1_all.deb ...[0m
+Feb 13 16:09:14 [0;32m    qemu: Unpacking iso-codes (4.2-1) ...[0m
+Feb 13 16:09:15 [0;32m    qemu: Selecting previously unselected package libassuan0:amd64.[0m
+Feb 13 16:09:15 [0;32m    qemu: Preparing to unpack .../64-libassuan0_2.5.2-1_amd64.deb ...[0m
+Feb 13 16:09:15 [0;32m    qemu: Unpacking libassuan0:amd64 (2.5.2-1) ...[0m
+Feb 13 16:09:15 [0;32m    qemu: Selecting previously unselected package libsasl2-modules:amd64.[0m
+Feb 13 16:09:15 [0;32m    qemu: Preparing to unpack .../65-libsasl2-modules_2.1.27+dfsg-1_amd64.deb ...[0m
+Feb 13 16:09:15 [0;32m    qemu: Unpacking libsasl2-modules:amd64 (2.1.27+dfsg-1) ...[0m
+Feb 13 16:09:15 [0;32m    qemu: Selecting previously unselected package lsb-release.[0m
+Feb 13 16:09:15 [0;32m    qemu: Preparing to unpack .../66-lsb-release_10.2018112800_all.deb ...[0m
+Feb 13 16:09:15 [0;32m    qemu: Unpacking lsb-release (10.2018112800) ...[0m
+Feb 13 16:09:15 [0;32m    qemu: Selecting previously unselected package pinentry-curses.[0m
+Feb 13 16:09:15 [0;32m    qemu: Preparing to unpack .../67-pinentry-curses_1.1.0-1+b1_amd64.deb ...[0m
+Feb 13 16:09:15 [0;32m    qemu: Unpacking pinentry-curses (1.1.0-1+b1) ...[0m
+Feb 13 16:09:15 [0;32m    qemu: Selecting previously unselected package powermgmt-base.[0m
+Feb 13 16:09:15 [0;32m    qemu: Preparing to unpack .../68-powermgmt-base_1.33_all.deb ...[0m
+Feb 13 16:09:15 [0;32m    qemu: Unpacking powermgmt-base (1.33) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Selecting previously unselected package publicsuffix.[0m
+Feb 13 16:09:16 [0;32m    qemu: Preparing to unpack .../69-publicsuffix_20190128.1516-1_all.deb ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Unpacking publicsuffix (20190128.1516-1) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up python-apt-common (1.8.3) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up manpages (4.16-1) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up libnss-systemd:amd64 (240-5) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: First installation detected...[0m
+Feb 13 16:09:16 [0;32m    qemu: Checking NSS setup...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up powermgmt-base (1.33) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up liblockfile-bin (1.14-1.1) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up libfstrm0:amd64 (0.4.0-1) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up libnghttp2-14:amd64 (1.36.0-2) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up liblmdb0:amd64 (0.9.22-1) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up mime-support (3.61) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up libicu63:amd64 (63.1-6) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up geoip-database (20181108-1) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up iso-codes (4.2-1) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up libldap-common (2.4.47+dfsg-3) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up libreadline7:amd64 (7.0-5) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up lsof (4.91+dfsg-1) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up libpsl5:amd64 (0.20.2-2) ...[0m
+Feb 13 16:09:16 [0;32m    qemu: Setting up bash-completion (1:2.8-5) ...[0m
+Feb 13 16:09:17 [0;32m    qemu: find: ‘/etc/bash_completion.d/’: No such file or directory[0m
+Feb 13 16:09:17 [0;32m    qemu: Setting up debian-faq (8.1) ...[0m
+Feb 13 16:09:17 [0;32m    qemu: Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg-1) ...[0m
+Feb 13 16:09:17 [0;32m    qemu: Setting up libsasl2-2:amd64 (2.1.27+dfsg-1) ...[0m
+Feb 13 16:09:17 [0;32m    qemu: Setting up netcat-traditional (1.10-41.1) ...[0m
+Feb 13 16:09:17 [0;32m    qemu: update-alternatives: using /bin/nc.traditional to provide /bin/nc (nc) in auto mode[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up distro-info-data (0.39) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libprotobuf-c1:amd64 (1.3.1-1+b1) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libpipeline1:amd64 (1.5.1-1) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up hdparm (9.58+ds-1) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libgeoip1:amd64 (1.6.12-1) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libxml2:amd64 (2.9.4+dfsg1-7+b3) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libuchardet0:amd64 (0.0.6-3) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libmagic-mgc (1:5.35-2) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up bzip2 (1.0.6-9) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libmagic1:amd64 (1:5.35-2) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libgdbm6:amd64 (1.18.1-2) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libssh2-1:amd64 (1.8.0-2) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up perl-modules-5.28 (5.28.1-4) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Processing triggers for libc-bin (2.28-6) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up publicsuffix (20190128.1516-1) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libldap-2.4-2:amd64 (2.4.47+dfsg-3) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up xz-utils (5.2.4-1) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: update-alternatives: using /usr/bin/xz to provide /usr/bin/lzma (lzma) in auto mode[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up telnet (0.17-41.1) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: update-alternatives: using /usr/bin/telnet.netkit to provide /usr/bin/telnet (telnet) in auto mode[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up openssl (1.1.1a-1) ...[0m
+Feb 13 16:09:18 [0;32m    qemu: Setting up libsqlite3-0:amd64 (3.26.0+fossilbc891ac6b-2) ...[0m
+Feb 13 16:09:19 [0;32m    qemu: Setting up libgdbm-compat4:amd64 (1.18.1-2) ...[0m
+Feb 13 16:09:19 [0;32m    qemu: Setting up libpcre2-8-0:amd64 (10.32-4) ...[0m
+Feb 13 16:09:19 [0;32m    qemu: Setting up libsasl2-modules:amd64 (2.1.27+dfsg-1) ...[0m
+Feb 13 16:09:19 [0;32m    qemu: Setting up ca-certificates (20190110) ...[0m
+Feb 13 16:09:19 [0;32m    qemu: Updating certificates in /etc/ssl/certs...[0m
+Feb 13 16:09:19 [0;32m    qemu: 128 added, 0 removed; done.[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up libassuan0:amd64 (2.5.2-1) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up traceroute (1:2.1.0-2) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: update-alternatives: using /usr/bin/traceroute.db to provide /usr/bin/traceroute (traceroute) in auto mode[0m
+Feb 13 16:09:20 [0;32m    qemu: update-alternatives: using /usr/bin/traceroute6.db to provide /usr/bin/traceroute6 (traceroute6) in auto mode[0m
+Feb 13 16:09:20 [0;32m    qemu: update-alternatives: using /usr/bin/lft.db to provide /usr/bin/lft (lft) in auto mode[0m
+Feb 13 16:09:20 [0;32m    qemu: update-alternatives: using /usr/bin/traceproto.db to provide /usr/bin/traceproto (traceproto) in auto mode[0m
+Feb 13 16:09:20 [0;32m    qemu: update-alternatives: using /usr/sbin/tcptraceroute.db to provide /usr/sbin/tcptraceroute (tcptraceroute) in auto mode[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up libpython2.7-stdlib:amd64 (2.7.15-8) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up libmpdec2:amd64 (2.4.2-2) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up doc-debian (6.4) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up libisc1100:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up libpython3.7-stdlib:amd64 (3.7.2-2) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up liblwres161:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up libperl5.28:amd64 (5.28.1-4) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up libcurl3-gnutls:amd64 (7.64.0-1) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up groff-base (1.22.4-2) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up libisccc161:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:20 [0;32m    qemu: Setting up python2.7 (2.7.15-8) ...[0m
+Feb 13 16:09:21 [0;32m    qemu: Setting up python3.7 (3.7.2-2) ...[0m
+Feb 13 16:09:21 [0;32m    qemu: Setting up file (1:5.35-2) ...[0m
+Feb 13 16:09:22 [0;32m    qemu: Setting up perl (5.28.1-4) ...[0m
+Feb 13 16:09:22 [0;32m    qemu: Setting up libdns1104:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:22 [0;32m    qemu: Setting up wget (1.20.1-1) ...[0m
+Feb 13 16:09:22 [0;32m    qemu: Setting up man-db (2.8.5-1) ...[0m
+Feb 13 16:09:22 [0;32m    qemu: Building database of manual pages ...[0m
+Feb 13 16:09:37 [0;32m    qemu: Created symlink /etc/systemd/system/timers.target.wants/man-db.timer → /lib/systemd/system/man-db.timer.[0m
+Feb 13 16:09:37 [0;32m    qemu: /usr/sbin/policy-rc.d returned 101, not running 'start man-db.service man-db.timer'[0m
+Feb 13 16:09:37 [0;32m    qemu: Setting up libpython2-stdlib:amd64 (2.7.15-4) ...[0m
+Feb 13 16:09:37 [0;32m    qemu: Setting up pinentry-curses (1.1.0-1+b1) ...[0m
+Feb 13 16:09:37 [0;32m    qemu: Setting up libpython3-stdlib:amd64 (3.7.2-1) ...[0m
+Feb 13 16:09:37 [0;32m    qemu: Setting up python3 (3.7.2-1) ...[0m
+Feb 13 16:09:37 [0;32m    qemu: running python rtupdate hooks for python3.7...[0m
+Feb 13 16:09:37 [0;32m    qemu: running python post-rtupdate hooks for python3.7...[0m
+Feb 13 16:09:38 [0;32m    qemu: Setting up libisccfg163:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:38 [0;32m    qemu: Setting up python3-idna (2.6-1) ...[0m
+Feb 13 16:09:38 [0;32m    qemu: Setting up python3-six (1.12.0-1) ...[0m
+Feb 13 16:09:38 [0;32m    qemu: Setting up python3-certifi (2018.8.24-1) ...[0m
+Feb 13 16:09:38 [0;32m    qemu: Setting up python3-pkg-resources (40.7.1-1) ...[0m
+Feb 13 16:09:38 [0;32m    qemu: Setting up lsb-release (10.2018112800) ...[0m
+Feb 13 16:09:38 [0;32m    qemu: Setting up python2 (2.7.15-4) ...[0m
+Feb 13 16:09:38 [0;32m    qemu: Setting up libpython-stdlib:amd64 (2.7.15-4) ...[0m
+Feb 13 16:09:39 [0;32m    qemu: Setting up python3-debconf (1.5.70) ...[0m
+Feb 13 16:09:39 [0;32m    qemu: Setting up libbind9-161:amd64 (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:39 [0;32m    qemu: Setting up python3-chardet (3.0.4-3) ...[0m
+Feb 13 16:09:39 [0;32m    qemu: Setting up python3-httplib2 (0.11.3-1) ...[0m
+Feb 13 16:09:39 [0;32m    qemu: Setting up python3-urllib3 (1.24-1) ...[0m
+Feb 13 16:09:39 [0;32m    qemu: Setting up python3-debian (0.1.34) ...[0m
+Feb 13 16:09:39 [0;32m    qemu: Setting up python (2.7.15-4) ...[0m
+Feb 13 16:09:40 [0;32m    qemu: Setting up bind9-host (1:9.11.5.P1+dfsg-1) ...[0m
+Feb 13 16:09:40 [0;32m    qemu: Setting up python3-pycurl (7.43.0.2-0.1) ...[0m
+Feb 13 16:09:40 [0;32m    qemu: Setting up python3-apt (1.8.3) ...[0m
+Feb 13 16:09:40 [0;32m    qemu: Setting up apt-listchanges (3.18) ...[0m
+Feb 13 16:09:40 [0;32m    qemu:[0m
+Feb 13 16:09:40 [0;32m    qemu: Creating config file /etc/apt/listchanges.conf with new version[0m
+Feb 13 16:09:40 [0;32m    qemu: Setting up python3-requests (2.20.0-2) ...[0m
+Feb 13 16:09:41 [0;32m    qemu: Setting up python3-pysimplesoap (1.16.2-1) ...[0m
+Feb 13 16:09:41 [0;32m    qemu: Setting up python3-debianbts (2.8.2) ...[0m
+Feb 13 16:09:41 [0;32m    qemu: Setting up python3-reportbug (7.5.2) ...[0m
+Feb 13 16:09:41 [0;32m    qemu: Setting up reportbug (7.5.2) ...[0m
+Feb 13 16:09:41 [0;32m    qemu: Processing triggers for libc-bin (2.28-6) ...[0m
+Feb 13 16:09:41 [0;32m    qemu: Processing triggers for ca-certificates (20190110) ...[0m
+Feb 13 16:09:41 [0;32m    qemu: Updating certificates in /etc/ssl/certs...[0m
+Feb 13 16:09:42 [0;32m    qemu: 0 added, 0 removed; done.[0m
+Feb 13 16:09:42 [0;32m    qemu: Running hooks in /etc/ca-certificates/update.d...[0m
+Feb 13 16:09:42 [0;32m    qemu: done.[0m
+Feb 13 16:09:42 [0;32m    qemu: + chroot / apt-get purge -qy dctrl-tools[0m
+Feb 13 16:09:42 [0;32m    qemu: Reading package lists...[0m
+Feb 13 16:09:42 [0;32m    qemu: Building dependency tree...[0m
+Feb 13 16:09:42 [0;32m    qemu: Reading state information...[0m
+Feb 13 16:09:42 [0;32m    qemu: The following packages will be REMOVED:[0m
+Feb 13 16:09:42 [0;32m    qemu:   dctrl-tools*[0m
+Feb 13 16:09:42 [0;32m    qemu: 0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.[0m
+Feb 13 16:09:42 [0;32m    qemu: After this operation, 431 kB disk space will be freed.[0m
+Feb 13 16:09:42 [0;32m    qemu: (Reading database ... 31383 files and directories currently installed.)[0m
+Feb 13 16:09:42 [0;32m    qemu: Removing dctrl-tools (2.24-3) ...[0m
+Feb 13 16:09:42 [0;32m    qemu: Processing triggers for man-db (2.8.5-1) ...[0m
+Feb 13 16:09:43 [0;32m    qemu: (Reading database ... 31343 files and directories currently installed.)[0m
+Feb 13 16:09:43 [0;32m    qemu: Purging configuration files for dctrl-tools (2.24-3) ...[0m
+Feb 13 16:09:43 [0;32m    qemu: + chroot / id ubuntu[0m
+Feb 13 16:09:43 [0;32m    qemu: + chroot / id vagrant[0m
+Feb 13 16:09:43 [0;32m    qemu: + mkdir -p //home/vagrant/.ssh[0m
+Feb 13 16:09:43 [0;32m    qemu: + chmod 700 //home/vagrant/.ssh[0m
+Feb 13 16:09:43 [0;32m    qemu: + cat[0m
+Feb 13 16:09:43 [0;32m    qemu: + chmod 600 //home/vagrant/.ssh/authorized_keys[0m
+Feb 13 16:09:43 [0;32m    qemu: + chroot / chown -R vagrant:vagrant /home/vagrant/.ssh[0m
+Feb 13 16:09:43 [0;32m    qemu: + chroot / apt-get install -qy sudo[0m
+Feb 13 16:09:43 [0;32m    qemu: Reading package lists...[0m
+Feb 13 16:09:43 [0;32m    qemu: Building dependency tree...[0m
+Feb 13 16:09:43 [0;32m    qemu: Reading state information...[0m
+Feb 13 16:09:43 [0;32m    qemu: sudo is already the newest version (1.8.27-1).[0m
+Feb 13 16:09:43 [0;32m    qemu: + cat[0m
+Feb 13 16:09:43 [0;32m    qemu: 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.[0m
+Feb 13 16:09:43 [0;32m    qemu: + chmod 0440 //etc/sudoers.d/vagrant[0m
+Feb 13 16:09:43 [0;32m    qemu: + [ -n  ][0m
+Feb 13 16:09:43 [0;32m    qemu: + echo UseDNS no[0m
+Feb 13 16:09:43 [0;32m    qemu: + echo PasswordAuthentication no[0m
+Feb 13 16:09:43 [0;32m    qemu: + [ -f //etc/default/grub ][0m
+Feb 13 16:09:43 [0;32m    qemu: + sed -i s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/ //etc/default/grub[0m
+Feb 13 16:09:43 [0;32m    qemu: + [ -x //usr/sbin/update-grub ][0m
+Feb 13 16:09:43 [0;32m    qemu: + chroot / mountpoint -q /dev/[0m
+Feb 13 16:09:43 [0;32m    qemu: + chroot / /usr/sbin/update-grub[0m
+Feb 13 16:09:44 [0;32m    qemu: Generating grub configuration file ...[0m
+Feb 13 16:09:44 [0;32m    qemu: Found linux image: /boot/vmlinuz-4.19.0-2-amd64[0m
+Feb 13 16:09:44 [0;32m    qemu: Found initrd image: /boot/initrd.img-4.19.0-2-amd64[0m
+Feb 13 16:09:44 [0;32m    qemu: Found linux image: /boot/vmlinuz-4.19.0-1-amd64[0m
+Feb 13 16:09:44 [0;32m    qemu: Found initrd image: /boot/initrd.img-4.19.0-1-amd64[0m
+Feb 13 16:09:45 [0;32m    qemu: done[0m
+Feb 13 16:09:45 [0;32m    qemu: + chroot / apt-get clean[0m
+Feb 13 16:09:45 [0;32m    qemu: + rm -f //usr/sbin/policy-rc.d[0m
+Feb 13 16:09:45 [0;32m    qemu: + echo debconf debconf/frontend select Dialog[0m
+Feb 13 16:09:45 [0;32m    qemu: + chroot / debconf-set-selections[0m
+Feb 13 16:09:45 [0;32m    qemu: + rm //var/lib/dbus/machine-id[0m
+Feb 13 16:09:45 [0;32m    qemu: +[0m
+Feb 13 16:09:45 [1;32m==> qemu: Provisioning with shell script: scripts/minimize.sh[0m
+Feb 13 16:09:45 [0;32m    qemu: Fill with 0 the swap partition to reduce box size[0m
+Feb 13 16:09:46 [0;32m    qemu: dd: error writing '/dev/vda5': No space left on device[0m
+Feb 13 16:09:46 [0;32m    qemu: 1023+0 records in[0m
+Feb 13 16:09:46 [0;32m    qemu: 1022+0 records out[0m
+Feb 13 16:09:46 [0;32m    qemu: 1071644672 bytes (1.1 GB, 1022 MiB) copied, 0.714312 s, 1.5 GB/s[0m
+Feb 13 16:09:46 [0;32m    qemu: dd exit code 1 is suppressed[0m
+Feb 13 16:09:48 [0;32m    qemu: Setting up swapspace version 1, size = 1022 MiB (1071640576 bytes)[0m
+Feb 13 16:09:48 [0;32m    qemu: no label, UUID=040549f4-90bd-4405-81c4-fd3bf96b2d74[0m
+Feb 13 16:09:48 [0;32m    qemu: Fill filesystem with 0 to reduce box size[0m
+Feb 13 16:10:01 [0;32m    qemu: dd: error writing '/EMPTY': No space left on device[0m
+Feb 13 16:10:01 [0;32m    qemu: 7665+0 records in[0m
+Feb 13 16:10:01 [0;32m    qemu: 7664+0 records out[0m
+Feb 13 16:10:01 [0;32m    qemu: 8036589568 bytes (8.0 GB, 7.5 GiB) copied, 13.2254 s, 608 MB/s[0m
+Feb 13 16:10:04 [1;32m==> qemu: Gracefully halting virtual machine...[0m
+Feb 13 16:10:06 [1;32mBuild 'qemu' finished.[0m
+Feb 13 16:10:06 
+Feb 13 16:10:06 ==> Builds finished. The artifacts of successful builds are:
+Feb 13 16:10:06 --> qemu: VM files in directory: buster.build
+Feb 13 16:10:32 Importing linux debian x86_64 buster/sid ...
+Feb 13 16:10:32 not converting buster.vmdk 
+Feb 13 16:10:32 Creating OVF metadata ...
+Feb 13 16:10:32 
+Feb 13 16:10:32 OVF written to buster.ovf
+Feb 13 16:10:32 In Virtualbox, go to File -> Import a virtual appliance
+Feb 13 16:10:32 and select the ovf file.
+Feb 13 16:10:32 Or import from the command line with: 
+Feb 13 16:10:32 $ VBoxManage import buster.ovf
+Feb 13 16:11:21 + export VAGRANT_DEFAULT_PROVIDER=virtualbox
+Feb 13 16:11:21 + vagrant box add test-buster buster.box
+Feb 13 16:11:22 ==> box: Box file was not detected as metadata. Adding it directly...
+Feb 13 16:11:22 ==> box: Adding box 'test-buster' (v0) for provider: 
+Feb 13 16:11:22     box: Unpacking necessary files from: file:///home/manu/Projects/git/vagrant-boxes/packer-virtualbox-vagrant/buster.box
+Feb 13 16:11:27 [K    box: Progress: 0% (Rate: 0/s, Estimated time remaining: --:--:--)[K==> box: Successfully added box 'test-buster' (v0) for 'virtualbox'!
+Feb 13 16:11:27 + mkdir test-buster
+Feb 13 16:11:27 + cp ../helpers/package_report test-buster
+Feb 13 16:11:27 + ../helpers/getLatestRelease.js buster
+Feb 13 16:11:31 + this_codename_last_release=buster/sid
+Feb 13 16:11:31 + cd test-buster
+Feb 13 16:11:31 + vagrant init test-buster
+Feb 13 16:11:32 A `Vagrantfile` has been placed in this directory. You are now
+Feb 13 16:11:32 ready to `vagrant up` your first virtual environment! Please read
+Feb 13 16:11:32 the comments in the Vagrantfile as well as documentation on
+Feb 13 16:11:32 `vagrantup.com` for more information on using Vagrant.
+Feb 13 16:11:32 + vagrant up --no-provision
+Feb 13 16:11:32 Bringing machine 'default' up with 'virtualbox' provider...
+Feb 13 16:11:33 ==> default: Importing base box 'test-buster'...
+Feb 13 16:11:50 [KProgress: 10%[KProgress: 40%[KProgress: 60%[KProgress: 90%[K==> default: Matching MAC address for NAT networking...
+Feb 13 16:11:51 ==> default: Setting the name of the VM: test-buster_default_1550070711462_30525
+Feb 13 16:11:53 ==> default: Clearing any previously set network interfaces...
+Feb 13 16:11:53 ==> default: Preparing network interfaces based on configuration...
+Feb 13 16:11:53     default: Adapter 1: nat
+Feb 13 16:11:53 ==> default: Forwarding ports...
+Feb 13 16:11:53     default: 22 (guest) => 2222 (host) (adapter 1)
+Feb 13 16:11:53 ==> default: Running 'pre-boot' VM customizations...
+Feb 13 16:11:53 ==> default: Booting VM...
+Feb 13 16:11:54 ==> default: Waiting for machine to boot. This may take a few minutes...
+Feb 13 16:11:54     default: SSH address: 127.0.0.1:2222
+Feb 13 16:11:54     default: SSH username: vagrant
+Feb 13 16:11:54     default: SSH auth method: private key
+Feb 13 16:12:09     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:09     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:10     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:11     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:11     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:11     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:12     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:12     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:13     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:13     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:13     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:14     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:14     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:15     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:15     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:16     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:16     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:16     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:16     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:17     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:17     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:18     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:18     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:19     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:20     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:20     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:20     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:21     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:21     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:21     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:21     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:22     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:22     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:22     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:23     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:24     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:24     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:24     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:24     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:25     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:26     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:26     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:27     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:27     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:27     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:27     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:27     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:28     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:28     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:29     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:29     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:29     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:30     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:31     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:31     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:31     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:32     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:32     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:33     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:33     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:33     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:33     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:33     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:34     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:34     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:34     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:35     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:36     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:36     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:36     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:37     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:37     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:37     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:37     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:38     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:38     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:39     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:40     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:41     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:41     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:42     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:42     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:43     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:43     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:43     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:43     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:44     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:44     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:44     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:45     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:45     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:45     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:46     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:46     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:47     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:47     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:47     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:47     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:48     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:48     default: Warning: Remote connection disconnect. Retrying...
+Feb 13 16:12:49     default: Warning: Connection reset. Retrying...
+Feb 13 16:12:50     default: 
+Feb 13 16:12:50     default: Vagrant insecure key detected. Vagrant will automatically replace
+Feb 13 16:12:50     default: this with a newly generated keypair for better security.
+Feb 13 16:12:57     default: 
+Feb 13 16:12:57     default: Inserting generated public key within guest...
+Feb 13 16:12:57     default: Removing insecure key from the guest if it's present...
+Feb 13 16:12:57     default: Key inserted! Disconnecting and reconnecting using new SSH key...
+Feb 13 16:12:59 ==> default: Machine booted and ready!
+Feb 13 16:12:59 ==> default: Checking for guest additions in VM...
+Feb 13 16:12:59 ==> default: Installing rsync to the VM...
+Feb 13 16:13:03 ==> default: Rsyncing folder: /home/manu/Projects/git/vagrant-boxes/packer-virtualbox-vagrant/test-buster/ => /vagrant
+Feb 13 16:13:04 ==> default: Machine not provisioned because `--no-provision` is specified.
+Feb 13 16:13:04 
+Feb 13 16:13:04 ==> default: Machine 'default' has a post `vagrant up` message. This is a message
+Feb 13 16:13:04 ==> default: from the creator of the Vagrantfile, and not from Vagrant itself:
+Feb 13 16:13:04 ==> default: 
+Feb 13 16:13:04 ==> default: Vanilla Debian box. See https://app.vagrantup.com/debian for help and bug reports
+Feb 13 16:13:04 + vagrant ssh -- true
+Feb 13 16:13:06 + vagrant ssh -- sudo true
+Feb 13 16:13:07 + vagrant ssh -- cat /etc/debian_version
+Feb 13 16:13:09 buster/sid
+Feb 13 16:13:09 + vagrant ssh -c sh /vagrant/package_report
+Feb 13 16:13:10 found 33 packages with priority required
+Feb 13 16:13:10 found 40 packages with priority important
+Feb 13 16:13:10 found 32 packages with priority standard
+Feb 13 16:13:10 found 217 packages with priority optional
+Feb 13 16:13:10 Connection to 127.0.0.1 closed.
+Feb 13 16:13:10 + vagrant ssh -- sudo apt-get --quiet --yes install debconf-utils figlet
+Feb 13 16:13:12 Reading package lists...
+Feb 13 16:13:12 Building dependency tree...
+Feb 13 16:13:12 Reading state information...
+Feb 13 16:13:12 The following NEW packages will be installed:
+Feb 13 16:13:12   debconf-utils figlet
+Feb 13 16:13:12 0 upgraded, 2 newly installed, 0 to remove and 0 not upgraded.
+Feb 13 16:13:12 Need to get 193 kB of archives.
+Feb 13 16:13:12 After this operation, 863 kB of additional disk space will be used.
+Feb 13 16:13:12 Get:1 http://deb.debian.org/debian buster/main amd64 debconf-utils all 1.5.70 [57.0 kB]
+Feb 13 16:13:12 Get:2 http://deb.debian.org/debian buster/main amd64 figlet amd64 2.2.5-3 [136 kB]
+Feb 13 16:13:13 debconf: unable to initialize frontend: Dialog
+Feb 13 16:13:13 debconf: (Dialog frontend will not work on a dumb terminal, an emacs shell buffer, or without a controlling terminal.)
+Feb 13 16:13:13 debconf: falling back to frontend: Readline
+Feb 13 16:13:13 debconf: unable to initialize frontend: Readline
+Feb 13 16:13:13 debconf: (This frontend requires a controlling tty.)
+Feb 13 16:13:13 debconf: falling back to frontend: Teletype
+Feb 13 16:13:13 dpkg-preconfigure: unable to re-open stdin: 
+Feb 13 16:13:13 Fetched 193 kB in 0s (643 kB/s)
+Feb 13 16:13:13 Selecting previously unselected package debconf-utils.
+Feb 13 16:13:13 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 31374 files and directories currently installed.)
+Feb 13 16:13:13 Preparing to unpack .../debconf-utils_1.5.70_all.deb ...
+Feb 13 16:13:13 Unpacking debconf-utils (1.5.70) ...
+Feb 13 16:13:13 Selecting previously unselected package figlet.
+Feb 13 16:13:13 Preparing to unpack .../figlet_2.2.5-3_amd64.deb ...
+Feb 13 16:13:13 Unpacking figlet (2.2.5-3) ...
+Feb 13 16:13:13 Setting up debconf-utils (1.5.70) ...
+Feb 13 16:13:13 Setting up figlet (2.2.5-3) ...
+Feb 13 16:13:13 update-alternatives: using /usr/bin/figlet-figlet to provide /usr/bin/figlet (figlet) in auto mode
+Feb 13 16:13:13 Processing triggers for man-db (2.8.5-1) ...
+Feb 13 16:13:13 + vagrant ssh -c sudo debconf-get-selections | egrep '^debconf.?debconf/frontend.?select.?Dialog$'
+Feb 13 16:13:15 debconf	debconf/frontend	select	Dialog
+Feb 13 16:13:15 Connection to 127.0.0.1 closed.
+Feb 13 16:13:15 + vagrant ssh -c cat /etc/debian_version
+Feb 13 16:13:15 + grep buster/sid
+Feb 13 16:13:17 Connection to 127.0.0.1 closed.
+Feb 13 16:13:17 buster/sid
+Feb 13 16:13:17 + vagrant ssh -c lsb_release --release --codename | figlet
+Feb 13 16:13:18  ____      _                         _            _   _             
+Feb 13 16:13:18 |  _ \ ___| | ___  __ _ ___  ___ _  | |_ ___  ___| |_(_)_ __   __ _ 
+Feb 13 16:13:18 | |_) / _ \ |/ _ \/ _` / __|/ _ (_) | __/ _ \/ __| __| | '_ \ / _` |
+Feb 13 16:13:18 |  _ <  __/ |  __/ (_| \__ \  __/_  | ||  __/\__ \ |_| | | | | (_| |
+Feb 13 16:13:18 |_| \_\___|_|\___|\__,_|___/\___(_)  \__\___||___/\__|_|_| |_|\__, |
+Feb 13 16:13:18                                                               |___/ 
+Feb 13 16:13:18   ____          _                                   
+Feb 13 16:13:18  / ___|___   __| | ___ _ __   __ _ _ __ ___   ___ _ 
+Feb 13 16:13:18 | |   / _ \ / _` |/ _ \ '_ \ / _` | '_ ` _ \ / _ (_)
+Feb 13 16:13:18 | |__| (_) | (_| |  __/ | | | (_| | | | | | |  __/_ 
+Feb 13 16:13:18  \____\___/ \__,_|\___|_| |_|\__,_|_| |_| |_|\___(_)
+Feb 13 16:13:18                                                     
+Feb 13 16:13:18  _               _            
+Feb 13 16:13:18 | |__  _   _ ___| |_ ___ _ __ 
+Feb 13 16:13:18 | '_ \| | | / __| __/ _ \ '__|
+Feb 13 16:13:18 | |_) | |_| \__ \ ||  __/ |   
+Feb 13 16:13:18 |_.__/ \__,_|___/\__\___|_|   
+Feb 13 16:13:18                               
+Feb 13 16:13:18 Connection to 127.0.0.1 closed.
+Feb 13 16:13:18 + cleanup
+Feb 13 16:13:18 + set -x
+Feb 13 16:13:18 + [ -f test-buster/Vagrantfile ]
+Feb 13 16:13:18 + cd test-buster
+Feb 13 16:13:18 + vagrant destroy -f
+Feb 13 16:13:20 ==> default: Forcing shutdown of VM...
+Feb 13 16:13:22 ==> default: Destroying VM and associated drives...
+Feb 13 16:13:22 + rm -rf test-buster
+Feb 13 16:13:22 + vagrant box remove test-buster
+Feb 13 16:13:23 Removing box 'test-buster' (v0) with provider 'virtualbox'...
+Feb 13 16:13:23 Vagrant-libvirt plugin removed box only from you LOCAL ~/.vagrant/boxes directory
+Feb 13 16:13:23 From libvirt storage pool you have to delete image manually(virsh, virt-manager or by any other tool)
