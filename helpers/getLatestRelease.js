@@ -1,44 +1,48 @@
 #!/usr/bin/nodejs
+/*
+return the actual point release of a given stable or old stable release
+in the same format as /etc/debian_version
+*/
 
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 const stableURL = 'http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/';
 const oldStableURL = 'http://cdimage.debian.org/mirror/cdimage/archive/latest-oldstable/amd64/iso-cd/';
-const testingURL = 'https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/';
 
 // change this after each major debian release
 const releaseMap = {
   jessie: oldStableURL,
-  'contrib-jessie': oldStableURL,
   stretch: stableURL,
-  'contrib-stretch': stableURL,
-  testing: testingURL,
-  'contrib-testing': testingURL,
+  buster: '',
+  bullseye: '',
+  bookworm: '',
+  testing: ''
 }
 
-const testingVersion = 'buster/sid';
+const develVersion = 'buster/sid';
 
 // main
 const codename = getArgs();
 let lastMajorMinor;
 
-if (codename === 'testing') {
-  lastMajorMinor = testingVersion;
+if (! /^http/.test(releaseMap[codename])) {
+  lastMajorMinor = develVersion;
 } else {
-  lastMajorMinor = getlastRelease(releaseMap[codename])
+  lastMajorMinor = getlastRelease(releaseMap[codename]);
 }
 
 console.log(lastMajorMinor);
 
 function getArgs() {
-  let release;
-  if (process.argv[2] && releaseMap[process.argv[2]] != null) {
-    release = process.argv[2];
-  } else {
+  const release = process.argv[2].replace(/^contrib-/, '');
+  if (!release) {
     console.error(`usage:  ${process.argv[1]} Debian_release_codename`);
     process.exit(1);
   }
-
+  if (releaseMap[release.replace()] == null) {
+    console.log(`unkown release: ${release}`);
+    process.exit(1);
+  }
   return release;
 }
 
