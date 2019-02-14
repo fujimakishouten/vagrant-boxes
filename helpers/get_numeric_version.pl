@@ -26,5 +26,5 @@ my ($root_fs) = $g->inspect_os();
 my $product_name = $g->inspect_get_product_name ($root_fs); #7.11
 $g->close();
 
-die "Version: $product_name is not a number\n" if ! looks_like_number $product_name;
+warn "Warning: $product_name is not a number\n" if ! looks_like_number $product_name;
 say $product_name;
