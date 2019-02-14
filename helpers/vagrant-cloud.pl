@@ -108,14 +108,15 @@ sub print_help {
   $help .= "\t--help display this text \n";
   $help .= <<EOD;
 
-example1: uploading a lxc box to the debian/sandox64 namespace
-namespace is computed as debian/\$box_filename64
+example1: uploading a virtualbox box to the debian/buster64 namespace
+namespace is computed as debian/\${box_filename}64
 
 vagrant-cloud.pl \\
- --box sandbox.box \\
- --version 10.1  \\
- --changelog "* uploading to debian/sandbox64" \\
- --provider lxc
+ --box buster.box \\
+ --version 9.99.0  \\
+ --changelog "* testing/buster box based on buster alpha 5 installer" \\
+ --provider virtualbox
+
 
 example2: uploading a virtualbox box to the debian/jessie64 namespace
 version and changelog are infered from the presence of \$box_filename.json file,
