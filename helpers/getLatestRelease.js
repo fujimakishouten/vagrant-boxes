@@ -33,7 +33,14 @@ if (! /^http/.test(releaseMap[codename])) {
 
 console.log(lastMajorMinor);
 
+function usage() {
+  console.log(`usage: ${process.argv[1]} debian_release_codename (buster ...)`);
+  process.exit(1);
+}
+
 function getArgs() {
+  if (process.argv.length != 3) usage();
+
   const release = process.argv[2].replace(/^contrib-/, '');
   if (!release) {
     console.error(`usage:  ${process.argv[1]} Debian_release_codename`);
@@ -51,12 +58,8 @@ function getlastRelease(releaseURL) {
   req.open('GET', releaseURL + 'SHA256SUMS', false);
   req.send(null);
 
-  // req.status from the XMLHttpRequest node module is buggy,
-  // it appends the responseText to the HTTP status code
-  // TODO: replace with node-fetch ?
-  const realStatus = parseInt(req.status.slice(0, 3));
-  if (realStatus >= 400) {
-    console.error(`error fetching ${releaseURL}SHA256SUMS, got HTTP status code ${realStatus}`);
+  if (req.status >= 400) {
+    console.error(`error fetching ${releaseURL}SHA256SUMS, got HTTP status code ${req.status}`);
     usage();
   }
 
