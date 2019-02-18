@@ -11,3 +11,4 @@ helpers/token.gpg
 .project
 .settings
 .tern-project
+.vagrant
