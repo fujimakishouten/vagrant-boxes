@@ -11,11 +11,12 @@ https://app.vagrantup.com/debian
 ## Rebuilding the base boxes
 See https://wiki.debian.org/Teams/Cloud/RebuildVagrantBaseBoxes
 
-## Releasing a new version:
-* Update the changelog and version in $CODENAME.json
-* export ATLAS_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
-* Call `make $CODENAME.released` to sign the boxes and upload the checksums to Alioth
+## Releasing a new minor version:
+* export VAGRANT_CLOUD_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
+* Call `make ${CODENAME}.uploaded` to build the box, upload them and sign them
 * Release the boxes on atlas
+* Commit the new checksums and changelog, push to salsa
+
 
 ## Credits
 
