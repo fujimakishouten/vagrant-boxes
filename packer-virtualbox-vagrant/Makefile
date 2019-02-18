@@ -46,6 +46,15 @@ contrib-%.box: VAGRANT_FILE= Vagrantfile-contrib.in
 	../helpers/vagrant-test virtualbox $* $< $(TEE)
 	touch $@ $(TEE)
 
+$(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM: %.tested
+	sha256sum $*.box > $@
+	tr '\n' ' ' < $@ | sponge $@
+	$(eval RELEASE != $(CURDIR)/../helpers/get_numeric_version.pl $*.vmdk)
+	echo $(RELEASE) >> $@
+
+$(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM
+	gpg --batch --yes --sign $<
+
 %.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
 	# extract debian version from inside the disk image
 	$(eval RELEASE != $(CURDIR)/../helpers/get_numeric_version.pl $*.vmdk)
@@ -66,15 +75,6 @@ contrib-testing.uploaded:
 		--changelog "* rebuild of testing box"
 	@echo "everything done, please release the box $*64 on app.vagrantup.com"
 	touch $@
-
-$(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM: %.tested
-	sha256sum $*.box > $@
-	tr '\n' ' ' < $@ | sponge $@
-	$(eval RELEASE != $(CURDIR)/../helpers/get_numeric_version.pl $*.vmdk)
-	echo $(RELEASE) >> $@
-
-$(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM
-	gpg --batch --yes --sign $<
 
 .PRECIOUS: %.vmdk $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
 .PHONY: clean cleanall cleanrelease %.cleantest
