@@ -42,6 +42,7 @@ my $box;
 my $version;
 my $changelog;
 my $provider = 'virtualbox';
+my $do_release;
 my $need_help;
 my $debug;
 
@@ -51,6 +52,7 @@ sub main {
 		'version=s' => \$version,
 		'changelog=s' => \$changelog,
 		'provider=s' => \$provider,
+		'release' => \$do_release,
 		'debug' => \$debug,
 		'help' => \$need_help,
 	);
@@ -93,6 +95,7 @@ sub main {
 	}
 
 	uploadbox(get_uploadpath($cloudname, $version, $provider), $box, $upload_limit_command);
+	release($cloudname, $version, $provider) if $do_release;
 }
 
 main();
@@ -229,7 +232,7 @@ sub createprovider {
 sub is_provider_existing {
 	my ($cloudname, $version, $provider) = @_;
   my $url = "$end_point/$cloudname/version/$version/provider/$provider"
-  . "?access_token=$vagrant_cloud_token";
+    . "?access_token=$vagrant_cloud_token";
 	my $response = $ua->get($url);
 	return $response->is_success();
 }
@@ -237,7 +240,7 @@ sub is_provider_existing {
 sub get_uploadpath {
 	my ($cloudname, $version, $provider) = @_;
   my $url = "$end_point/$cloudname/version/$version/provider/$provider/upload"
-  . "?access_token=$vagrant_cloud_token";
+    . "?access_token=$vagrant_cloud_token";
 	my $response = $ua->get($url);
 	printJSON($response);
 
@@ -254,4 +257,13 @@ sub uploadbox {
 	open my $curl_output, '-|', $curl or die "error: $ERRNO";
 	while (<$curl_output>) { print; }
 	close $curl_output;
+}
+
+sub release {
+  my ($cloudname, $version, $provider) = @_;
+  my $url = "$end_point/$cloudname/version/$version/release"
+    . "?access_token=$vagrant_cloud_token";
+  my $response = $ua->put($url);
+  printJSON($response);
+  return $response->is_success();
 }

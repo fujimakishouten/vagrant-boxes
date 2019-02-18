@@ -39,6 +39,7 @@ upload-%: test-%
 			--box $*.box \
 			--version $(RELEASE).$(MINOR_RELEASE) \
 			--provider libvirt \
-			--changelog "* stable point release \n"
+			--changelog "* stable point release \n" \
+			--release
 
 include ../vmdebootstrap-generic-qcow2/common.mk

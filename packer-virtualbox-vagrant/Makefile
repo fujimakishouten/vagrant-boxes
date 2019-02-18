@@ -62,8 +62,8 @@ $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA25
 		--box $*.box \
 		--provider $(VAGRANT_DEFAULT_PROVIDER) \
 		--version $(RELEASE).$(MINOR_RELEASE) \
-		--changelog "* stable point release"
-	@echo "everything done, please release the box $*64 on app.vagrantup.com"
+		--changelog "* stable point release" \
+		--release
 	touch $@
 
 # we don't have a debian version for testing images, hence a date base version number
@@ -72,7 +72,8 @@ contrib-testing.uploaded:
 		--box $*.box \
 		--provider $(VAGRANT_DEFAULT_PROVIDER) \
 		--version $(ISO_DATE_SEMVER)
-		--changelog "* rebuild of testing box"
+		--changelog "* rebuild of testing box" \
+		--release
 	@echo "everything done, please release the box $*64 on app.vagrantup.com"
 	touch $@
 
