@@ -10,15 +10,13 @@ use English;
 
 use JSON;
 use LWP::UserAgent;
-use HTTP::Request;
-use HTTP::Response;
 use Cwd;
 use Getopt::Long;
 use File::Basename;
 
 use Data::Dumper;
 
-# see https://vagrantcloud.com/docs/versions
+# see https://www.vagrantup.com/docs/vagrant-cloud/api.html
 # put an vagrant_cloud token in your env like this
 # export VAGRANT_CLOUD_TOKEN=$(gpg --decrypt ../helpers/token.gpg)
 #
@@ -61,9 +59,9 @@ sub main {
 	print_help(EXIT_OK) if $need_help;
 
   defined $vagrant_cloud_token or die "please export VAGRANT_CLOUD_TOKEN as environment variable\n";
-	defined $box or die ("please provide a path to a box with --box\n");
+  $ua->default_header('Authorization' => "Bearer ${vagrant_cloud_token}");
 
-	-e $box or die("box $box not found\n");
+	defined $box && -e $box or die ("please provide a path to an exiting box with --box\n");
 	my ($codename) = split /\.box/, $box;
 	my $cloudname  = "${codename}64";
 
@@ -167,7 +165,7 @@ sub printJSON {
 
 sub is_version_existing {
 	my ($cloudname, $version) = @_;
-  my $url = "$end_point/$cloudname/version/$version?access_token=$vagrant_cloud_token";
+  my $url = "$end_point/$cloudname/version/$version";
 
 	my $response = $ua->get($url);
 	return $response->is_success();
@@ -182,7 +180,6 @@ sub createver {
 		[
 			'version[version]'     => "$version",
 			'version[description]' => "$changelog",
-			'access_token'         => "$vagrant_cloud_token"
 		]
 	);
 
@@ -192,15 +189,8 @@ sub createver {
 
 sub delver {
 	my ($cloudname, $version) = @_;
-   my $url = "$end_point/$cloudname/version/$version";
-
- # Arguments in LWP::UserAgent::delete() are used to create headers not content.
- # So Use HTTP:Request for that
-	my $headers = HTTP::Headers->new('content-type' => 'application/x-www-form-urlencoded');
-	my $content = "access_token=$vagrant_cloud_token";
-	my $req = HTTP::Request->new(DELETE => $url, $headers, $content);
-
-	my $response = $ua->request($req);
+  my $url = "$end_point/$cloudname/version/$version";
+	my $response = $ua->delete($url);
 	printJSON($response);
 	return $response->is_success();
 }
@@ -212,8 +202,7 @@ sub update {
 		$url,
 		[
 			'version[version]'     => "$version",
-			'version[description]' => "$changelog",
-			'access_token'         => "$vagrant_cloud_token"
+			'version[description]' => "$changelog"
 		]
 	);
 	printJSON($response);
@@ -223,24 +212,21 @@ sub update {
 sub createprovider {
 	my ($cloudname, $version, $provider) = @_;
   my $url = "$end_point/$cloudname/version/$version/providers";
-	my $response = $ua->post($url,
-		[ 'provider[name]', "$provider", 'access_token', "$vagrant_cloud_token" ]);
+	my $response = $ua->post($url, [ 'provider[name]' => "$provider" ]);
 	printJSON($response);
 	return $response->is_success();
 }
 
 sub is_provider_existing {
 	my ($cloudname, $version, $provider) = @_;
-  my $url = "$end_point/$cloudname/version/$version/provider/$provider"
-    . "?access_token=$vagrant_cloud_token";
+  my $url = "$end_point/$cloudname/version/$version/provider/$provider";
 	my $response = $ua->get($url);
 	return $response->is_success();
 }
 
 sub get_uploadpath {
 	my ($cloudname, $version, $provider) = @_;
-  my $url = "$end_point/$cloudname/version/$version/provider/$provider/upload"
-    . "?access_token=$vagrant_cloud_token";
+  my $url = "$end_point/$cloudname/version/$version/provider/$provider/upload";
 	my $response = $ua->get($url);
 	printJSON($response);
 
@@ -261,8 +247,7 @@ sub uploadbox {
 
 sub release {
   my ($cloudname, $version, $provider) = @_;
-  my $url = "$end_point/$cloudname/version/$version/release"
-    . "?access_token=$vagrant_cloud_token";
+  my $url = "$end_point/$cloudname/version/$version/release";
   my $response = $ua->put($url);
   printJSON($response);
   return $response->is_success();
