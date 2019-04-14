@@ -1,8 +1,8 @@
 Files: *
-Copyright: 2015 Emmanuel Kasper
+Copyright: 2015-2019 Emmanuel Kasper
 License: BSD-3-clause
 
-Files:*.json
+Files:packer-virtualbox-vagrant/*.json
 Copyright: 2013 Tech-Angels Inc.
 
 MIT License
