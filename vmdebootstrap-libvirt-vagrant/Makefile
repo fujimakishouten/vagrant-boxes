@@ -1,4 +1,4 @@
-DISTRIBUTIONS = jessie stretch sid
+DISTRIBUTIONS = jessie stretch buster sid
 VMDEBOOTSTRAP_OPTIONS = --customize=$(CURDIR)/../helpers/vagrant-setup --package=rsync
 MINOR_RELEASE=0
 
