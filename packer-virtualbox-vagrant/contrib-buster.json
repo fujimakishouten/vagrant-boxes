@@ -1,0 +1,61 @@
+{
+  "description": "Vanilla Debian Buster base box, built using contrib sources",
+  "variables": {
+    "box_version": "9.99.1",
+    "box_changelog": "* New point release"
+    },
+  "builders": [
+    {
+      "boot_command": [
+        "<esc><wait>",
+        "install <wait>",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/buster-preseed.cfg <wait>",
+        "auto <wait>",
+        "locale=en_US <wait>",
+        "netcfg/get_hostname={{ .Name }} <wait>",
+        "netcfg/get_domain=localdomain <wait>",
+        "debconf/frontend=noninteractive <wait>",
+        "console-setup/ask_detect=false <wait>",
+        "kbd-chooser/method=us <wait>",
+        "console-keymaps-at/keymap=us <wait>",
+        "keyboard-configuration/xkb-keymap=us <wait>",
+        "net.ifnames=0 <wait>",
+        "<enter><wait>"
+      ],
+      "disk_size": "10140",
+      "disk_interface": "virtio",
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum": "1150d1fe8d7186e5dbfa2e3c300e7866337ef26fd86eb35d53c96ec7f5eea38b",
+      "iso_checksum_type": "sha256",
+      "iso_url": "https://cdimage.debian.org/cdimage/buster_di_rc1/amd64/iso-cd/debian-buster-DI-rc1-amd64-netinst.iso",
+      "shutdown_command": "sudo /sbin/halt -p",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "ssh_port": "22",
+      "ssh_wait_timeout": "10000s",
+      "type": "qemu",
+      "qemuargs": [[ "-m", "1024M" ],[ "-smp", "2" ]],
+      "accelerator": "kvm",
+      "vm_name": "contrib-buster",
+      "output_directory": "contrib-buster.build",
+      "format": "raw"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "pause_before": "5s",
+      "execute_command": "echo 'vagrant'| {{.Vars}} sudo --preserve-env --stdin sh '{{.Path}}'",
+      "environment_vars": [
+         "VAGRANT_BUILDER_FS=/",
+         "VAGRANT_BUILDER_HOSTNAME=contrib-buster"
+      ],
+      "scripts": [
+        "../helpers/vagrant-setup",
+        "scripts/vb-guest-additions-buster.sh",
+        "scripts/minimize.sh"
+      ]
+    }
+  ]
+}
