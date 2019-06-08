@@ -23,7 +23,7 @@
         "keyboard-configuration/xkb-keymap=us <wait>",
         "<enter><wait>"
       ],
-      "disk_size": "10140",
+      "disk_size": "20280",
       "disk_interface": "virtio",
       "headless": true,
       "http_directory": "http",

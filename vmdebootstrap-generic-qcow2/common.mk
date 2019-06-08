@@ -16,7 +16,7 @@ HTTP_PROXY_SETTING := $(shell nc -z 127.0.0.1 3142 && echo 'http_proxy=http://12
 		$(VMDEBOOTSTRAP_OPTIONS) \
 		$(EXTRA_VMDEBOOTSTRAP_OPTIONS) \
 		--verbose \
-		--size 10G \
+		--size 20G \
 		--distribution $* \
 		--grub \
 		--arch $(ARCH) \
