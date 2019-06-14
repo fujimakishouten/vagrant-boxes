@@ -19,7 +19,7 @@ const releaseMap = {
   testing: ''
 }
 
-const develVersion = 'buster/sid';
+const develVersion = '10.0';
 
 // main
 const codename = getArgs();
