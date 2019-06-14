@@ -7,7 +7,9 @@ SHELL = /bin/bash # needed for |&
 .SHELLFLAGS = -u -o pipefail -c
 TEE = |& ts |& tee --append $*.log # log every command
 ISO_DATE_SEMVER = $(shell date +%Y.%m.%d)
+TESTING_VERSION = 9.99.2
 MINOR_RELEASE = 0
+CHANGELOG = "* stable point release"
 
 all:
 	@echo "Usage: make <distribution>"
@@ -50,7 +52,7 @@ $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM: %.tested
 	sha256sum $*.box > $@
 	tr '\n' ' ' < $@ | sponge $@
 	$(eval RELEASE != $(CURDIR)/../helpers/get_numeric_version.pl $*.vmdk)
-	echo $(RELEASE) >> $@
+	echo $(RELEASE).$(MINOR_RELEASE) >> $@
 
 $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM
 	gpg --batch --yes --sign $<
@@ -62,19 +64,37 @@ $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA25
 		--box $*.box \
 		--provider $(VAGRANT_DEFAULT_PROVIDER) \
 		--version $(RELEASE).$(MINOR_RELEASE) \
-		--changelog "* stable point release" \
+		--changelog "$(CHANGELOG)" \
 		--release
 	touch $@
 
-# we don't have a debian version for testing images, hence a date base version number
-contrib-testing.uploaded:
+virtualbox-buster.SHA256SUM: buster.tested
+	sha256sum buster.box > $@
+	tr '\n' ' ' < $@ | sponge $@
+	echo $(TESTING_VERSION) >> $@
+
+virtualbox-contrib-buster.SHA256SUM: contrib-buster.tested
+	sha256sum contrib-buster..box > $@
+	tr '\n' ' ' < $@ | sponge $@
+	echo $(TESTING_VERSION) >> $@
+
+# we don't to use a debian version for unreleased images, hence a manual build number here
+buster.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-buster.SHA256SUM.gpg
 	../helpers/vagrant-cloud.pl \
-		--box $*.box \
+		--box buster.box \
 		--provider $(VAGRANT_DEFAULT_PROVIDER) \
-		--version $(ISO_DATE_SEMVER)
-		--changelog "* rebuild of testing box" \
+		--version $(TESTING_VERSION) \
+		--changelog "$(CHANGELOG)" \
 		--release
-	@echo "everything done, please release the box $*64 on app.vagrantup.com"
+	touch $@
+
+contrib-buster.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-contrib-buster.SHA256SUM.gpg
+	../helpers/vagrant-cloud.pl \
+		--box contrib-buster.box \
+		--provider $(VAGRANT_DEFAULT_PROVIDER) \
+		--version $(TESTING_VERSION) \
+		--changelog "$(CHANGELOG)" \
+		--release
 	touch $@
 
 .PRECIOUS: %.vmdk $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg
