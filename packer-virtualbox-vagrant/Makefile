@@ -7,7 +7,7 @@ SHELL = /bin/bash # needed for |&
 .SHELLFLAGS = -u -o pipefail -c
 TEE = |& ts |& tee --append $*.log # log every command
 ISO_DATE_SEMVER = $(shell date +%Y.%m.%d)
-TESTING_VERSION = 9.99.2
+TESTING_VERSION = 10.99.1
 MINOR_RELEASE = 0
 CHANGELOG = "* stable point release"
 
@@ -68,29 +68,29 @@ $(VAGRANT_DEFAULT_PROVIDER)-%.SHA256SUM.gpg: $(VAGRANT_DEFAULT_PROVIDER)-%.SHA25
 		--release
 	touch $@
 
-virtualbox-buster.SHA256SUM: buster.tested
-	sha256sum buster.box > $@
+virtualbox-bullseye.SHA256SUM: buster.tested
+	sha256sum bullseye.box > $@
 	tr '\n' ' ' < $@ | sponge $@
 	echo $(TESTING_VERSION) >> $@
 
-virtualbox-contrib-buster.SHA256SUM: contrib-buster.tested
-	sha256sum contrib-buster..box > $@
+virtualbox-contrib-bullseye.SHA256SUM: contrib-buster.tested
+	sha256sum contrib-bullseye.box > $@
 	tr '\n' ' ' < $@ | sponge $@
 	echo $(TESTING_VERSION) >> $@
 
 # we don't to use a debian version for unreleased images, hence a manual build number here
-buster.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-buster.SHA256SUM.gpg
+bullseye.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-buster.SHA256SUM.gpg
 	../helpers/vagrant-cloud.pl \
-		--box buster.box \
+		--box bullseye.box \
 		--provider $(VAGRANT_DEFAULT_PROVIDER) \
 		--version $(TESTING_VERSION) \
 		--changelog "$(CHANGELOG)" \
 		--release
 	touch $@
 
-contrib-buster.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-contrib-buster.SHA256SUM.gpg
+contrib-bullseye.uploaded: $(VAGRANT_DEFAULT_PROVIDER)-contrib-buster.SHA256SUM.gpg
 	../helpers/vagrant-cloud.pl \
-		--box contrib-buster.box \
+		--box contrib-bullseye.box \
 		--provider $(VAGRANT_DEFAULT_PROVIDER) \
 		--version $(TESTING_VERSION) \
 		--changelog "$(CHANGELOG)" \

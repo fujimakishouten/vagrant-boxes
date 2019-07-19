@@ -11,9 +11,8 @@ const oldStableURL = 'http://cdimage.debian.org/mirror/cdimage/archive/latest-ol
 
 // change this after each major debian release
 const releaseMap = {
-  jessie: oldStableURL,
-  stretch: stableURL,
-  buster: '',
+  stretch: oldStableURL,
+  buster: stableURL,
   bullseye: '',
   bookworm: '',
   testing: ''
