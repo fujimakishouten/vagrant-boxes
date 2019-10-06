@@ -40,8 +40,11 @@ chroot $fs apt-get -qy dist-upgrade
 #######################################################################
 chroot $fs apt-get install -qy dctrl-tools
 chroot $fs grep-aptavail --no-field-names --show-field Package --field Priority --regex 'standard\|important' \
+  | grep -v perl-modules-5.30 \
   | chroot $fs xargs apt-get install -qy pinentry-curses
   # avoid gnupg-agent pulling pinentry-gtk2 on jessie_|
+  # on 2019-10-06, perl-modules-5.30 is only available in unstable, so we don't want to pull it. this can be removed
+  # when perl 5.30 migrates to testing
 chroot $fs apt-get purge -qy dctrl-tools
 
 #######################################################################
