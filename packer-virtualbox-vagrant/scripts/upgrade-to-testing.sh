@@ -1,12 +1,16 @@
 #!/bin/bash
 
 set -e
+set -x
+
+export DEBCONF_FRONTEND=noninteractive
+
 cat > /etc/apt/sources.list <<-EOF
 deb http://deb.debian.org/debian testing main
 deb-src http://deb.debian.org/debian testing main
 
-deb http://deb.debian.org/debian sid main
-deb-src http://deb.debian.org/debian sid main
+deb http://deb.debian.org/debian unstable main
+deb-src http://deb.debian.org/debian unstable main
 EOF
 
 cat > /etc/apt/preferences <<-EOF
