@@ -5,6 +5,7 @@ RELEASES = \
 	wheezy \
 	jessie \
 	stretch \
+	buster \
 	sid
 
 all:
